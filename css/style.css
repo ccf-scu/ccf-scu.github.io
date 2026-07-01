@@ -367,11 +367,17 @@ section:nth-of-type(even) {
     border-radius: 2px;
 }
 .honor-scroll {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
     gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 .honor-scroll-item {
+    flex: 0 0 auto;
+    width: 220px;
+    scroll-snap-align: start;
     border-radius: 10px;
     overflow: hidden;
     background: #fff;
@@ -385,10 +391,10 @@ section:nth-of-type(even) {
 }
 .honor-scroll-item img {
     width: 100%;
-    height: 200px;
-    object-fit: contain;
+    height: 310px;
+    object-fit: cover;
+    display: block;
     background: #fafafa;
-    padding: 8px;
 }
 .honor-scroll-item .caption {
     padding: 10px 12px;
@@ -871,19 +877,11 @@ footer .footer-text a:hover {
     .gallery-item img {
         height: 240px;
     }
-    .honor-scroll {
-        display: flex;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 12px;
-    }
     .honor-scroll-item {
-        flex: 0 0 auto;
-        width: 160px;
-        scroll-snap-align: start;
+        width: 170px;
     }
     .honor-scroll-item img {
-        height: 200px;
+        height: 240px;
     }
 }
 
