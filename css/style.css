@@ -133,6 +133,12 @@ header {
 .nav-links a:hover::after {
     width: 100%;
 }
+.nav-current {
+    color: #111827 !important;
+}
+.nav-current::after {
+    width: 100% !important;
+}
 .hamburger {
     display: none;
     flex-direction: column;
@@ -690,6 +696,15 @@ section:nth-of-type(even) {
     font-weight: 600;
     font-size: 14px;
     color: #111827;
+}
+.member-name a {
+    color: #9b2335;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+.member-name a:hover {
+    color: #b91c3c;
 }
 .member-role {
     font-size: 12px;
