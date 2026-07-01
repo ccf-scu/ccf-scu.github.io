@@ -572,11 +572,25 @@ section:nth-of-type(even) {
 .gallery-wrap h3 {
     font-size: 18px;
     color: #111827;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
+}
+.gallery-desc {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.9;
+    margin-bottom: 20px;
+}
+.gallery-desc a {
+    color: #9b2335;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.gallery-desc a:hover {
+    color: #b91c3c;
 }
 .gallery-scroll {
     display: flex;
