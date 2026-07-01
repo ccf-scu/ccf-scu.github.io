@@ -340,19 +340,19 @@ section:nth-of-type(even) {
 .honors h3 {
     font-size: 18px;
     color: #111827;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
 }
 .honor-category {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 .honor-cat-title {
-    font-size: 15px;
-    color: #374151;
-    margin-bottom: 12px;
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -367,36 +367,17 @@ section:nth-of-type(even) {
     border-radius: 2px;
 }
 .honor-scroll {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 14px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-}
-.honor-scroll::-webkit-scrollbar {
-    height: 4px;
-}
-.honor-scroll::-webkit-scrollbar-track {
-    background: transparent;
-}
-.honor-scroll::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 2px;
-}
-.honor-scroll::-webkit-scrollbar-thumb:hover {
-    background: #9ca3af;
 }
 .honor-scroll-item {
-    flex: 0 0 auto;
-    width: 200px;
-    scroll-snap-align: start;
     border-radius: 10px;
     overflow: hidden;
     background: #fff;
     border: 1px solid #f0f0f0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .honor-scroll-item:hover {
     transform: translateY(-4px);
@@ -404,7 +385,7 @@ section:nth-of-type(even) {
 }
 .honor-scroll-item img {
     width: 100%;
-    height: 260px;
+    height: 200px;
     object-fit: contain;
     background: #fafafa;
     padding: 8px;
@@ -602,17 +583,21 @@ section:nth-of-type(even) {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
 }
-.gallery-scroll::-webkit-scrollbar {
+.gallery-scroll::-webkit-scrollbar,
+.honor-scroll::-webkit-scrollbar {
     height: 4px;
 }
-.gallery-scroll::-webkit-scrollbar-track {
+.gallery-scroll::-webkit-scrollbar-track,
+.honor-scroll::-webkit-scrollbar-track {
     background: transparent;
 }
-.gallery-scroll::-webkit-scrollbar-thumb {
+.gallery-scroll::-webkit-scrollbar-thumb,
+.honor-scroll::-webkit-scrollbar-thumb {
     background: #d1d5db;
     border-radius: 2px;
 }
-.gallery-scroll::-webkit-scrollbar-thumb:hover {
+.gallery-scroll::-webkit-scrollbar-thumb:hover,
+.honor-scroll::-webkit-scrollbar-thumb:hover {
     background: #9ca3af;
 }
 .gallery-item {
@@ -886,11 +871,19 @@ footer .footer-text a:hover {
     .gallery-item img {
         height: 240px;
     }
+    .honor-scroll {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 12px;
+    }
     .honor-scroll-item {
+        flex: 0 0 auto;
         width: 160px;
+        scroll-snap-align: start;
     }
     .honor-scroll-item img {
-        height: 210px;
+        height: 200px;
     }
 }
 
