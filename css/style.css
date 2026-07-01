@@ -743,6 +743,14 @@ section:nth-of-type(even) {
     color: #111827;
     font-weight: 500;
 }
+.tl-team-names .role-names a {
+    color: #9b2335;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+.tl-team-names .role-names a:hover {
+    color: #b91c3c;
+}
 
 /* ===== Join ===== */
 .join-content {
