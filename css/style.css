@@ -648,6 +648,7 @@ section:nth-of-type(even) {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 20px;
+    align-items: start;
 }
 .member-card {
     text-align: center;
@@ -680,6 +681,13 @@ section:nth-of-type(even) {
     font-size: 12px;
     color: #9ca3af;
     margin-top: 2px;
+}
+.member-bio {
+    font-size: 11px;
+    color: #b0b7c3;
+    margin-top: 6px;
+    line-height: 1.5;
+    padding: 0 4px;
 }
 .team-tags {
     display: flex;
