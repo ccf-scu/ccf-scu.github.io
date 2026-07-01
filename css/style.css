@@ -340,37 +340,76 @@ section:nth-of-type(even) {
 .honors h3 {
     font-size: 18px;
     color: #111827;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     gap: 8px;
     font-weight: 700;
 }
-.honor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 16px;
+.honor-category {
+    margin-bottom: 28px;
 }
-.honor-img-card {
-    background: #fff;
-    border: 1px solid #f0f0f0;
+.honor-cat-title {
+    font-size: 15px;
+    color: #374151;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+.honor-cat-title::before {
+    content: "";
+    display: block;
+    width: 3px;
+    height: 16px;
+    background: #9b2335;
+    border-radius: 2px;
+}
+.honor-scroll {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+.honor-scroll::-webkit-scrollbar {
+    height: 4px;
+}
+.honor-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.honor-scroll::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 2px;
+}
+.honor-scroll::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+}
+.honor-scroll-item {
+    flex: 0 0 auto;
+    width: 200px;
+    scroll-snap-align: start;
     border-radius: 10px;
     overflow: hidden;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
-.honor-img-card:hover {
+.honor-scroll-item:hover {
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 }
-.honor-img-card img {
+.honor-scroll-item img {
     width: 100%;
-    height: 220px;
+    height: 260px;
     object-fit: contain;
     background: #fafafa;
     padding: 8px;
 }
-.honor-img-card .caption {
+.honor-scroll-item .caption {
     padding: 10px 12px;
     font-size: 13px;
     color: #374151;
@@ -847,8 +886,11 @@ footer .footer-text a:hover {
     .gallery-item img {
         height: 240px;
     }
-    .honor-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    .honor-scroll-item {
+        width: 160px;
+    }
+    .honor-scroll-item img {
+        height: 210px;
     }
 }
 

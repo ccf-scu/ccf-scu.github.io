@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('section, .card, .stat-card, .honor-img-card, .gallery-item, .team-section, .join-card').forEach(el => {
+  document.querySelectorAll('section, .card, .stat-card, .honor-scroll-item, .gallery-item, .team-section, .join-card').forEach(el => {
     el.classList.add('fade-in-up');
     observer.observe(el);
   });
