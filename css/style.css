@@ -507,8 +507,8 @@ section:nth-of-type(even) {
 }
 .tl-item {
     display: flex;
-    align-items: baseline;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
     padding: 10px 14px;
     background: #f9fafb;
     border-radius: 8px;
@@ -516,6 +516,7 @@ section:nth-of-type(even) {
     font-size: 14px;
     transition: all 0.2s;
     flex-wrap: wrap;
+    position: relative;
 }
 .tl-item:hover {
     border-left-color: #9b2335;
@@ -526,8 +527,21 @@ section:nth-of-type(even) {
     font-weight: 600;
     white-space: nowrap;
     font-size: 13px;
-    min-width: 72px;
+    min-width: 52px;
 }
+.tl-tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+.tag-academic  { background: #fef2f2; color: #9b2335; }
+.tag-competition { background: #eff6ff; color: #2563eb; }
+.tag-tutoring  { background: #f0fdf4; color: #16a34a; }
+.tag-career    { background: #fffbeb; color: #d97706; }
+.tag-org       { background: #f9fafb; color: #6b7280; border: 1px solid #e5e7eb; }
 .tl-title {
     color: #1f2937;
     font-weight: 500;
@@ -535,7 +549,49 @@ section:nth-of-type(even) {
 .tl-summary {
     color: #9ca3af;
     font-size: 13px;
-    margin-left: 4px;
+}
+.tl-thumb {
+    width: 72px;
+    height: 48px;
+    border-radius: 6px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e5e7eb;
+    margin-left: auto;
+}
+.tl-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ===== Filter Bar ===== */
+.filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+}
+.filter-btn {
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #e5e7eb;
+    background: #fff;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    transition: all 0.2s;
+}
+.filter-btn:hover {
+    border-color: #9b2335;
+    color: #9b2335;
+}
+.filter-btn.active {
+    background: #9b2335;
+    color: #fff;
+    border-color: #9b2335;
 }
 .tl-toggle {
     margin-top: 8px;
@@ -907,11 +963,16 @@ footer .footer-text a:hover {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     }
     .tl-date {
-        min-width: 56px;
+        min-width: 44px;
         font-size: 12px;
     }
-    .tl-summary {
+    .tl-summary,
+    .tl-tag {
         display: none;
+    }
+    .tl-thumb {
+        width: 56px;
+        height: 38px;
     }
     .gallery-item {
         width: 170px;
