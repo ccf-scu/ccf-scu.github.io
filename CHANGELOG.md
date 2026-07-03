@@ -6,6 +6,11 @@
 - 新增 `favicon/` 目录，存放 favicon.ico、各尺寸 PNG 及 apple-touch-icon
 - 三个 HTML 页面（index、activities、team-history）统一添加 favicon 引用
 
+### 访客地图样式优化
+- 底部访客地图从裸露脚本升级为深色背景 + 白色卡片布局
+- 添加「访客地图 Visitor Map」标题，使用红色竖条装饰
+- 圆角卡片、柔和阴影、细边框，与网站整体设计语言统一
+
 ## 2026-07-02
 
 ### 历届执委独立页面
