@@ -408,6 +408,12 @@ section:nth-of-type(even) {
     font-weight: 500;
 }
 
+/* Horizontal/landscape certificates (四川大学) */
+.honor-landscape .honor-scroll-item img {
+    height: 160px;
+    object-fit: contain;
+}
+
 /* ===== Activity Cards ===== */
 .card-grid {
     display: grid;
@@ -985,6 +991,9 @@ footer .footer-text a:hover {
     }
     .honor-scroll-item img {
         height: 240px;
+    }
+    .honor-landscape .honor-scroll-item img {
+        height: 130px;
     }
 }
 
