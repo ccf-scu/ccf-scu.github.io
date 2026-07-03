@@ -148,11 +148,22 @@ ccf-scu.github.io/
 - **中国计算机学会授予**：CCF 颁发的荣誉
 - **四川大学授予**：学校颁发的荣誉（十佳百佳、学术型社团优秀奖等）
 
-### 3.3 操作
+### 3.3 证书尺寸
+
+- **CCF 授予（竖版）**：`.honor-scroll` 默认样式，310px 高 + `object-fit: cover`
+- **四川大学授予（横版）**：`.honor-scroll` 需加 `honor-landscape` 类，160px 高 + `object-fit: contain`
+
+```html
+<!-- 横版证书的滚动容器需加 honor-landscape -->
+<div class="honor-scroll honor-landscape">
+```
+
+### 3.4 操作
 
 1. 证书图片放入 `images/honors/`
 2. 在对应 `.honor-category` 的 `.honor-scroll` 中添加条目
-3. 注意 `<img>` 属性：`loading="lazy" decoding="async"`
+3. CCF 证书不加额外类，四川大学证书容器加 `honor-landscape`
+4. 注意 `<img>` 属性：`loading="lazy" decoding="async"`
 
 ## 四、CSS 约定
 
