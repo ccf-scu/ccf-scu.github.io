@@ -5,12 +5,17 @@ CCF 四川大学学生分会官方网站，托管于 [GitHub Pages](https://ccf-
 ## 项目结构
 
 ```
-├── index.html          # 单页面入口
+├── index.html          # 主页
+├── activities.html     # 活动开展时间轴
+├── team-history.html   # 历届执委名单
 ├── css/style.css       # 样式
 ├── js/main.js          # 交互逻辑
 ├── fonts/              # HarmonyOS Sans SC 字体
+├── favicon/            # 网站图标
 ├── images/
+│   ├── activities/     # 活动照片
 │   ├── honors/         # 社团荣誉证书
+│   ├── photo/          # 执委照片
 │   └── spp/            # SPP 领航计划海报与感谢证书
 └── LICENSE
 ```

@@ -1,5 +1,11 @@
 # 更新日志
 
+## 2026-07-03
+
+### 网站图标
+- 新增 `favicon/` 目录，存放 favicon.ico、各尺寸 PNG 及 apple-touch-icon
+- 三个 HTML 页面（index、activities、team-history）统一添加 favicon 引用
+
 ## 2026-07-02
 
 ### 历届执委独立页面
