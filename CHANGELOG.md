@@ -2,11 +2,12 @@
 
 ## 2026-07-04
 
-### 访客地图切换服务
-- 将访客地图从 MapMyVisitors 切换到 LiveTrafficFeed
-- MapMyVisitors 地图底图加载失败（只有纯蓝色背景）
-- LiveTrafficFeed 更稳定，支持实时滚动访客列表
-- 颜色方案适配网站主题（CCF红 #9b2335）
+### 访客地图升级为 3D 地球
+- 将访客地图从滚动列表版本切换为 3D 地球版本
+- 使用 LiveTrafficFeed Live Globe Widget
+- 显示旋转的 3D 地球，标记访客位置
+- 颜色方案：CCF红（#9b2335）标记访客位置
+- 宽度设置：285px
 
 ### 开发文档
 - 新增 AGENTS.md，为 OpenCode 会话提供项目上下文和关键约定
