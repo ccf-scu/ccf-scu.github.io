@@ -1,5 +1,17 @@
 # 更新日志
 
+## 2026-07-04
+
+### 访客地图修复
+- 将访客地图从 JavaScript 版本（map.js）改为静态图片版本（map.png）
+- JavaScript 版本地图瓦片加载失败，只显示热点标记
+- 添加 Date.now() 时间戳实现每次访问加载最新地图
+- 修改涉及 index.html、activities.html、team-history.html 三个文件
+
+### 开发文档
+- 新增 AGENTS.md，为 OpenCode 会话提供项目上下文和关键约定
+- 包含技术栈、导航约定、活动模板、常见错误等快速参考
+
 ## 2026-07-03
 
 ### 网站图标

@@ -1327,11 +1327,11 @@
                             min-height: 300px;
                         "
                     >
-                        <script
-                            type="text/javascript"
-                            id="mapmyvisitors"
-                            src="//mapmyvisitors.com/map.js?d=Ef9hqz4ksmNpR3SWJZur6I2_rcCXbdQnbP0eKtrxWLM&cl=ffffff&w=a"
-                        ></script>
+                        <img id="visitor-map" alt="Visitor Map" style="width: 100%; border-radius: 10px;">
+                        <script>
+                          document.getElementById('visitor-map').src = 
+                            'https://mapmyvisitors.com/map.png?d=Ef9hqz4ksmNpR3SWJZur6I2_rcCXbdQnbP0eKtrxWLM&cl=ffffff&t=' + Date.now();
+                        </script>
                     </div>
                 </div>
             </div>
