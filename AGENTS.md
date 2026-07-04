@@ -24,9 +24,9 @@ CCF 四川大学学生分会网站 — GitHub Pages 静态站点
 - Image naming: `YYYY-MM-DD-slug.jpg` in `images/activities/`
 
 ### Visitor Map (bottom of all pages)
-- Uses MapMyVisitors static image with JS cache-busting
-- **Do NOT revert to `map.js`** — JavaScript version fails to load map tiles
-- Current implementation: `<img>` + `Date.now()` timestamp
+- Uses MapMyVisitors JavaScript widget (`map.js`) for real-time visitor tracking
+- Shows pageviews, time range, and visitor locations on an interactive map
+- Do NOT use static image version (`map.png`) — low resolution, poor user experience
 
 ### CSS/JS Architecture
 - Single CSS file: `css/style.css`
