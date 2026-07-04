@@ -2,12 +2,12 @@
 
 ## 2026-07-04
 
-### 访客地图升级为 3D 地球
-- 将访客地图从滚动列表版本切换为 3D 地球版本
-- 使用 LiveTrafficFeed Live Globe Widget
-- 显示旋转的 3D 地球，标记访客位置
-- 颜色方案：CCF红（#9b2335）标记访客位置
-- 宽度设置：285px
+### 访客地图切换为 2D 版本
+- 将访客地图从 3D 地球版本切换为 2D 交互式地图
+- 使用 LiveTrafficFeed Live Maps Visitor
+- 地图居中显示（flexbox 居中）
+- 宽度设置：60%
+- 18种可选样式，当前使用 Style 1
 
 ### 开发文档
 - 新增 AGENTS.md，为 OpenCode 会话提供项目上下文和关键约定
