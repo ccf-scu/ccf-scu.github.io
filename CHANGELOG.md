@@ -2,11 +2,11 @@
 
 ## 2026-07-04
 
-### 访客地图修复成功
-- 地图背景（蓝色海洋）现在正常显示
-- 访客热点标记正常显示
-- 显示页面访问统计和时间范围
-- JavaScript 版本 `map.js` 工作正常
+### 访客地图切换服务
+- 将访客地图从 MapMyVisitors 切换到 LiveTrafficFeed
+- MapMyVisitors 地图底图加载失败（只有纯蓝色背景）
+- LiveTrafficFeed 更稳定，支持实时滚动访客列表
+- 颜色方案适配网站主题（CCF红 #9b2335）
 
 ### 开发文档
 - 新增 AGENTS.md，为 OpenCode 会话提供项目上下文和关键约定
