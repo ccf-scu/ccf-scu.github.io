@@ -24,10 +24,11 @@ CCF 四川大学学生分会网站 — GitHub Pages 静态站点
 - Image naming: `YYYY-MM-DD-slug.jpg` in `images/activities/`
 
 ### Visitor Map (bottom of all pages)
-- Uses LiveTrafficFeed 3D Globe Widget for real-time visitor tracking
-- Shows rotating 3D globe with visitor location markers
+- Uses LiveTrafficFeed 2D Interactive Map for real-time visitor tracking
+- Shows 2D world map with visitor location markers
 - Do NOT use MapMyVisitors — map tiles fail to load (only shows blue background)
-- Current implementation: LiveTrafficFeed globe with CCF red markers (#9b2335)
+- Do NOT use 3D Globe — use 2D version instead
+- Current implementation: LiveTrafficFeed 2D map, centered, 60% width
 
 ### CSS/JS Architecture
 - Single CSS file: `css/style.css`
