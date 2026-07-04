@@ -29,6 +29,8 @@ CCF 四川大学学生分会网站 — GitHub Pages 静态站点
 - Do NOT use MapMyVisitors — map tiles fail to load (only shows blue background)
 - Do NOT use 2D version — use 3D globe instead
 - Current implementation: LiveTrafficFeed 3D globe, 500px width, CCF red markers (#9b2335)
+- Container must use flexbox centering (justify-content: center; align-items: center)
+- Remove min-height, let container adapt to widget size
 
 ### CSS/JS Architecture
 - Single CSS file: `css/style.css`
