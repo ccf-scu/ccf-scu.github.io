@@ -2,12 +2,11 @@
 
 ## 2026-07-04
 
-### 访客地图升级为大尺寸 3D 地球
-- 将访客地图从 2D 版本切换为 3D 地球版本
-- 使用 LiveTrafficFeed Live Globe Widget
-- 宽度从 285px 增加到 500px
-- 显示旋转的 3D 地球，标记访客位置
-- 颜色方案：CCF红（#9b2335）标记访客位置
+### 访客地图优化尺寸和居中
+- 将 3D 地球宽度从 500px 减小到 350px
+- 添加 flexbox 居中样式（justify-content: center; align-items: center）
+- 移除固定 min-height: 300px，让容器自适应
+- 确保地球完美居中显示
 
 ### 开发文档
 - 新增 AGENTS.md，为 OpenCode 会话提供项目上下文和关键约定
