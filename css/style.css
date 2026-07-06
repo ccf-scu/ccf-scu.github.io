@@ -548,6 +548,9 @@ section:nth-of-type(even) {
 .tag-tutoring  { background: #f0fdf4; color: #16a34a; }
 .tag-career    { background: #fffbeb; color: #d97706; }
 .tag-org       { background: #f9fafb; color: #6b7280; border: 1px solid #e5e7eb; }
+.tag-training  { background: #f0f9ff; color: #0369a1; }
+.tag-achievement { background: #fdf4ff; color: #7c3aed; }
+.tag-teambuilding { background: #fff7ed; color: #ea580c; }
 .tl-title {
     color: #1f2937;
     font-weight: 500;
@@ -725,6 +728,23 @@ section:nth-of-type(even) {
     align-items: center;
     gap: 8px;
     font-weight: 700;
+}
+
+/* ===== Achievements ===== */
+.achievement-section {
+    margin-bottom: 44px;
+}
+.achievement-heading {
+    font-size: 18px;
+    color: #111827;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+}
+.achievement-icon {
+    font-size: 20px;
 }
 .team-grid {
     display: grid;
