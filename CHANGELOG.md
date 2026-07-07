@@ -1,5 +1,13 @@
 # 更新日志
 
+## 2026-07-07
+
+### 执委信息更新
+- 王多多头像替换占位符（`images/photo/王多多.jpg`）
+- 袁俊炫添加个人主页链接 `https://leafevans.github.io`
+- 薛耀森添加个人主页链接 `https://ccr39.github.io`
+- 鱼浩琳添加个人主页链接 `https://yuhaolin-79.github.io`
+
 ## 2026-07-06
 
 ### 执委团队建设页面
