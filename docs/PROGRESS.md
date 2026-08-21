@@ -4,7 +4,7 @@
 >
 > 当前分支：`develop/astro-cms`
 >
-> 当前状态：五阶段代码与迁移完成，等待生产上线人工门禁
+> 当前状态：五阶段代码、内容迁移与 ccfweb 视觉母版迁移完成，等待生产上线人工门禁
 
 ## 阶段总览
 
@@ -18,6 +18,10 @@
 
 ## 本轮实现
 
+- 完成 `../ccfweb` 的视觉、排版、交互与响应式审计，形成可持续维护的迁移规范；
+- 以“视觉等价、架构原生”方式迁移深色共振 Hero、编辑式 About、活动切片仪、深色成果档案、开源卡片与 Join 收束章节；
+- Header、Footer、活动列表/详情、关于、档案、搜索与隐私页统一使用母版的字体、色彩、容器、章节标题和卡片语言；
+- 保留现有 Astro 内容集合、CMS、路由、搜索、筛选、分享和二维码功能，不复制母版中的废弃原型或硬编码内容；
 - 公开站点全部静态生成，前台不加载 Decap、Vditor 或 OAuth bundle；
 - 内容由 `src/content/` 与 `src/data/` 驱动，并由 Zod/schema 和构建脚本双重校验；
 - CMS 支持活动、公告、成员、荣誉、首页、分会、老师、链接和联系方式；物理删除关闭；
@@ -28,11 +32,12 @@
 ## 验证记录
 
 - `npm run check`：通过，0 error / 0 warning / 0 hint；
-- `npm run test`：3 项通过；
+- `npm run test`：4 项通过（含届次年份排序回归测试）；
 - `npm run validate:content`：通过；
 - `npm run build && npm run validate:build`：根路径构建通过，共生成 34 个页面；
 - `SITE_BASE=/preview-site/ npm run build && SITE_BASE=/preview-site/ npm run validate:build`：项目子路径通过；
-- `npm run test:e2e`：Edge/Playwright 验证桌面、360/390/430、筛选、搜索、成员展开、分享、二维码、后台登录前外壳及前后台 bundle 隔离；
+- `npm run test:e2e`：10 项通过；Edge/Playwright 验证首页与全部主要内页、桌面、360/390/430、筛选、活动切片、搜索、成员展开、分享、二维码、后台登录前外壳及前后台 bundle 隔离；
+- 视觉截图覆盖首页、活动列表、活动详情、关于、档案、搜索和后台，保存在被忽略的 `artifacts/visual-validation/`；
 - `npm audit --omit=dev --registry=https://registry.npmjs.org`：YAML 可修复中危已升级消除；剩余 9 项 high、0 critical，均来自 Decap 间接依赖且无完整修复版本；
 - 浏览器工具未暴露可用的交互入口，按仓库规范回退到本地 Edge + Playwright；截图保存在被忽略的 `artifacts/visual-validation/`。
 

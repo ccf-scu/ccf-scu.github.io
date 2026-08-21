@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { withBase } from "../lib/content";
-const members = (await getCollection("members", ({ data }) => data.visible)).sort((a,b) => b.data.cohort.localeCompare(a.data.cohort, "zh-CN") || a.data.order - b.data.order);
+import { sortMembersByCohort, withBase } from "../lib/content";
+const members = sortMembersByCohort(await getCollection("members", ({ data }) => data.visible));
 const cohorts = Map.groupBy(members, (entry) => entry.data.cohort);
 const honors = (await getCollection("honors", ({ data }) => data.visible)).sort((a,b) => b.data.year - a.data.year);
 const rendered = new Map();

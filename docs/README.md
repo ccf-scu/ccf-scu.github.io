@@ -29,6 +29,7 @@
 | [`RELEASE_READINESS.md`](RELEASE_READINESS.md) | 生产上线人工硬门禁和签字 |
 | [`INCIDENT_ROLLBACK.md`](INCIDENT_ROLLBACK.md) | 故障分级、凭据事件和回滚 |
 | [`HANDOVER_CHECKLIST.md`](HANDOVER_CHECKLIST.md) | 换届权限、账号与演练交接 |
+| [`CCFWEB_VISUAL_MIGRATION.md`](CCFWEB_VISUAL_MIGRATION.md) | ccfweb 视觉母版分析与迁移规范 |
 
 ## 决策记录
 

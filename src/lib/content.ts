@@ -22,6 +22,15 @@ export function sortActivities(entries: Activity[]) {
     .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.startAt.getTime() - a.data.startAt.getTime());
 }
 
+export function cohortStartYear(cohort: string) {
+  const match = cohort.match(/(\d{4})\s*[–—-]/);
+  return match ? Number(match[1]) : Number.NEGATIVE_INFINITY;
+}
+
+export function sortMembersByCohort<T extends { data: { cohort: string; order: number } }>(entries: T[]) {
+  return [...entries].sort((a, b) => cohortStartYear(b.data.cohort) - cohortStartYear(a.data.cohort) || a.data.order - b.data.order);
+}
+
 export function visibleAnnouncements<T extends { data: { visible: boolean; featured: boolean; publishedAt: Date; expiresAt?: Date } }>(entries: T[], now = new Date()) {
   return [...entries]
     .filter((entry) => entry.data.visible && entry.data.publishedAt <= now && (!entry.data.expiresAt || entry.data.expiresAt > now))
