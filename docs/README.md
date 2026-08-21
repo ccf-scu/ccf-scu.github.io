@@ -25,6 +25,10 @@
 | [`MIGRATION.md`](MIGRATION.md) | 旧站内容、图片和 URL 迁移 |
 | [`AGENT_WORKFLOW.md`](AGENT_WORKFLOW.md) | 编码 Agent 的逐任务执行和提交规范 |
 | [`PROGRESS.md`](PROGRESS.md) | 进度、验证证据、风险和下一步 |
+| [`MAINTAINER_GUIDE.md`](MAINTAINER_GUIDE.md) | 非技术维护者日常编辑和发布 |
+| [`RELEASE_READINESS.md`](RELEASE_READINESS.md) | 生产上线人工硬门禁和签字 |
+| [`INCIDENT_ROLLBACK.md`](INCIDENT_ROLLBACK.md) | 故障分级、凭据事件和回滚 |
+| [`HANDOVER_CHECKLIST.md`](HANDOVER_CHECKLIST.md) | 换届权限、账号与演练交接 |
 
 ## 决策记录
 

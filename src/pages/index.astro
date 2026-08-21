@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ActivityCard from "../components/ActivityCard.astro";
+import { homepage, links, organization } from "../lib/site";
+import { sortActivities, visibleAnnouncements, withBase } from "../lib/content";
+
+const activities = sortActivities(await getCollection("activities"))
+  .filter((entry) => entry.data.showOnHomepage)
+  .slice(0, homepage.featuredActivityLimit);
+const announcements = visibleAnnouncements(await getCollection("announcements")).slice(0, homepage.announcementLimit);
+const honors = (await getCollection("honors")).filter((entry) => entry.data.visible && entry.data.featured).sort((a, b) => b.data.year - a.data.year).slice(0, 4);
+---
+
+<BaseLayout>
+  <section class="hero" style={`--hero-image:url('${withBase("/uploads/featured/ccf-campus-talk.webp")}')`}>
+    <div class="hero-inner">
+      <p class="eyebrow">{homepage.hero.eyebrow}</p>
+      <h1>{homepage.hero.title}</h1>
+      <p class="hero-lead">{homepage.hero.subtitle}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href={withBase(homepage.hero.primaryLink)}>{homepage.hero.primaryLabel}</a>
+        <a class="button button-secondary" href={withBase(homepage.hero.secondaryLink)}>{homepage.hero.secondaryLabel}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    {announcements.length > 0 && <div class="announcement-list" aria-label="当前公告">
+      {announcements.map((entry) => <article class="announcement"><strong>公告</strong><p>{entry.data.title} · {entry.data.summary}</p></article>)}
+    </div>}
+    <div class="section-head">
+      <div><p class="eyebrow">ABOUT THE CHAPTER</p><h2>{homepage.introduction.title}</h2></div>
+      <p>{homepage.introduction.summary}</p>
+    </div>
+    <div class="stat-grid">
+      <article class="stat-card"><p class="eyebrow">SINCE</p><h3>{organization.founded}</h3><p>持续连接川大计算机学子与 CCF 专业共同体。</p></article>
+      <article class="stat-card"><p class="eyebrow">CHAPTER</p><h3>全国第 7 个</h3><p>较早成立的 CCF 高校学生分会之一。</p></article>
+      <article class="stat-card"><p class="eyebrow">ARCHIVE</p><h3>15 届</h3><p>历届执委资料持续整理并由 Git 记录。</p></article>
+      <article class="stat-card"><p class="eyebrow">PATHS</p><h3>5 类活动</h3><p>从学术前沿到组织建设，形成成长路径。</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="activities">
+    <div class="section-head"><div><p class="eyebrow">RECENT ACTIVITIES</p><h2>让成长有路径，让活动成系列</h2></div><p>活动内容来自结构化档案；分类、时间状态与详情页会自动生成。</p></div>
+    {activities.length ? <div class="activity-grid">{activities.map((activity) => <ActivityCard activity={activity} />)}</div> : <div class="empty-state">活动档案正在迁移，请稍后查看。</div>}
+    <p><a class="button" href={withBase("/activities/")}>浏览全部活动</a></p>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><p class="eyebrow">WHAT WE DO</p><h2>五条持续发生的行动路径</h2></div><p>每一类活动都对应清晰的成长场景，也方便长期归档和检索。</p></div>
+    <div class="direction-grid">
+      {[
+        ["01","学术引领","把专家报告、技术分享与前沿议题带进校园。"],
+        ["02","竞赛训练","以训练营、经验分享和赛事组织支持实践成长。"],
+        ["03","学业帮扶","围绕核心课程、经验传承与朋辈互助提供支持。"],
+        ["04","生涯发展","连接企业、校友与更广阔的职业发展场景。"],
+        ["05","组织建设","通过联建、执委培养和品牌项目形成长期共同体。"],
+      ].map(([index,title,copy]) => <article class="direction-card"><span>{index}</span><h3>{title}</h3><p>{copy}</p></article>)}
+    </div>
+  </section>
+
+  {honors.length > 0 && <section class="section"><div class="section-head"><div><p class="eyebrow">HONORS</p><h2>成果不是终点，是下一次出发的坐标</h2></div><p>精选荣誉资料来自旧站迁移，正式上线前将再次核对年份与授权。</p></div><div class="activity-grid">{honors.map((honor) => <article class="activity-card">{honor.data.image && <div class="activity-media"><img src={withBase(honor.data.image)} alt={honor.data.imageAlt ?? honor.data.title} loading="lazy" /></div>}<div class="activity-copy"><p class="eyebrow">{honor.data.year}</p><h3>{honor.data.title}</h3></div></article>)}</div></section>}
+
+  <section class="section"><div class="recruitment"><div><p class="eyebrow">RECRUITMENT · {homepage.recruitment.status.toUpperCase()}</p><h2>{homepage.recruitment.title}</h2><p>{homepage.recruitment.summary}</p></div><a class="button button-secondary" href={withBase("/about/#contact")}>查看加入方式</a></div></section>
+
+  <section class="section"><div class="section-head"><div><p class="eyebrow">LINKS</p><h2>连接共同体</h2></div><p>官方机构与合作入口由后台统一维护。</p></div><div class="link-grid">{links.map((link) => <a class="link-card" href={link.url} target="_blank" rel="noopener noreferrer">{link.name} ↗</a>)}</div></section>
+</BaseLayout>

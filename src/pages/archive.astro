@@ -1,0 +1,16 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/content";
+const members = (await getCollection("members", ({ data }) => data.visible)).sort((a,b) => b.data.cohort.localeCompare(a.data.cohort, "zh-CN") || a.data.order - b.data.order);
+const cohorts = Map.groupBy(members, (entry) => entry.data.cohort);
+const honors = (await getCollection("honors", ({ data }) => data.visible)).sort((a,b) => b.data.year - a.data.year);
+const rendered = new Map();
+for (const member of members) rendered.set(member.id, (await render(member)).Content);
+---
+
+<BaseLayout title="历史档案" description="CCF 四川大学学生分会历届执委、荣誉与发展记录。">
+  <header class="page-hero"><p class="eyebrow">CHAPTER ARCHIVE</p><h1>历史档案</h1><p>记录每一届共同建设分会的同学，也保存活动、荣誉和品牌项目的公开资料。</p></header>
+  <section class="section"><div class="section-head"><div><p class="eyebrow">HONORS</p><h2>荣誉与成果</h2></div><p>资料来自旧站，图片已经进入受控迁移清单。</p></div>{honors.length ? <div class="activity-grid">{honors.map((honor) => <article class="activity-card">{honor.data.image && <div class="activity-media"><img src={withBase(honor.data.image)} alt={honor.data.imageAlt ?? honor.data.title} loading="lazy" /></div>}<div class="activity-copy"><p class="eyebrow">{honor.data.year}</p><h3>{honor.data.title}</h3></div></article>)}</div> : <div class="empty-state">荣誉档案正在整理。</div>}</section>
+  <section class="section"><div class="section-head"><div><p class="eyebrow">COMMITTEES</p><h2>历届执委</h2></div><p>姓名与职务来自旧站公开资料；个人简介和新增图片需另行确认。</p></div>{[...cohorts.entries()].map(([cohort,entries]) => <section class="member-group"><h2>{cohort}</h2><div class="member-grid">{entries.map((member) => { const Content = rendered.get(member.id); return <details class="member-card"><summary><span class="member-avatar">{member.data.photo ? <img src={withBase(member.data.photo)} alt={member.data.photoAlt ?? member.data.name} /> : member.data.name.slice(0,1)}</span><span><strong>{member.data.name}</strong><small>{member.data.role}</small></span></summary><div class="member-profile">{member.data.profileConfirmed && Content ? <Content /> : <p>个人简介暂未公开。</p>}</div></details> })}</div></section>)}</section>
+</BaseLayout>

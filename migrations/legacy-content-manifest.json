@@ -1,0 +1,2380 @@
+{
+  "generatedAt": "2026-08-21T17:49:31.129Z",
+  "source": {
+    "activities": "activities.html",
+    "members": "team-history.html",
+    "honors": "images/honors"
+  },
+  "activities": [
+    {
+      "id": "2026-07-09-activity-01",
+      "title": "AI 播种计划 · 走进成都石室中学",
+      "date": "2026-07-09",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-07-09-shishi.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-07-09-01.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-07-08-activity-02",
+      "title": "川大 & 电科 CSP 线上联合集训",
+      "date": "2026-07-08",
+      "category": "competition",
+      "sourceImage": "images/activities/placeholder.png",
+      "outputImage": "/uploads/featured/ccf-campus-talk.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-06-07-activity-03",
+      "title": "全员满绩 · 软件工程导论备考辅导",
+      "date": "2026-06-07",
+      "category": "tutoring",
+      "sourceImage": "images/activities/2026-06-07-se-review.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-06-07-03.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-05-29-activity-04",
+      "title": "会员表彰暨本科生执委换届",
+      "date": "2026-05-29",
+      "category": "organization",
+      "sourceImage": "images/activities/2026-05-29-president-election.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-05-29-04.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-05-24-activity-05",
+      "title": "川大 & 西北工大分会联建交流",
+      "date": "2026-05-24",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-05-24-nwpu-exchange.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-05-24-05.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-05-24-activity-06",
+      "title": "CCF 走进川大 · 刘知远教授",
+      "date": "2026-05-24",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-05-24-ccf-liuzhiyuan.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-05-24-06.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-05-22-activity-07",
+      "title": "绵阳 YEF 2026 参会",
+      "date": "2026-05-22",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-05-22-yef2026.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-05-22-07.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-05-20-activity-08",
+      "title": "企业行 · 中电科三十所",
+      "date": "2026-05-20",
+      "category": "career",
+      "sourceImage": "images/activities/2026-05-20-cetc30.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-05-20-08.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-04-27-activity-09",
+      "title": "对话菁英 · 论文写作经验分享",
+      "date": "2026-04-27",
+      "category": "career",
+      "sourceImage": "images/activities/2026-04-27-paper-writing.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-04-27-09.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-04-25-activity-10",
+      "title": "全员满绩 · 期中数学备考辅导",
+      "date": "2026-04-25",
+      "category": "tutoring",
+      "sourceImage": "images/activities/2026-04-25-math-review.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-04-25-10.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-04-21-activity-11",
+      "title": "企业行 · 腾讯",
+      "date": "2026-04-21",
+      "category": "career",
+      "sourceImage": "images/activities/2026-04-21-tencent.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-04-21-11.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-04-19-activity-12",
+      "title": "第二届 CCF 算法能力大赛（CACC）",
+      "date": "2026-04-19",
+      "category": "competition",
+      "sourceImage": "images/activities/2026-04-19-cacc.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-04-19-12.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-04-10-activity-13",
+      "title": "CSP 考后复盘经验分享会",
+      "date": "2026-04-10",
+      "category": "competition",
+      "sourceImage": "images/activities/2026-04-10-csp-review.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-04-10-13.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-03-30-activity-14",
+      "title": "研究生执委例会",
+      "date": "2026-03-30",
+      "category": "organization",
+      "sourceImage": "images/activities/2026-03-30-grad-meeting.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-03-30-14.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-03-27-activity-15",
+      "title": "执委团建 · 龙虾局",
+      "date": "2026-03-27",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-03-27-team-building.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-03-27-15.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-03-25-activity-16",
+      "title": "SPP 第 166 期 · 郭睿明",
+      "date": "2026-03-25",
+      "category": "academic",
+      "sourceImage": "images/activities/2026-03-25-spp166.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-03-25-16.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-03-21-activity-17",
+      "title": "潘天逸讲团课",
+      "date": "2026-03-21",
+      "category": "organization",
+      "sourceImage": "images/activities/2026-03-21-league-class.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-03-21-17.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-03-17-activity-18",
+      "title": "分会换届大会",
+      "date": "2026-03-17",
+      "category": "organization",
+      "sourceImage": "images/activities/2026-03-17-handover.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-03-17-18.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-02-01-activity-19",
+      "title": "CSP 寒假集训",
+      "date": "2026-02-01",
+      "category": "competition",
+      "sourceImage": "images/activities/2026-02-01-csp-winter.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-02-01-19.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-01-22-activity-20",
+      "title": "学期工作总结会",
+      "date": "2026-01-22",
+      "category": "organization",
+      "sourceImage": "images/activities/2026-01-22-semester-summary.jpg",
+      "outputImage": "/uploads/legacy/activities/2026-01-22-20.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-11-10-activity-21",
+      "title": "对话菁英经验分享",
+      "date": "2025-11-10",
+      "category": "career",
+      "sourceImage": "images/activities/2025-11-10-elite-sharing.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-11-10-21.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-11-04-activity-22",
+      "title": "骨干例会",
+      "date": "2025-11-04",
+      "category": "organization",
+      "sourceImage": "images/activities/2025-11-04-core-meeting.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-11-04-22.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-11-01-activity-23",
+      "title": "LMG 2025",
+      "date": "2025-11-01",
+      "category": "academic",
+      "sourceImage": "images/activities/2025-11-01-lmg2025.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-11-01-23.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-10-26-activity-24",
+      "title": "CCF 走进高校 · 王烨",
+      "date": "2025-10-26",
+      "category": "academic",
+      "sourceImage": "images/activities/2025-10-26-ccf-wangye.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-10-26-24.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-10-12-activity-25",
+      "title": "算法小组宣讲",
+      "date": "2025-10-12",
+      "category": "competition",
+      "sourceImage": "images/activities/2025-10-12-algo-intro.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-10-12-25.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-09-11-activity-26",
+      "title": "研究生招生宣讲",
+      "date": "2025-09-11",
+      "category": "career",
+      "sourceImage": "images/activities/2025-09-11-grad-recruitment.jpg",
+      "outputImage": "/uploads/legacy/activities/2025-09-11-26.webp",
+      "needsReview": true
+    }
+  ],
+  "members": [
+    {
+      "id": "cohort-01-member-001",
+      "name": "贤冠萌",
+      "role": "主席",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": "images/photo/贤冠萌.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-01-member-001.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-002",
+      "name": "潘天益",
+      "role": "候任主席",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": "images/photo/潘天逸.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-01-member-002.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-003",
+      "name": "张良益",
+      "role": "会长",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": "images/photo/张良益.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-01-member-003.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-004",
+      "name": "鱼浩琳",
+      "role": "副会长",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-005",
+      "name": "曹紫菲",
+      "role": "副会长",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-006",
+      "name": "薛耀森",
+      "role": "副会长",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-007",
+      "name": "李青莲",
+      "role": "研究生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-008",
+      "name": "杨馥益",
+      "role": "研究生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-009",
+      "name": "陈佳立",
+      "role": "研究生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-010",
+      "name": "衡先焘",
+      "role": "研究生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-011",
+      "name": "杨谨源",
+      "role": "本科生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-01-member-012",
+      "name": "姚凯馨",
+      "role": "本科生执委",
+      "cohort": "第十五届（2025–2026）",
+      "cohortNumber": "十五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-001",
+      "name": "邵海洋",
+      "role": "主席",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-002",
+      "name": "袁俊炫",
+      "role": "候任主席",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": "images/photo/袁俊炫.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-02-member-002.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-003",
+      "name": "刘致远",
+      "role": "会长",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": "images/photo/刘致远.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-02-member-003.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-004",
+      "name": "王多多",
+      "role": "副会长",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": "images/photo/王多多.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-02-member-004.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-005",
+      "name": "吴彦良",
+      "role": "副会长",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-006",
+      "name": "贤冠萌",
+      "role": "研究生执委",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": "images/photo/贤冠萌.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-02-member-006.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-007",
+      "name": "李文婷",
+      "role": "研究生执委",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-02-member-008",
+      "name": "张良益",
+      "role": "本科生执委",
+      "cohort": "第十四届（2024–2025）",
+      "cohortNumber": "十四",
+      "sourceImage": "images/photo/张良益.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-02-member-008.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-03-member-001",
+      "name": "张皓越",
+      "role": "主席",
+      "cohort": "第十三届（2023–2024）",
+      "cohortNumber": "十三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-03-member-002",
+      "name": "王祁远",
+      "role": "候任主席",
+      "cohort": "第十三届（2023–2024）",
+      "cohortNumber": "十三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-03-member-003",
+      "name": "袁俊炫",
+      "role": "会长",
+      "cohort": "第十三届（2023–2024）",
+      "cohortNumber": "十三",
+      "sourceImage": "images/photo/袁俊炫.jpg",
+      "outputImage": "/uploads/legacy/members/cohort-03-member-003.webp",
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-03-member-004",
+      "name": "孙振阳",
+      "role": "副会长",
+      "cohort": "第十三届（2023–2024）",
+      "cohortNumber": "十三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-03-member-005",
+      "name": "周煜昊",
+      "role": "副会长",
+      "cohort": "第十三届（2023–2024）",
+      "cohortNumber": "十三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-001",
+      "name": "李希垚",
+      "role": "主席",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-002",
+      "name": "杨欣宇",
+      "role": "候任主席",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-003",
+      "name": "张皓越",
+      "role": "会长",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-004",
+      "name": "宋宇阳",
+      "role": "副会长",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-005",
+      "name": "袁崇昕",
+      "role": "副会长",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-006",
+      "name": "刘宇杰",
+      "role": "副会长",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-007",
+      "name": "兰鑫",
+      "role": "执委",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-008",
+      "name": "孙伟",
+      "role": "执委",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-04-member-009",
+      "name": "冯宣植",
+      "role": "执委",
+      "cohort": "第十二届（2022–2023）",
+      "cohortNumber": "十二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-05-member-001",
+      "name": "田成滨",
+      "role": "主席",
+      "cohort": "第十一届（2021–2022）",
+      "cohortNumber": "十一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-05-member-002",
+      "name": "邱雯佳",
+      "role": "候任主席",
+      "cohort": "第十一届（2021–2022）",
+      "cohortNumber": "十一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-05-member-003",
+      "name": "王瑄",
+      "role": "执委",
+      "cohort": "第十一届（2021–2022）",
+      "cohortNumber": "十一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-05-member-004",
+      "name": "杨琳",
+      "role": "执委",
+      "cohort": "第十一届（2021–2022）",
+      "cohortNumber": "十一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-05-member-005",
+      "name": "陆铮",
+      "role": "执委",
+      "cohort": "第十一届（2021–2022）",
+      "cohortNumber": "十一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-001",
+      "name": "陈玮彤",
+      "role": "主席",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-002",
+      "name": "王秋雨",
+      "role": "候任主席",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-003",
+      "name": "郭伟新",
+      "role": "副主席",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-004",
+      "name": "何子博",
+      "role": "副主席",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-005",
+      "name": "王友军",
+      "role": "副主席",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-006",
+      "name": "明章强",
+      "role": "执委",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-007",
+      "name": "何秀靖",
+      "role": "执委",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-008",
+      "name": "孙伟",
+      "role": "执委",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-009",
+      "name": "陆铮",
+      "role": "执委",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-06-member-010",
+      "name": "杨蔡胤",
+      "role": "执委",
+      "cohort": "第十届（2020–2021）",
+      "cohortNumber": "十",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-001",
+      "name": "明章强",
+      "role": "主席",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-002",
+      "name": "王友军",
+      "role": "副主席",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-003",
+      "name": "张铭洋",
+      "role": "副主席",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-004",
+      "name": "何秀靖",
+      "role": "副主席",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-005",
+      "name": "杨蔡胤",
+      "role": "副主席",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-006",
+      "name": "郭伟新",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-007",
+      "name": "向正中",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-008",
+      "name": "夏星毅",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-009",
+      "name": "张馨艺",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-010",
+      "name": "温啸林",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-011",
+      "name": "李长林",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-012",
+      "name": "杨勇",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-013",
+      "name": "黄苗",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-014",
+      "name": "董婷玉",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-015",
+      "name": "王妍",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-016",
+      "name": "王秋雨",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-017",
+      "name": "许典",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-018",
+      "name": "陆铮",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-019",
+      "name": "王博",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-07-member-020",
+      "name": "史洋",
+      "role": "执委",
+      "cohort": "第九届（2019–2020）",
+      "cohortNumber": "九",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-001",
+      "name": "黄苗",
+      "role": "主席",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-002",
+      "name": "庞潇",
+      "role": "副主席",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-003",
+      "name": "文瀚杰",
+      "role": "副主席",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-004",
+      "name": "孙伟",
+      "role": "副主席",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-005",
+      "name": "于淏东",
+      "role": "副主席",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-006",
+      "name": "张欣",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-007",
+      "name": "李季倬",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-008",
+      "name": "明章强",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-009",
+      "name": "杨啸",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-010",
+      "name": "南子伯",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-011",
+      "name": "姚林",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-012",
+      "name": "邹可欣",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-013",
+      "name": "张铭洋",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-014",
+      "name": "任毅",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-015",
+      "name": "杨蔡胤",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-016",
+      "name": "王秋雨",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-017",
+      "name": "张万利",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-018",
+      "name": "王友军",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-019",
+      "name": "王妍",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-08-member-020",
+      "name": "许典",
+      "role": "执委",
+      "cohort": "第八届（2018–2019）",
+      "cohortNumber": "八",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-001",
+      "name": "刘晨静",
+      "role": "主席",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-002",
+      "name": "李芹",
+      "role": "副主席",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-003",
+      "name": "钱含笑",
+      "role": "副主席",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-004",
+      "name": "陈文迪",
+      "role": "副主席",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-005",
+      "name": "徐鑫",
+      "role": "副主席",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-006",
+      "name": "庞潇",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-007",
+      "name": "陈愚夫",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-008",
+      "name": "文瀚杰",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-009",
+      "name": "黄苗",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-010",
+      "name": "曹梦琦",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-011",
+      "name": "何明松",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-012",
+      "name": "闫建荣",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-013",
+      "name": "于淏东",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-014",
+      "name": "陈妍凝",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-015",
+      "name": "吴婉琪",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-016",
+      "name": "宗晨",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-09-member-017",
+      "name": "孙伟",
+      "role": "执委",
+      "cohort": "第七届（2017–2018）",
+      "cohortNumber": "七",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-001",
+      "name": "李晓伟",
+      "role": "主席",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-002",
+      "name": "管恒",
+      "role": "副主席",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-003",
+      "name": "居建涛",
+      "role": "副主席",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-004",
+      "name": "邓森",
+      "role": "副主席",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-005",
+      "name": "高雯雯",
+      "role": "副主席",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-006",
+      "name": "霍君慧",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-007",
+      "name": "乐璐",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-008",
+      "name": "李季兰",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-009",
+      "name": "李芹",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-010",
+      "name": "李亚男",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-011",
+      "name": "刘晨静",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-012",
+      "name": "刘格昌",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-013",
+      "name": "彭第",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-014",
+      "name": "钱含笑",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-015",
+      "name": "韦东鑫",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-016",
+      "name": "余德民",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-017",
+      "name": "余亮",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-018",
+      "name": "陈道伦",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-019",
+      "name": "程俊鑫",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-020",
+      "name": "冯雪宁",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-021",
+      "name": "康筱璇",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-022",
+      "name": "刘奕林",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-023",
+      "name": "徐宏博",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-10-member-024",
+      "name": "杨胜杰",
+      "role": "执委",
+      "cohort": "第六届（2016–2017）",
+      "cohortNumber": "六",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-001",
+      "name": "李潇瑶",
+      "role": "主席",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-002",
+      "name": "王泽荣",
+      "role": "副主席",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-003",
+      "name": "黎婷婷",
+      "role": "副主席",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-004",
+      "name": "钟佳奇",
+      "role": "副主席",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-005",
+      "name": "居建涛",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-006",
+      "name": "李晓伟",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-007",
+      "name": "梁子",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-008",
+      "name": "张超",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-009",
+      "name": "任文婕",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-010",
+      "name": "管恒",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-011",
+      "name": "张泽轩",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-012",
+      "name": "高雯雯",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-013",
+      "name": "徐宏博",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-014",
+      "name": "邓森",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-015",
+      "name": "陈道伦",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-016",
+      "name": "康筱璇",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-11-member-017",
+      "name": "胡闪闪",
+      "role": "执委",
+      "cohort": "第五届（2015–2016）",
+      "cohortNumber": "五",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-001",
+      "name": "高婉玲",
+      "role": "主席",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-002",
+      "name": "晏力",
+      "role": "副主席",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-003",
+      "name": "盛小东",
+      "role": "副主席",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-004",
+      "name": "张舒",
+      "role": "副主席",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-005",
+      "name": "何丽坤",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-006",
+      "name": "李潇瑶",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-007",
+      "name": "王泽荣",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-008",
+      "name": "黎婷婷",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-009",
+      "name": "杨欣",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-010",
+      "name": "戴陈卡",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-011",
+      "name": "陈小林",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-012",
+      "name": "钟佳奇",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-013",
+      "name": "许澜珊",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-014",
+      "name": "刘森",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-015",
+      "name": "郭晓锋",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-12-member-016",
+      "name": "产张明",
+      "role": "执委",
+      "cohort": "第四届（2014–2015）",
+      "cohortNumber": "四",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-001",
+      "name": "贺庆来",
+      "role": "主席",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-002",
+      "name": "李夷洁",
+      "role": "副主席",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-003",
+      "name": "李钟麒",
+      "role": "副主席",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-004",
+      "name": "邹宽",
+      "role": "副主席",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-005",
+      "name": "李云赫",
+      "role": "副主席",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-006",
+      "name": "晏力",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-007",
+      "name": "孙琳",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-008",
+      "name": "林平",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-009",
+      "name": "杜伊",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-010",
+      "name": "屈媛媛",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-011",
+      "name": "程雪梅",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-012",
+      "name": "李倩",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-013",
+      "name": "阳萍",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-014",
+      "name": "周毅",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-015",
+      "name": "洪霄",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-13-member-016",
+      "name": "刘昊阳",
+      "role": "执委",
+      "cohort": "第三届（2013–2014）",
+      "cohortNumber": "三",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-001",
+      "name": "张甜瑾",
+      "role": "主席",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-002",
+      "name": "高慧",
+      "role": "副主席",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-003",
+      "name": "马宇驰",
+      "role": "副主席",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-004",
+      "name": "赵文",
+      "role": "副主席",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-005",
+      "name": "唐绍枫",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-006",
+      "name": "陶琛浩",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-007",
+      "name": "邱兴超",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-008",
+      "name": "耿天玉",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-009",
+      "name": "朱金玉",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-010",
+      "name": "王枫",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-011",
+      "name": "谢琳",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-012",
+      "name": "孙琳",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-013",
+      "name": "贺庆来",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-14-member-014",
+      "name": "李夷洁",
+      "role": "执委",
+      "cohort": "第二届（2012–2013）",
+      "cohortNumber": "二",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-001",
+      "name": "张永清",
+      "role": "主席",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-002",
+      "name": "聂章艳",
+      "role": "副主席",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-003",
+      "name": "张甜瑾",
+      "role": "副主席",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-004",
+      "name": "郭慧盈",
+      "role": "副主席",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-005",
+      "name": "祝勇",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-006",
+      "name": "张越",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-007",
+      "name": "李国梁",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-008",
+      "name": "曾庆维",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-009",
+      "name": "孙青云",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    },
+    {
+      "id": "cohort-15-member-010",
+      "name": "陈亮",
+      "role": "执委",
+      "cohort": "第一届（2011–2012）",
+      "cohortNumber": "一",
+      "sourceImage": null,
+      "outputImage": null,
+      "profileConfirmed": false
+    }
+  ],
+  "honors": [
+    {
+      "id": "2013-honor-01",
+      "title": "CCF优秀学生分会",
+      "year": 2013,
+      "sourceImage": "images/honors/2013-CCF优秀学生分会.jpg",
+      "outputImage": "/uploads/legacy/honors/2013-honor-01.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2014-honor-02",
+      "title": "学术型社团优秀奖",
+      "year": 2014,
+      "sourceImage": "images/honors/2014-学术型社团优秀奖.jpg",
+      "outputImage": "/uploads/legacy/honors/2014-honor-02.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2016-honor-03",
+      "title": "CCF优秀学生分会",
+      "year": 2016,
+      "sourceImage": "images/honors/2016-CCF优秀学生分会.jpg",
+      "outputImage": "/uploads/legacy/honors/2016-honor-03.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2016-honor-04",
+      "title": "学术型社团优秀奖",
+      "year": 2016,
+      "sourceImage": "images/honors/2016-学术型社团优秀奖.jpg",
+      "outputImage": "/uploads/legacy/honors/2016-honor-04.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2017-honor-05",
+      "title": "CCF优秀学生分会",
+      "year": 2017,
+      "sourceImage": "images/honors/2017-CCF优秀学生分会.jpg",
+      "outputImage": "/uploads/legacy/honors/2017-honor-05.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2017-honor-06",
+      "title": "学术型社团优秀奖",
+      "year": 2017,
+      "sourceImage": "images/honors/2017-学术型社团优秀奖.jpg",
+      "outputImage": "/uploads/legacy/honors/2017-honor-06.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2022-honor-07",
+      "title": "CCF优秀学生分会",
+      "year": 2022,
+      "sourceImage": "images/honors/2022-CCF优秀学生分会.jpg",
+      "outputImage": "/uploads/legacy/honors/2022-honor-07.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2022-honor-08",
+      "title": "十佳学生集体",
+      "year": 2022,
+      "sourceImage": "images/honors/2022-十佳学生集体.jpg",
+      "outputImage": "/uploads/legacy/honors/2022-honor-08.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2023-honor-09",
+      "title": "CCF优秀学生分会",
+      "year": 2023,
+      "sourceImage": "images/honors/2023-CCF优秀学生分会.png",
+      "outputImage": "/uploads/legacy/honors/2023-honor-09.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2025-honor-10",
+      "title": "优秀社团活动",
+      "year": 2025,
+      "sourceImage": "images/honors/2025-优秀社团活动.jpg",
+      "outputImage": "/uploads/legacy/honors/2025-honor-10.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-honor-11",
+      "title": "CCF优秀学生分会",
+      "year": 2026,
+      "sourceImage": "images/honors/2026-CCF优秀学生分会.jpg",
+      "outputImage": "/uploads/legacy/honors/2026-honor-11.webp",
+      "needsReview": true
+    },
+    {
+      "id": "2026-honor-12",
+      "title": "百佳学生集体",
+      "year": 2026,
+      "sourceImage": "images/honors/2026-百佳学生集体.jpeg",
+      "outputImage": "/uploads/legacy/honors/2026-honor-12.webp",
+      "needsReview": true
+    }
+  ],
+  "reviewRequired": [
+    "活动原始时间线只含月日，起止时间统一按当天占位",
+    "活动正文与图片替代文本需人工复核",
+    "成员姓名和职务来自旧站，个人简介保持未确认",
+    "荣誉名称和图片授权需负责人复核"
+  ]
+}

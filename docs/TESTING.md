@@ -7,9 +7,9 @@
 - 失败和未执行项必须如实记录；
 - 原型通过不代表正式仓库、真实 OAuth 或生产域名通过。
 
-## 计划中的自动检查
+## 已实现的自动检查
 
-阶段 1 应在 `package.json` 和 CI 中提供：
+`package.json` 和非生产 CI 已提供：
 
 - 格式检查；
 - Astro/TypeScript 类型检查；
@@ -20,7 +20,7 @@
 - 超大图片和缺失替代文本检查；
 - 必要的依赖审计记录。
 
-最终命令以 `package.json` 为准，并同步更新 `DEVELOPMENT.md`。
+`npm run validate` 执行类型、单元、内容、构建和构建产物检查；`npm run test:e2e` 单独执行浏览器矩阵。CI 当前故意忽略 `main`，不含部署权限。
 
 ## 浏览器验证
 
@@ -36,7 +36,9 @@
 6. 桌面和移动视口均验证；
 7. 动画页面验证 `prefers-reduced-motion`。
 
-优先使用环境提供的 Browser 工具；不可用时使用仓库 Playwright 流程，并记录采用的路径。临时截图、trace 和调试脚本不进入仓库，除非明确作为测试 fixture 审批。
+优先使用环境提供的 Browser 工具；不可用时使用仓库 Playwright + 本机 Edge 流程，并记录采用的路径。临时截图、trace 和调试脚本写入被忽略的 `artifacts/`。
+
+当前 E2E 覆盖首页身份与 bundle 隔离、活动筛选与分享、二维码、搜索、成员展开、360/390/430 导航与溢出、后台登录前应用外壳和配置错误检测。登录后的 CMS/Vditor 必须在 OAuth 配置后人工验证。
 
 ## 移动端矩阵
 

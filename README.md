@@ -24,6 +24,10 @@
 - [测试与验收](docs/TESTING.md)
 - [部署与回滚](docs/DEPLOYMENT.md)
 - [安全与隐私](docs/SECURITY.md)
+- [非技术维护手册](docs/MAINTAINER_GUIDE.md)
+- [上线验收签字表](docs/RELEASE_READINESS.md)
+- [故障与回滚](docs/INCIDENT_ROLLBACK.md)
+- [换届交接](docs/HANDOVER_CHECKLIST.md)
 - [Agent 开发工作流](docs/AGENT_WORKFLOW.md)
 - [贡献规范](CONTRIBUTING.md)
 

@@ -1,0 +1,17 @@
+hero:
+  eyebrow: CCF@SCU · SINCE 2012
+  title: 让每一次连接，成为成长的共振
+  subtitle: 面向四川大学计算机学子的学术共同体，连接前沿、竞赛、成长与同行者。
+  primaryLabel: 查看近期活动
+  primaryLink: /activities/
+  secondaryLabel: 认识我们
+  secondaryLink: /about/
+introduction:
+  title: 为计算机学子，搭建一座通往更大世界的桥
+  summary: CCF 四川大学学生分会通过学术报告、竞赛训练、学业帮扶、生涯发展和组织建设，让知识、机会与同伴在校园里持续相遇。
+recruitment:
+  status: open
+  title: 新一届执委招募中
+  summary: 欢迎本科生与研究生加入分会，共同策划活动、服务同学并连接更广阔的计算机共同体。
+featuredActivityLimit: 6
+announcementLimit: 3

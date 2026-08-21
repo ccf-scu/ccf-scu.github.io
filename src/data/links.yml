@@ -1,0 +1,16 @@
+links:
+  - name: 中国计算机学会
+    url: https://www.ccf.org.cn/
+    category: official
+    order: 1
+    visible: true
+  - name: 四川大学
+    url: https://www.scu.edu.cn/
+    category: official
+    order: 2
+    visible: true
+  - name: 四川大学计算机学院
+    url: https://cs.scu.edu.cn/
+    category: official
+    order: 3
+    visible: true

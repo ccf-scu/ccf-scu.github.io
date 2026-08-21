@@ -1,0 +1,10 @@
+contacts:
+  - label: QQ 群
+    value: "1033172661"
+    order: 1
+    visible: true
+  - label: GitHub
+    value: ccf-scu
+    link: https://github.com/ccf-scu
+    order: 2
+    visible: true

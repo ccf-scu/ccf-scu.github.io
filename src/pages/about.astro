@@ -1,0 +1,18 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contacts, organization, teachers } from "../lib/site";
+import { withBase } from "../lib/content";
+const members = (await getCollection("members", ({ data }) => data.visible)).sort((a,b) => b.data.cohort.localeCompare(a.data.cohort, "zh-CN") || a.data.order - b.data.order);
+const currentCohort = members[0]?.data.cohort;
+const currentMembers = members.filter((entry) => entry.data.cohort === currentCohort);
+const renderedMembers = await Promise.all(currentMembers.map(async (member) => ({ member, Content: (await render(member)).Content })));
+---
+
+<BaseLayout title="关于分会" description={organization.description}>
+  <header class="page-hero"><p class="eyebrow">ABOUT CCF@SCU</p><h1>关于分会</h1><p>{organization.description}</p></header>
+  <section class="section"><div class="section-head"><div><p class="eyebrow">OUR STORY</p><h2>连接专业共同体与校园成长</h2></div><p>分会成立于 {organization.founded} 年，是{organization.chapterNumber}。我们坚持让专业资源走进校园，也让学生在真实行动中成长。</p></div><div class="direction-grid"><article class="direction-card"><span>01</span><h3>学术交流</h3><p>连接专家、青年学者和前沿议题。</p></article><article class="direction-card"><span>02</span><h3>朋辈成长</h3><p>让经验、方法和机会在同学之间流动。</p></article><article class="direction-card"><span>03</span><h3>实践服务</h3><p>通过策划与执行培养责任感和协作能力。</p></article><article class="direction-card"><span>04</span><h3>长期传承</h3><p>用公开档案、流程和工具支持换届交接。</p></article></div></section>
+  {teachers.length > 0 && <section class="section"><div class="section-head"><div><p class="eyebrow">ADVISORS</p><h2>指导老师</h2></div><p>指导老师资料均应经过本人或分会负责人确认后公开。</p></div><div class="member-grid">{teachers.map((teacher) => <article class="direction-card">{teacher.photo && <img src={withBase(teacher.photo)} alt={teacher.photoAlt ?? teacher.name} />}<h3>{teacher.name}</h3><p>{teacher.title}</p><p>{teacher.summary}</p></article>)}</div></section>}
+  <section class="section"><div class="section-head"><div><p class="eyebrow">CURRENT COMMITTEE</p><h2>{currentCohort ? `${currentCohort} 执委` : "当前执委"}</h2></div><p>成员简介默认留空；仅展示已经确认可公开的资料。</p></div>{renderedMembers.length ? <div class="member-grid">{renderedMembers.map(({member,Content}) => <details class="member-card"><summary><span class="member-avatar">{member.data.photo ? <img src={withBase(member.data.photo)} alt={member.data.photoAlt ?? member.data.name} /> : member.data.name.slice(0,1)}</span><span><strong>{member.data.name}</strong><small>{member.data.role}</small></span></summary><div class="member-profile">{member.data.profileConfirmed ? <Content /> : <p>个人简介暂未公开。</p>}</div></details>)}</div> : <div class="empty-state">当前届成员资料待负责人确认。</div>}</section>
+  <section class="section" id="contact"><div class="recruitment"><div><p class="eyebrow">CONTACT</p><h2>加入我们</h2><p>关注活动、加入迎新群，或在每学年招募期参与执委工作。</p></div><div>{contacts.map((item) => item.link ? <p><a class="button button-secondary" href={item.link}>{item.label} · {item.value}</a></p> : <p><span class="button button-secondary">{item.label} · {item.value}</span></p>)}</div></div></section>
+</BaseLayout>

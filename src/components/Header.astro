@@ -1,0 +1,40 @@
+---
+import { withBase } from "../lib/content";
+---
+
+<header class="site-header" data-site-header>
+  <a class="brand" href={withBase("/")} aria-label="CCF 四川大学学生分会首页">
+    <img src={withBase("/images/brand/ccf-logo.png")} width="96" height="46" alt="中国计算机学会标志" />
+    <span><strong>CCF@SCU</strong><small>四川大学学生分会</small></span>
+  </a>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
+    <span class="sr-only">打开导航</span><i></i><i></i><i></i>
+  </button>
+  <nav class="site-nav" id="site-menu" aria-label="主导航" data-site-menu>
+    <a href={withBase("/")}>首页</a>
+    <a href={withBase("/activities/")}>活动</a>
+    <a href={withBase("/about/")}>关于</a>
+    <a href={withBase("/archive/")}>历史档案</a>
+    <a href={withBase("/search/")}>搜索</a>
+    <a class="nav-admin" href={withBase("/admin/")}>内容后台</a>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector("[data-site-header]");
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const menu = document.querySelector("[data-site-menu]");
+  const close = () => {
+    toggle?.setAttribute("aria-expanded", "false");
+    header?.classList.remove("menu-open");
+    document.body.classList.remove("nav-locked");
+  };
+  toggle?.addEventListener("click", () => {
+    const open = toggle.getAttribute("aria-expanded") !== "true";
+    toggle.setAttribute("aria-expanded", String(open));
+    header?.classList.toggle("menu-open", open);
+    document.body.classList.toggle("nav-locked", open);
+  });
+  menu?.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") close(); });
+</script>
