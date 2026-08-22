@@ -11,7 +11,7 @@
 
 ## 当前保护边界
 
-`main` 仍是旧站生产分支。`develop/astro-cms` 在重构期间只运行检查，不得把 artifact 部署到 `ccf-scu.github.io`。新部署工作流只有在上线评审和负责人明确批准后才启用。
+`main` 是唯一生产来源，`.github/workflows/deploy-pages.yml` 只在 `main` push 或经授权手工触发时部署。其他分支和 PR 只运行检查，不得把 artifact 发布到 `ccf-scu.github.io`。旧站通过 commit `b904313` 和标签 `pre-astro-launch-2026-08-22` 保持可恢复。
 
 ## CI 设计
 

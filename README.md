@@ -1,6 +1,6 @@
 # CCF 四川大学学生分会网站
 
-这是 CCF 四川大学学生分会网站的正式仓库。当前 `main` 仍保留旧版纯 HTML/CSS/JavaScript 网站；新一代 Astro + Decap CMS 网站在 `develop/astro-cms` 分支开发，未经上线验收不会覆盖旧站。
+这是 CCF 四川大学学生分会网站的正式仓库。Astro + Decap CMS 新站已于 2026-08-22 获批切换到 `main`，由 GitHub Actions 构建并发布到 GitHub Pages。
 
 ## 项目目标
 
@@ -34,10 +34,10 @@
 ## 分支说明
 
 - `main`：当前生产分支；
-- `develop/astro-cms`：新站集成分支；
+- `develop/astro-cms`：后续较大功能的集成分支；
 - `feature/*`、`fix/*`、`docs/*`：短期任务分支；
 - `content/*`：CMS 编辑工作流内容分支。
 
 ## 旧站
 
-旧站文件目前继续保留在仓库根目录。其历史维护说明见 `MAINTENANCE.md` 和 `CHANGELOG.md`。新站切换完成前，不删除这些文件。
+旧站最后一个生产 commit 为 `b904313`，发布标签为 `pre-astro-launch-2026-08-22`。其历史维护说明见 `MAINTENANCE.md` 和 `CHANGELOG.md`；需要回滚时使用 revert PR，不改写 Git 历史。

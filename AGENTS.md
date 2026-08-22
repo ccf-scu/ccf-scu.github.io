@@ -4,8 +4,8 @@
 
 ## 项目状态
 
-- 生产分支：`main`，当前仍承载旧静态站，未经负责人明确批准不得改写或部署。
-- 重构分支：`develop/astro-cms`，用于 Astro + Decap CMS 正式开发。
+- 生产分支：`main`，承载 Astro + Decap CMS 静态站，由 GitHub Actions 发布到 GitHub Pages。
+- 集成分支：`develop/astro-cms`，用于较大功能集成；日常内容由 Decap CMS 通过受保护的 `main` 工作流发布。
 - 当前阶段及完成证据以 [`docs/PROGRESS.md`](docs/PROGRESS.md) 为准。
 - 架构、内容模型和发布边界分别见 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)、[`docs/CONTENT_MODEL.md`](docs/CONTENT_MODEL.md) 和 [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md)。
 
@@ -16,7 +16,7 @@
 3. 前台不得加载 Decap、Vditor或 OAuth 代码。
 4. 首期不得依赖 Google Fonts、unpkg 或只有境外节点可用的公共资源。
 5. 移动端适配是功能要求；任何 UI 改动都要验证桌面端和至少一个移动端视口。
-6. 旧站 `main` 在切换验收前保持可恢复；开发分支不得部署到现有正式 GitHub Pages。
+6. 旧站以 commit `b904313` 和标签 `pre-astro-launch-2026-08-22` 保持可恢复；非 `main` 分支不得部署到正式 GitHub Pages。
 7. 不提交密钥、Token、OAuth Secret、真实个人敏感信息或未经授权的图片。
 8. 不物理删除 CMS 内容；默认使用归档/隐藏状态。
 
