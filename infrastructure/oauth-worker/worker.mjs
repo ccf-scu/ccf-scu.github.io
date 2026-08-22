@@ -47,8 +47,10 @@ function stateCookie(value, maxAge = STATE_TTL_SECONDS) {
 function requestComesFromAdmin(request, url, adminOrigin) {
   const siteId = url.searchParams.get("site_id");
   if (siteId) {
+    const expectedOrigin = new URL(adminOrigin);
+    if (siteId === expectedOrigin.hostname || siteId === expectedOrigin.host) return true;
     try {
-      if (new URL(siteId).origin === adminOrigin) return true;
+      if (new URL(siteId).origin === expectedOrigin.origin) return true;
     } catch {
       return false;
     }

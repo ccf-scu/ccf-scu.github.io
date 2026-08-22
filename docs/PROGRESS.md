@@ -57,6 +57,7 @@
 - 浏览器工具未暴露可用的交互入口，按仓库规范回退到本地 Edge + Playwright；截图保存在被忽略的 `artifacts/visual-validation/`。
 - 生产发布：PR #1 已合并，生产 commit 为 `0e9f197f3f23eb212ebbba0cecbf844183111941`，GitHub Actions `Deploy production site` 第 1 次运行成功；
 - 线上冒烟：主页、活动列表、活动详情、关于、档案、搜索、后台、`robots.txt` 与 `sitemap.xml` 均返回 200；后台配置确认使用 `main` 和生产 OAuth Worker；OAuth `/health` 返回 `configured: true`，授权入口返回 302 并跳转 GitHub。
+- 上线后修复 Decap 使用仅主机名 `site_id` 时被来源校验误拒的问题；Worker 继续只允许生产域名，生产复测返回 302 并正确跳转 GitHub。
 
 ## 已知且接受的风险
 
