@@ -44,8 +44,8 @@ collections:
           - { label: 组织建设, value: organization }
       - { label: 开始时间, name: startAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 结束时间, name: endAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
-      - { label: 首页置顶, name: featured, widget: boolean, default: false }
-      - { label: 首页显示, name: showOnHomepage, widget: boolean, default: true }
+      - { label: 首页优先, name: featured, widget: boolean, default: false, hint: 开启后在“首页显示”的活动中优先选取；同一活动方向有多项时优先显示此项 }
+      - { label: 首页显示, name: showOnHomepage, widget: boolean, default: true, hint: 关闭后仍显示在活动列表，但不会成为首页代表活动 }
       - { label: 归档/下架, name: archived, widget: boolean, default: false, hint: 已发布内容不要删除，使用此开关下架 }
       - { label: 原始资料链接, name: sourceUrl, widget: string, required: false }
       - { label: 正文, name: body, widget: vditor, hint: 保存为标准 Markdown；编辑器异常时自动回退到文本框 }
@@ -206,7 +206,6 @@ collections:
                 fields:
                   - { label: 标题, name: title, widget: string }
                   - { label: 说明, name: summary, widget: text }
-          - { label: 首页活动数量, name: featuredActivityLimit, widget: number, value_type: int, min: 1, max: 12 }
           - { label: 首页公告数量, name: announcementLimit, widget: number, value_type: int, min: 1, max: 10 }
       - label: 分会信息
         name: organization
@@ -217,6 +216,7 @@ collections:
           - { label: 简介, name: description, widget: text }
           - { label: 成立年份, name: founded, widget: string }
           - { label: 分会序号, name: chapterNumber, widget: string }
+          - { label: 本届执委届次, name: currentCohort, widget: string, hint: 必须与成员条目的“届次”完全一致；换届时先新增成员，再在此切换本届 }
       - label: 指导老师
         name: teachers
         file: src/data/teachers.yml

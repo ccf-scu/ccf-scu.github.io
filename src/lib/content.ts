@@ -22,6 +22,10 @@ export function sortActivities(entries: Activity[]) {
     .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.startAt.getTime() - a.data.startAt.getTime());
 }
 
+export function homepageActivities(entries: Activity[]) {
+  return sortActivities(entries).filter((entry) => entry.data.showOnHomepage);
+}
+
 export function cohortStartYear(cohort: string) {
   const match = cohort.match(/(\d{4})\s*[–—-]/);
   return match ? Number(match[1]) : Number.NEGATIVE_INFINITY;

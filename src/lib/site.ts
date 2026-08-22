@@ -60,7 +60,6 @@ const homepageSchema = z.object({
     secondaryLink: linkSchema,
     routes: z.array(z.object({ title: z.string(), summary: z.string() })).length(3),
   }),
-  featuredActivityLimit: z.number().int().min(1).max(12),
   announcementLimit: z.number().int().min(1).max(10),
 });
 
@@ -70,6 +69,7 @@ const organizationSchema = z.object({
   description: z.string(),
   founded: z.string(),
   chapterNumber: z.string(),
+  currentCohort: z.string(),
 });
 
 const teachersSchema = z.object({ teachers: z.array(z.object({ name: z.string(), title: z.string(), summary: z.string(), photo: optionalImage, photoAlt: z.string().optional(), order: z.number(), visible: z.boolean() })) });

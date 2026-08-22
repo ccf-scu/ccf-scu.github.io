@@ -162,6 +162,15 @@ test("search and member dialog work", async ({ page }) => {
   await expect(member).toBeFocused();
 });
 
+test("about page exposes CMS-managed organization content", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/about/");
+  await expect(page.getByRole("heading", { name: "第十五届（2025–2026） 执委" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "相关链接" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /中国计算机学会/ })).toHaveAttribute("href", "https://www.ccf.org.cn/");
+  await expect(page.getByText("QQ 群 · 1033172661").first()).toBeVisible();
+});
+
 test("public inner pages share the visual system without layout regressions", async ({ page }) => {
   const runtimeErrors = [];
   page.on("pageerror", (error) => runtimeErrors.push(error.message));

@@ -22,7 +22,7 @@
 - `achievements`：章节与档案文案、档案入口，以及固定 3 项时间轴；荣誉卡仍从荣誉集合读取；
 - `openSource`：章节标题、说明和仓库按钮文字；目标 URL 从 `links.yml` 的 `repository` 用途读取；
 - `recruitment`：状态、标题、说明、主次按钮和固定 3 项加入路径；
-- `featuredActivityLimit`、`announcementLimit`：构建时展示数量限制。
+- `announcementLimit`：首页公告展示数量限制。首页活动区固定展示四个方向，每个方向从符合条件的活动中选择一项，不提供容易与固定布局冲突的“活动数量”设置。
 
 固定长度数组由 Zod 和 CMS 的 `min`/`max` 同时限制。动画参数、章节编号、坐标和技术状态不进入 CMS。
 
@@ -37,8 +37,8 @@
 | `category` | enum | 是 | `academic` / `competition` / `tutoring` / `career` / `organization` |
 | `startAt` | datetime | 是 | 上海时区解释 |
 | `endAt` | datetime | 是 | 不早于 `startAt` |
-| `featured` | boolean | 是 | 置顶优先 |
-| `showOnHomepage` | boolean | 是 | 首页候选 |
+| `featured` | boolean | 是 | 在首页候选中优先；活动列表中也排在普通活动之前 |
+| `showOnHomepage` | boolean | 是 | 是否可成为首页四个方向的代表活动 |
 | `archived` | boolean | 是 | 隐藏但保留文件 |
 | 正文 | Markdown | 是 | Vditor 编辑，标准 Markdown |
 
@@ -54,10 +54,10 @@
 
 ## 公共 YAML
 
-- `organization.yml`：分会名称、简介、成立信息和品牌描述；
+- `organization.yml`：分会名称、简介、成立信息、品牌描述和 `currentCohort`。`currentCohort` 必须与至少一条成员记录的 `cohort` 完全一致，用于“关于分会”的本届执委；历史档案仍自动按全部成员的届次分组；
 - `teachers.yml`：姓名、职务/职称、简介、照片、排序、显隐；
-- `links.yml`：名称、HTTPS URL、类型、用途、排序和显隐。`placement` 只允许 `general`、`repository`、`footer`；首页开源按钮读取排序最前的可见 `repository` 链接，不按名称猜测；
-- `contact.yml`：邮箱、QQ群、GitHub、二维码、标签和显隐；
+- `links.yml`：名称、HTTPS URL、类型、用途、排序和显隐。可见 `general` 链接出现在“关于分会”的相关链接区，`repository` 首项用于首页开源按钮，`footer` 同时出现在相关链接区和页脚；
+- `contact.yml`：邮箱、QQ群、GitHub、二维码、标签和显隐；可见项显示在页脚及“关于分会”的联系方式区，因此 QQ 群号可直接在后台更换；
 - 招新状态可进入 `homepage.yml` 或独立 `recruitment.yml`，实现前以避免字段重复为准。
 
 ## 变更流程

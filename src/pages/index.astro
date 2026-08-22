@@ -2,13 +2,13 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { contacts, homepage, links } from "../lib/site";
-import { categories, sortActivities, visibleAnnouncements, withBase } from "../lib/content";
+import { categories, homepageActivities, visibleAnnouncements, withBase } from "../lib/content";
 
-const allActivities = sortActivities(await getCollection("activities"));
+const allActivities = homepageActivities(await getCollection("activities"));
 const announcements = visibleAnnouncements(await getCollection("announcements")).slice(0, homepage.announcementLimit);
 const visibleHonors = (await getCollection("honors"))
   .filter((entry) => entry.data.visible)
-  .sort((a, b) => b.data.year - a.data.year || Number(b.data.featured) - Number(a.data.featured));
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.year - a.data.year);
 const honors = visibleHonors.filter((honor, index, entries) =>
   entries.findIndex((entry) => entry.data.title === honor.data.title) === index,
 ).slice(0, 3);

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { formatDateRange } from "../src/lib/content.ts";
+import { formatDateRange, homepageActivities } from "../src/lib/content.ts";
 
 function status(startAt, endAt, now) {
   if (now < startAt) return "预告 / 报名中";
@@ -34,6 +34,20 @@ test("featured activities sort before newer regular activities", () => {
   ];
   entries.sort((a, b) => Number(b.featured) - Number(a.featured) || b.startAt - a.startAt);
   assert.equal(entries[0].featured, true);
+});
+
+test("homepage activities exclude hidden and archived entries, then honor priority", () => {
+  const entry = (id, featured, showOnHomepage, archived, date) => ({
+    id,
+    data: { featured, showOnHomepage, archived, startAt: new Date(date) },
+  });
+  const entries = [
+    entry("new", false, true, false, "2026-08-22"),
+    entry("priority", true, true, false, "2026-01-01"),
+    entry("hidden", true, false, false, "2026-09-01"),
+    entry("archived", true, true, true, "2026-10-01"),
+  ];
+  assert.deepEqual(homepageActivities(entries).map(({ id }) => id), ["priority", "new"]);
 });
 
 test("expired announcements are excluded", () => {
