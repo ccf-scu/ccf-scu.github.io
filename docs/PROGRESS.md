@@ -54,6 +54,7 @@
 - CMS/前台对齐修复：`npm run check` 0 错误/警告/提示；Node 测试 12 项通过；内容校验、根路径构建与构建产物校验通过，共 34 页面；
 - 浏览器端到端 13 项通过，覆盖本届执委、普通友情链接和 QQ 群前台消费；本地 CMS 登录后测试覆盖集合导航、原生 Markdown 编辑、格式化预览及无 unpkg 请求；
 - CMS 对齐修复已由生产提交 `4c18d2343c300940a75c45e40dcc7a3210a3f0e1` 发布；GitHub Actions `Deploy production site` 运行 32558856709 的 build/deploy 均成功，首页、关于、历史档案和后台入口线上返回 200，关于页可见相关链接与本届执委；
+- CMS 原生 Markdown 与页面化后台由生产提交 `34d2ce7b5c1c828c05e96d985379c3cd2d26d561` 发布；GitHub Actions 运行 32560608160 成功；线上首页、关于、历史档案、后台与配置均返回 200，配置含 4 个原生 Markdown 控件，生产后台 bundle 不再包含 Vditor 或 unpkg；
 - `npm run check`：通过，0 error / 0 warning / 0 hint；
 - `npm run test`：5 项通过（含活动日期区间与届次年份排序回归测试）；
 - `npm run validate:content`：通过；
