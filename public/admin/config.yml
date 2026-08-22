@@ -5,7 +5,7 @@ backend:
   name: github
   repo: ccf-scu/ccf-scu.github.io
   branch: develop/astro-cms
-  base_url: https://oauth.ccf-scu.example
+  base_url: https://ccf-scu-cms-oauth.1632145935.workers.dev
   auth_endpoint: auth
 
 publish_mode: editorial_workflow

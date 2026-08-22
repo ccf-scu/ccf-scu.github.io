@@ -4,7 +4,7 @@
 >
 > 当前分支：`develop/astro-cms`
 >
-> 当前状态：交互动效、内页版式、搜索面板与首页后台可编辑能力完成，等待生产上线人工门禁
+> 当前状态：代码与 OAuth Worker 已部署并配置凭据，等待真实登录和人工上线门禁
 
 ## 阶段总览
 
@@ -39,7 +39,8 @@
 - CMS 支持活动、公告、成员、荣誉、首页、分会、老师、链接和联系方式；物理删除关闭；
 - 活动支持状态、分类筛选、归档、复制链接和二维码；搜索覆盖活动与成员；
 - 旧内容保留来源，未确认成员简介统一标记 `profileConfirmed: false`，没有补写个人信息；
-- `main`、现有 Pages 和外部服务均未改变。
+- `main` 和现有 GitHub Pages 均未改变；Cloudflare Worker `ccf-scu-cms-oauth` 已部署并启用生产 `workers.dev` 地址。
+- 新增可审计的 Cloudflare OAuth Worker、生产 URL 与 ADR；2026-08-22 验证未配置凭据时 `/auth` 按设计返回 503，配置加密 Secret 后健康检查返回 `configured: true` 且 `/auth` 正确跳转 GitHub。
 
 ## 验证记录
 
@@ -58,7 +59,7 @@
 ## 已知且接受的风险
 
 - Decap 3.15.1 的间接依赖存在 9 项已记录的高危审计告警；采用固定版本、后台独立 bundle、仅后台放宽 `unsafe-eval`、最小权限和 Git 回退作为补偿控制；
-- `public/admin/config.yml` 中 OAuth 主机仍是示例值，生产登录在正式服务配置前不可用；
+- `public/admin/config.yml` 已指向生产 Worker；Cloudflare 已配置 `GITHUB_OAUTH_ID` 与 `GITHUB_OAUTH_SECRET`，远程健康检查返回 `configured: true`，`/auth` 正确跳转 GitHub；完整授权回调需在新站后台发布到生产域名后由真实维护者验收；
 - 本地只能验证登录前后台和配置加载，Vditor 保存/重开、仓库图片上传和编辑工作流必须用真实维护者账号完成；
 - 迁移内容来自旧站自动提取，仍需内容负责人逐项确认图片授权、姓名、届次、日期和对外联系方式。
 

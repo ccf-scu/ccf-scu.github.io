@@ -20,7 +20,7 @@ Decap CMS 管理首页、活动、公告、成员、指导老师、友情链接�
 - Secret 只存外部运行环境的秘密存储；
 - 至少两名维护者完成真实登录演练后才能上线后台。
 
-当前 `config.yml` 的 `base_url` 是明确的示例主机 `https://oauth.ccf-scu.example`。部署 OAuth 服务后必须替换并在构建产物中确认不存在 Secret；示例值存在时后台只能作为登录前界面验收，不能视为可发布。
+`config.yml` 的 `base_url` 指向独立 Cloudflare Worker。Worker 源码、部署参数、回调地址和轮换方式见 [`../infrastructure/oauth-worker/README.md`](../infrastructure/oauth-worker/README.md)，架构决策见 [`decisions/0002-cloudflare-worker-oauth.md`](decisions/0002-cloudflare-worker-oauth.md)。只有两项 GitHub 凭据均进入 Cloudflare 加密 Secret、真实登录通过且构建产物中不存在 Secret 后，后台才可视为可发布。
 
 ## 编辑工作流
 

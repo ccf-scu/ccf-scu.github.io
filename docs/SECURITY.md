@@ -20,6 +20,8 @@
 - PR、日志、截图和文档不得包含 Secret；
 - 怀疑泄漏时立即撤销/轮换，之后再清理历史和调查影响；仅删除文件不是轮换。
 
+生产 OAuth 由独立 Cloudflare Worker 承载。Worker 固定 CMS 来源、验证 OAuth `state`、使用精确 `postMessage` 来源并在发回令牌前验证正式仓库写权限。GitHub OAuth App 的 `public_repo` scope 不能限定到单仓库，仍会覆盖维护者可访问的公开仓库；这项剩余风险必须由安全负责人签字接受，并通过专用维护账号、2FA 和最小仓库权限降低影响。
+
 ## 内容安全
 
 - Markdown 原始 HTML默认关闭或清理；
