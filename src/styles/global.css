@@ -2120,6 +2120,156 @@ body.member-dialog-locked {
   width: min(var(--container), calc(100% - 64px));
   margin-inline: auto;
 }
+.about-story,
+.about-links {
+  position: relative;
+}
+.about-value-grid {
+  gap: 18px;
+}
+.about-value-card {
+  position: relative;
+  min-height: 250px;
+  padding: 28px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(17, 19, 24, 0.08);
+  border-radius: 20px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.96), rgba(239, 244, 255, 0.78));
+  box-shadow: 0 18px 50px rgba(18, 33, 60, 0.07);
+}
+.about-value-card::after {
+  position: absolute;
+  right: -52px;
+  top: -52px;
+  width: 145px;
+  height: 145px;
+  content: "";
+  border: 1px solid rgba(23, 107, 255, 0.14);
+  border-radius: 50%;
+  box-shadow: 0 0 0 24px rgba(23, 107, 255, 0.035);
+}
+.about-value-card > span {
+  width: fit-content;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(23, 107, 255, 0.09);
+  letter-spacing: 0.12em;
+}
+.about-value-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.55rem;
+}
+.about-value-card p {
+  margin: 0;
+  line-height: 1.75;
+}
+.about-advisors .page-container {
+  padding: clamp(32px, 5vw, 64px);
+  border-radius: 28px;
+  background: linear-gradient(135deg, #0b101a, #101a2d 70%, #0b1f47);
+  color: #fff;
+}
+.about-advisors .section-head > p {
+  color: rgba(255, 255, 255, 0.62);
+}
+.about-advisors .eyebrow {
+  color: #8db5ff;
+}
+.advisor-grid {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.advisor-card {
+  min-height: 230px;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 28px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+}
+.advisor-portrait {
+  width: 112px;
+  aspect-ratio: 1;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #317bff, #153b88);
+  color: #fff;
+  font: 500 3rem var(--font-serif);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.24);
+}
+.advisor-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.advisor-copy .advisor-role {
+  margin: 0 0 8px;
+  color: #8db5ff;
+  font: 0.65rem var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.advisor-copy h3 {
+  margin: 0 0 12px;
+  color: #fff;
+  font-size: 1.85rem;
+}
+.advisor-copy > p:last-child {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.7;
+}
+.related-link-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.related-link-card {
+  min-height: 210px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(17, 19, 24, 0.09);
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 14px 45px rgba(18, 33, 60, 0.055);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+.related-link-card:hover,
+.related-link-card:focus-visible {
+  border-color: rgba(23, 107, 255, 0.35);
+  box-shadow: 0 22px 55px rgba(23, 107, 255, 0.12);
+  transform: translateY(-4px);
+}
+.related-link-index {
+  color: #9aa2af;
+  font: 0.62rem var(--font-mono);
+  letter-spacing: 0.12em;
+}
+.related-link-card h3 {
+  margin: 34px 0 28px;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.25;
+}
+.related-link-action {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.related-link-action b {
+  font-size: 1rem;
+}
 .search-page {
   min-height: 320px;
 }
@@ -2747,6 +2897,30 @@ body.nav-locked {
   .link-grid,
   .member-grid {
     grid-template-columns: 1fr;
+  }
+  .about-value-card {
+    min-height: 205px;
+  }
+  .about-advisors .page-container {
+    width: calc(100% - 24px);
+    padding: 30px 18px;
+    border-radius: 22px;
+  }
+  .advisor-card {
+    min-height: 0;
+    padding: 24px 20px;
+    grid-template-columns: 76px 1fr;
+    gap: 18px;
+  }
+  .advisor-portrait {
+    width: 76px;
+    font-size: 2.2rem;
+  }
+  .advisor-copy h3 {
+    font-size: 1.55rem;
+  }
+  .related-link-card {
+    min-height: 180px;
   }
   .recruitment {
     padding: 30px 22px;

@@ -1,5 +1,5 @@
 ---
-import { contacts, links } from "../lib/site";
+import { contacts, footerLinks } from "../lib/site";
 import { withBase } from "../lib/content";
 ---
 
@@ -11,7 +11,7 @@ import { withBase } from "../lib/content";
     </a>
     <div class="footer-links">
       {contacts.map((item) => item.link ? <a href={withBase(item.link)}>{item.label} · {item.value}</a> : <span>{item.label} · {item.value}</span>)}
-      {links.filter((item) => item.placement === "footer").map((item) => <a href={item.url} rel="noopener noreferrer">{item.name}</a>)}
+      {footerLinks.map((item) => <a href={item.url} rel="noopener noreferrer">{item.name}</a>)}
       <a href={withBase("/privacy/")}>隐私说明</a>
     </div>
     <p class="footer-meta">© {new Date().getFullYear()} CCF Sichuan University Student Chapter</p>

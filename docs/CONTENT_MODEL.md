@@ -20,7 +20,7 @@
 - `introduction`：标题、摘要、详情入口、固定 3 项原则、引用和署名；
 - `activities`：章节标题、说明，以及固定 4 个活动方向的类别、眉题、标题和说明；代表活动仍从活动集合按类别读取；
 - `achievements`：章节与档案文案、档案入口，以及固定 3 项时间轴；荣誉卡仍从荣誉集合读取；
-- `openSource`：章节标题、说明和仓库按钮文字；目标 URL 从 `links.yml` 的 `repository` 用途读取；
+- `openSource`：章节标题和说明；按钮文字、目标 URL 与显隐从独立 `repository.yml` 读取；
 - `recruitment`：状态、标题、说明、主次按钮和固定 3 项加入路径；
 - `announcementLimit`：首页公告展示数量限制。首页活动区固定展示四个方向，每个方向从符合条件的活动中选择一项，不提供容易与固定布局冲突的“活动数量”设置。
 
@@ -56,7 +56,9 @@
 
 - `organization.yml`：分会名称、简介、成立信息、品牌描述和 `currentCohort`。`currentCohort` 必须与至少一条成员记录的 `cohort` 完全一致，用于“关于分会”的本届执委；历史档案仍自动按全部成员的届次分组；
 - `teachers.yml`：姓名、职务/职称、简介、照片、排序、显隐；
-- `links.yml`：名称、HTTPS URL、类型、用途、排序和显隐。可见 `general` 链接出现在“关于分会”的相关链接区，`repository` 首项用于首页开源按钮，`footer` 同时出现在相关链接区和页脚；
+- `links.yml`：关于页相关链接的名称、HTTP/HTTPS URL、排序和显隐，不再承载类型或跨页面用途；
+- `repository.yml`：首页开源按钮的文字、HTTP/HTTPS 地址和显隐；
+- `footer-links.yml`：全站页脚外链的名称、HTTP/HTTPS 地址、排序和显隐；
 - `contact.yml`：邮箱、QQ群、GitHub、二维码、标签和显隐；可见项显示在页脚及“关于分会”的联系方式区，因此 QQ 群号可直接在后台更换；
 - 招新状态可进入 `homepage.yml` 或独立 `recruitment.yml`，实现前以避免字段重复为准。
 

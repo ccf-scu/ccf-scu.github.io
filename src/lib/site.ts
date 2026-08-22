@@ -5,8 +5,11 @@ import organizationSource from "../data/organization.yml?raw";
 import teachersSource from "../data/teachers.yml?raw";
 import linksSource from "../data/links.yml?raw";
 import contactSource from "../data/contact.yml?raw";
+import repositorySource from "../data/repository.yml?raw";
+import footerLinksSource from "../data/footer-links.yml?raw";
 
 const linkSchema = z.string().refine((value) => value.startsWith("/") || value.startsWith("https://"));
+const externalLinkSchema = z.string().refine((value) => /^https?:\/\//i.test(value));
 const optionalImage = z.string().refine((value) => value.startsWith("/") || value.startsWith("https://")).optional();
 
 const homepageSchema = z.object({
@@ -49,7 +52,7 @@ const homepageSchema = z.object({
     archiveLink: linkSchema,
     timeline: z.array(z.object({ year: z.string(), eyebrow: z.string(), title: z.string(), summary: z.string() })).length(3),
   }),
-  openSource: z.object({ title: z.string(), summary: z.string(), repositoryLabel: z.string() }),
+  openSource: z.object({ title: z.string(), summary: z.string() }),
   recruitment: z.object({
     status: z.enum(["open", "closed", "preparing"]),
     title: z.string(),
@@ -75,12 +78,12 @@ const organizationSchema = z.object({
 const teachersSchema = z.object({ teachers: z.array(z.object({ name: z.string(), title: z.string(), summary: z.string(), photo: optionalImage, photoAlt: z.string().optional(), order: z.number(), visible: z.boolean() })) });
 const linksSchema = z.object({ links: z.array(z.object({
   name: z.string(),
-  url: z.string().refine((value) => value.startsWith("https://")),
-  category: z.enum(["official", "partner", "community"]),
-  placement: z.enum(["general", "repository", "footer"]),
+  url: externalLinkSchema,
   order: z.number(),
   visible: z.boolean(),
 })) });
+const repositorySchema = z.object({ label: z.string(), url: externalLinkSchema, visible: z.boolean() });
+const footerLinksSchema = z.object({ links: z.array(z.object({ name: z.string(), url: externalLinkSchema, order: z.number(), visible: z.boolean() })) });
 const contactSchema = z.object({ contacts: z.array(z.object({ label: z.string(), value: z.string(), link: linkSchema.optional(), order: z.number(), visible: z.boolean() })) });
 
 function parse<T>(source: string, schema: ZodType<T>): T {
@@ -92,3 +95,5 @@ export const organization = parse(organizationSource, organizationSchema);
 export const teachers = parse(teachersSource, teachersSchema).teachers.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);
 export const links = parse(linksSource, linksSchema).links.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);
 export const contacts = parse(contactSource, contactSchema).contacts.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);
+export const repository = parse(repositorySource, repositorySchema);
+export const footerLinks = parse(footerLinksSource, footerLinksSchema).links.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);

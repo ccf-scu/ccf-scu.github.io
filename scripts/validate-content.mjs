@@ -5,6 +5,11 @@ import YAML from "yaml";
 const contentRoot = resolve("src/content");
 const dataRoot = resolve("src/data");
 const errors = [];
+const httpLinkFiles = new Set([
+  join(dataRoot, "links.yml"),
+  join(dataRoot, "repository.yml"),
+  join(dataRoot, "footer-links.yml"),
+]);
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -13,7 +18,9 @@ async function walk(directory) {
 
 for (const file of [...await walk(contentRoot), ...await walk(dataRoot)]) {
   const source = await readFile(file, "utf8");
-  if (/\b(?:http:|javascript:|data:text\/html)/i.test(source)) errors.push(`${file}: contains a disallowed URL protocol`);
+  if (/\b(?:javascript:|data:text\/html)/i.test(source) || (!httpLinkFiles.has(file) && /\bhttp:/i.test(source))) {
+    errors.push(`${file}: contains a disallowed URL protocol`);
+  }
   if (extname(file) === ".md" && !source.startsWith("---\n")) errors.push(`${file}: missing YAML frontmatter`);
 }
 

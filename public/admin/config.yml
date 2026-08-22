@@ -189,7 +189,6 @@ collections:
             fields:
               - { label: 标题, name: title, widget: string }
               - { label: 说明, name: summary, widget: text }
-              - { label: 仓库按钮文字, name: repositoryLabel, widget: string }
           - label: 招募信息
             name: recruitment
             widget: object
@@ -244,9 +243,26 @@ collections:
             widget: list
             fields:
               - { label: 名称, name: name, widget: string }
-              - { label: HTTPS 地址, name: url, widget: string }
-              - { label: 类型, name: category, widget: select, options: [{ label: 官方机构, value: official }, { label: 合作组织, value: partner }, { label: 社团, value: community }] }
-              - { label: 用途, name: placement, widget: select, options: [{ label: 普通链接, value: general }, { label: 代码仓库, value: repository }, { label: 页脚链接, value: footer }], default: general, hint: 首页开源按钮读取“代码仓库”用途的首项 }
+              - { label: 网址, name: url, widget: string, pattern: ['^https?://.+', '请输入以 http:// 或 https:// 开头的完整网址'] }
+              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示, name: visible, widget: boolean, default: true }
+      - label: 01 首页｜开源按钮
+        name: repository
+        file: src/data/repository.yml
+        fields:
+          - { label: 按钮文字, name: label, widget: string }
+          - { label: 仓库地址, name: url, widget: string, pattern: ['^https?://.+', '请输入以 http:// 或 https:// 开头的完整网址'] }
+          - { label: 显示, name: visible, widget: boolean, default: true }
+      - label: 全站｜页脚链接
+        name: footerLinks
+        file: src/data/footer-links.yml
+        fields:
+          - label: 页脚链接列表
+            name: links
+            widget: list
+            fields:
+              - { label: 名称, name: name, widget: string }
+              - { label: 网址, name: url, widget: string, pattern: ['^https?://.+', '请输入以 http:// 或 https:// 开头的完整网址'] }
               - { label: 排序, name: order, widget: number, value_type: int }
               - { label: 显示, name: visible, widget: boolean, default: true }
       - label: 全站｜联系方式与 QQ 群

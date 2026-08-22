@@ -16,6 +16,8 @@ test("CMS navigation, native Markdown editor, and preview work", async ({ page }
   await page.getByTestId("settings").click();
   await expect(page.getByText("03 关于分会｜指导老师", { exact: true })).toBeVisible();
   await expect(page.getByText("03 关于分会｜相关链接", { exact: true })).toBeVisible();
+  await expect(page.getByText("01 首页｜开源按钮", { exact: true })).toBeVisible();
+  await expect(page.getByText("全站｜页脚链接", { exact: true })).toBeVisible();
 
   await page.getByTestId("activities").click();
   await page.locator("a").filter({ hasText: "腾讯" }).first().click();

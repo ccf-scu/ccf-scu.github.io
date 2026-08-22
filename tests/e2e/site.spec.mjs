@@ -168,7 +168,13 @@ test("about page exposes CMS-managed organization content", async ({ page }) => 
   await expect(page.getByRole("heading", { name: "第十五届（2025–2026） 执委" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "相关链接" })).toBeVisible();
   await expect(page.getByRole("link", { name: /中国计算机学会/ })).toHaveAttribute("href", "https://www.ccf.org.cn/");
+  await expect(page.getByRole("link", { name: /四川大学开源硬件协会/ })).toHaveAttribute("href", "http://www.scumaker.org/");
   await expect(page.getByText("QQ 群 · 1033172661").first()).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/about/");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  await warmLazyImages(page);
+  await page.screenshot({ path: `${screenshots}/about-390.png`, fullPage: true });
 });
 
 test("public inner pages share the visual system without layout regressions", async ({ page }) => {

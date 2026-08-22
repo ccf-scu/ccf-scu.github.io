@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { contacts, homepage, links } from "../lib/site";
+import { contacts, homepage, repository } from "../lib/site";
 import { categories, homepageActivities, visibleAnnouncements, withBase } from "../lib/content";
 
 const allActivities = homepageActivities(await getCollection("activities"));
@@ -25,7 +25,6 @@ const activityLayers = categoryOrder.map((category, index) => ({
   copy: homepage.activities.directions.find((entry) => entry.category === category)!,
   image: allActivities.find((entry) => entry.data.category === category)?.data.cover ?? fallbackImages[index],
 }));
-const github = links.find((link) => link.placement === "repository");
 const qq = contacts.find((item) => /QQ/i.test(item.label));
 ---
 
@@ -109,7 +108,7 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
     </div>
   </section>
 
-  <section class="section open-section"><div class="container"><div class="open-card reveal" data-repo-card><div class="open-copy"><p class="section-label">04 / OPEN SOURCE</p><h2>{homepage.openSource.title}</h2><p>{homepage.openSource.summary}</p>{github && <a class="button button-dark" href={github.url} target="_blank" rel="noopener noreferrer">{homepage.openSource.repositoryLabel} <span>↗</span></a>}</div><div class="repo-preview"><div><span>ccf-scu /</span><strong>ccf-scu.github.io</strong><small>Public</small></div><p>CCF 四川大学学生分会官方网站与内容档案</p><ul><li><span>◇</span><b>activities/</b><small>activity archive</small></li><li><span>◇</span><b>members/</b><small>chapter history</small></li><li><span>≡</span><b>admin/</b><small>content workflow</small></li></ul><footer><span><i></i> Astro / Markdown / Decap</span><span>Public repository</span></footer></div></div></div></section>
+  <section class="section open-section"><div class="container"><div class="open-card reveal" data-repo-card><div class="open-copy"><p class="section-label">04 / OPEN SOURCE</p><h2>{homepage.openSource.title}</h2><p>{homepage.openSource.summary}</p>{repository.visible && <a class="button button-dark" href={repository.url} target="_blank" rel="noopener noreferrer">{repository.label} <span>↗</span></a>}</div><div class="repo-preview"><div><span>ccf-scu /</span><strong>ccf-scu.github.io</strong><small>Public</small></div><p>CCF 四川大学学生分会官方网站与内容档案</p><ul><li><span>◇</span><b>activities/</b><small>activity archive</small></li><li><span>◇</span><b>members/</b><small>chapter history</small></li><li><span>≡</span><b>admin/</b><small>content workflow</small></li></ul><footer><span><i></i> Astro / Markdown / Decap</span><span>Public repository</span></footer></div></div></div></section>
 
   <section class="join-section" id="join"><div class="join-atmosphere" aria-hidden="true"><i></i><i></i><i></i><strong>SCU<br />CCF</strong></div><div class="container join-finale"><div class="join-heading reveal"><p class="section-label light">05 / JOIN US · FINAL CHAPTER</p><h2>{homepage.recruitment.title}</h2><p>{homepage.recruitment.summary}</p><div class="join-buttons"><a class="button button-white" href={withBase(homepage.recruitment.primaryLink)}>{homepage.recruitment.primaryLabel} <span>↗</span></a><a class="button button-glass" href={withBase(homepage.recruitment.secondaryLink)}>{homepage.recruitment.secondaryLabel} <span>＋</span></a></div></div><ol class="join-route">{homepage.recruitment.routes.map((route, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{route.title}</strong><small>{index === 0 && qq ? `${qq.label} ${qq.value}，${route.summary}` : route.summary}</small></li>)}</ol><div class="join-signature"><span>CURIOUS IN</span><i></i><strong>POSSIBILITY OUT</strong></div></div></section>
 </BaseLayout>
