@@ -23,3 +23,15 @@ links:
     placement: repository
     order: 4
     visible: true
+  - placement: general
+    visible: true
+    url: https://feiyang.ac.cn/
+    name: 四川大学飞扬俱乐部
+    category: community
+    order: 5
+  - placement: general
+    visible: true
+    name: 四川大学开源硬件协会
+    url: http://www.scumaker.org/
+    category: community
+    order: 6
