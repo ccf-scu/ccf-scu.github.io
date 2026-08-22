@@ -20,7 +20,7 @@
 | [`CONTENT_MODEL.md`](CONTENT_MODEL.md) | 首页、活动、公告、成员及公共数据 schema |
 | [`CMS.md`](CMS.md) | Decap、Markdown、审核和图片上传 |
 | [`TESTING.md`](TESTING.md) | 自动检查、浏览器、移动端和上线验收 |
-| [`DEPLOYMENT.md`](DEPLOYMENT.md) | 分支、GitHub Pages、预览、发布和回滚 |
+| [`DEPLOYMENT.md`](DEPLOYMENT.md) | 分支、Cloudflare Pages、预览、发布和回滚 |
 | [`SECURITY.md`](SECURITY.md) | OAuth、依赖、内容、隐私和事件响应 |
 | [`MIGRATION.md`](MIGRATION.md) | 旧站内容、图片和 URL 迁移 |
 | [`AGENT_WORKFLOW.md`](AGENT_WORKFLOW.md) | 编码 Agent 的逐任务执行和提交规范 |

@@ -4,7 +4,7 @@ import test from "node:test";
 import worker from "../infrastructure/oauth-worker/worker.mjs";
 
 const env = {
-  ADMIN_ORIGIN: "https://ccf-scu.github.io",
+  ADMIN_ORIGIN: "https://www.ccfscu.com",
   GITHUB_REPOSITORY: "ccf-scu/ccf-scu.github.io",
   OAUTH_BASE_URL: "https://ccf-scu-cms-oauth.1632145935.workers.dev",
 };
@@ -25,7 +25,7 @@ test("OAuth Worker rejects auth requests from an untrusted CMS", async () => {
 
 test("OAuth Worker fails closed while GitHub secrets are absent", async () => {
   const response = await worker.fetch(
-    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=https://ccf-scu.github.io/admin/`),
+    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=https://www.ccfscu.com/admin/`),
     env,
   );
   assert.equal(response.status, 503);
@@ -33,7 +33,7 @@ test("OAuth Worker fails closed while GitHub secrets are absent", async () => {
 
 test("OAuth Worker accepts Decap's hostname-only site_id", async () => {
   const response = await worker.fetch(
-    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=ccf-scu.github.io`),
+    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=www.ccfscu.com`),
     { ...env, GITHUB_OAUTH_ID: "test-client", GITHUB_OAUTH_SECRET: "test-secret" },
   );
   assert.equal(response.status, 302);
@@ -42,7 +42,7 @@ test("OAuth Worker accepts Decap's hostname-only site_id", async () => {
 
 test("OAuth Worker generates a scoped GitHub redirect and state cookie", async () => {
   const response = await worker.fetch(
-    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=https://ccf-scu.github.io/admin/`),
+    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=https://www.ccfscu.com/admin/`),
     { ...env, GITHUB_OAUTH_ID: "test-client", GITHUB_OAUTH_SECRET: "test-secret" },
   );
   assert.equal(response.status, 302);

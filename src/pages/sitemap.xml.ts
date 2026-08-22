@@ -1,7 +1,7 @@
 import { getCollection } from "astro:content";
 import { withBase } from "../lib/content";
 export async function GET({ site }: { site?: URL }) {
-  const base = site ?? new URL("https://ccf-scu.github.io");
+  const base = site ?? new URL("https://www.ccfscu.com");
   const fixed = ["/", "/activities/", "/about/", "/archive/", "/search/", "/privacy/"];
   const activities = await getCollection("activities", ({ data }) => !data.archived);
   const paths = [...fixed, ...activities.map((entry) => `/activities/${entry.id}/`)];

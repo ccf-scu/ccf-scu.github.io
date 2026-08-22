@@ -11,6 +11,8 @@ GitHub Pages 只提供静态文件，Decap CMS 的 GitHub 后端需要服务端�
 
 使用独立 Cloudflare Worker `ccf-scu-cms-oauth` 作为 OAuth 辅助服务。Worker 不保存内容，只提供 `/auth`、`/callback` 和 `/health`；Client ID 与 Secret 只进入 Cloudflare 加密 Secret。站点继续由 GitHub Pages 静态托管。
 
+> 2026-08-22 后续状态：静态站已迁移到 Cloudflare Pages 的 `https://www.ccfscu.com`，Worker 的 `ADMIN_ORIGIN` 同步变更；OAuth 职责和安全边界不变。
+
 Worker 固定生产 CMS 来源、校验 OAuth `state`、使用精确 `postMessage` 来源，并在返回令牌前确认登录用户对正式仓库有写权限。公开仓库仅申请 `public_repo` scope。
 
 ## 权衡与风险

@@ -13,6 +13,14 @@ test("CMS navigation, native Markdown editor, and preview work", async ({ page }
   const login = page.getByRole("button", { name: /登录/ });
   if (await login.isVisible()) await login.click();
   await expect(page.getByTestId("activities")).toContainText("02 活动中心｜活动内容", { timeout: 15_000 });
+  const frontendLink = page.getByRole("link", { name: "返回前台" });
+  expect(await frontendLink.evaluate((link) => link.href)).toBe(new URL("/", page.url()).href);
+  await page.getByRole("button", { name: /媒体/ }).click();
+  const mediaHeading = page.getByRole("heading", { name: "媒体资源" });
+  await expect(mediaHeading).toBeVisible();
+  await page.screenshot({ path: "artifacts/visual-validation/cms-media-library-empty.png", fullPage: true });
+  await page.keyboard.press("Escape");
+  await expect(mediaHeading).toBeHidden();
   await page.getByTestId("settings").click();
   await expect(page.getByText("03 关于分会｜指导老师", { exact: true })).toBeVisible();
   await expect(page.getByText("03 关于分会｜相关链接", { exact: true })).toBeVisible();

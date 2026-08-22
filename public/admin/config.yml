@@ -11,8 +11,8 @@ backend:
 publish_mode: editorial_workflow
 media_folder: public/uploads
 public_folder: /uploads
-site_url: https://ccf-scu.github.io
-display_url: https://ccf-scu.github.io
+site_url: https://www.ccfscu.com
+display_url: /
 logo_url: /images/brand/ccf-logo.png
 
 collections:

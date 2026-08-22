@@ -14,7 +14,7 @@
 在拥有长期维护责任的 GitHub 账号或 Organization 下创建 OAuth App：
 
 - Application name：`CCF SCU CMS`
-- Homepage URL：`https://ccf-scu.github.io/admin/`
+- Homepage URL：`https://www.ccfscu.com/admin/`
 - Authorization callback URL：`https://ccf-scu-cms-oauth.1632145935.workers.dev/callback`
 
 生成 Client Secret 后，只把以下两项写入 Cloudflare Worker 的加密 Secret：
@@ -45,7 +45,7 @@ npx wrangler@4.59.1 secret put GITHUB_OAUTH_SECRET
 ## 安全边界
 
 - OAuth `state` 使用安全随机数和 `HttpOnly`、`Secure`、`SameSite=Lax` Cookie 校验；
-- 只接受 `https://ccf-scu.github.io` 发起的登录；
+- 只接受 `https://www.ccfscu.com` 发起的登录；
 - 回调令牌只通过精确的 `targetOrigin` 发回 CMS；
 - 返回令牌前再次确认用户对 `ccf-scu/ccf-scu.github.io` 有写权限；
 - 仅请求公开仓库所需的 `public_repo` scope；

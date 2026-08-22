@@ -7,7 +7,7 @@
 ```text
 维护者 -> /admin/ Decap 原生 Markdown -> OAuth 辅助服务 -> GitHub 内容分支
                                                      -> PR/审核/合并
-GitHub 仓库 -> Actions 校验与 Astro 构建 -> GitHub Pages -> 访问者
+GitHub 仓库 -> Cloudflare Pages 安装/校验与 Astro 构建 -> www.ccfscu.com -> 访问者
 ```
 
 OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章、成员或站点配置，不参与公众页面请求。
@@ -21,7 +21,7 @@ OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章�
 - Markdown/YAML：Git 中的内容源；
 - Sharp/Astro 图片能力：构建期生成响应式图片；
 - GitHub Actions：检查、构建和最终发布；
-- GitHub Pages：首期生产托管。
+- Cloudflare Pages：生产静态托管与自定义域名；GitHub Pages 已停用。
 
 ## 代码职责
 

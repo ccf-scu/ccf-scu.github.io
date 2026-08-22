@@ -1,6 +1,6 @@
 # CCF 四川大学学生分会网站
 
-这是 CCF 四川大学学生分会网站的正式仓库。Astro + Decap CMS 新站已于 2026-08-22 获批切换到 `main`，由 GitHub Actions 构建并发布到 GitHub Pages。
+这是 CCF 四川大学学生分会网站的正式仓库。Astro + Decap CMS 站点以 `main` 为生产来源，由 Cloudflare Pages 自动构建并发布到 `https://www.ccfscu.com`；GitHub Pages 已停用。
 
 ## 项目目标
 

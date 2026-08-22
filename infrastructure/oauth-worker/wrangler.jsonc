@@ -6,7 +6,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "vars": {
-    "ADMIN_ORIGIN": "https://ccf-scu.github.io",
+    "ADMIN_ORIGIN": "https://www.ccfscu.com",
     "GITHUB_REPOSITORY": "ccf-scu/ccf-scu.github.io",
     "OAUTH_BASE_URL": "https://ccf-scu-cms-oauth.1632145935.workers.dev"
   },

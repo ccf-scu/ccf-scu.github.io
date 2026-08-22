@@ -6,12 +6,12 @@
 |---|---|---|---|
 | 本地 | 任意任务分支 | 开发和交互验证 | 否 |
 | CI 检查 | PR / 开发分支 | 安装、检查和构建 | 否 |
-| 内容预览 | 后续 Cloudflare Pages 或隔离方案 | 草稿/PR 预览 | 否 |
-| 生产 | 受保护生产分支 | GitHub Pages | 是 |
+| 内容预览 | Cloudflare Pages Preview | 分支/PR 预览 | 否 |
+| 生产 | `main` | Cloudflare Pages + `www.ccfscu.com` | 是 |
 
 ## 当前保护边界
 
-`main` 是唯一生产来源，`.github/workflows/deploy-pages.yml` 只在 `main` push 或经授权手工触发时部署。其他分支和 PR 只运行检查，不得把 artifact 发布到 `ccf-scu.github.io`。旧站通过 commit `b904313` 和标签 `pre-astro-launch-2026-08-22` 保持可恢复。
+`main` 是唯一生产来源，Cloudflare Pages 的生产分支必须设为 `main`，构建命令为 `npm run build`，输出目录为 `dist`。其他分支只能产生 Preview 部署，不得绑定正式域名。仓库已删除 GitHub Pages 发布工作流；旧站通过 commit `b904313` 和标签 `pre-astro-launch-2026-08-22` 保持可恢复。
 
 ## CI 设计
 
@@ -19,7 +19,7 @@
 - 在 Linux 中使用 lockfile 和 `npm ci`；
 - PR 与 push 使用不同 concurrency group，避免原型中互相取消；
 - 检查类型、内容、测试、构建、链接和资源；
-- 权限默认只读；仅正式部署 job 获取 Pages 所需最小权限；
+- GitHub Actions 权限保持只读，只负责非生产校验；Cloudflare Pages 使用其 Git 集成读取仓库；
 - CI 不打印 Secret，不执行来自不可信内容的脚本。
 
 ## 正式发布步骤
@@ -27,7 +27,7 @@
 1. 完成上线硬门禁并冻结内容；
 2. 备份旧站 commit、构建结果和 URL 清单；
 3. 合并经过评审的新站到生产分支；
-4. GitHub Actions 构建并上传 Pages artifact；
+4. Cloudflare Pages 从 `main` 安装依赖、运行 Astro 构建并发布 `dist`；
 5. 验证首页、活动、详情、后台入口、静态资源和旧 URL；
 6. 记录 commit、workflow run、时间和负责人；
 7. 观察国内网络和错误反馈；
@@ -37,10 +37,13 @@
 
 - 内容错误：revert 对应内容 commit 或恢复归档状态；
 - 代码错误：revert 合并 commit，重新部署上一个可用版本；
-- 构建系统错误：保留现有 Pages 版本，不手工上传来源不明的 `dist`；
+- 构建系统错误：在 Cloudflare Pages 回滚到上一个成功部署，不手工上传来源不明的 `dist`；
 - OAuth/CMS 故障：不回滚公众网站，启用 GitHub PR 应急内容流程；
 - 域名/DNS（后期）：变更前记录原值和 TTL，分步切换。
 
 ## Cloudflare Pages
 
-Cloudflare Pages 可在后期承担 PR 预览、备用入口或候选主站。使用其境外服务通常不因服务本身要求中国大陆 ICP 备案；但若启用中国大陆网络、国内 CDN 或大陆服务器，应重新评估域名实名、备案和服务资质。接入前验证构建一致性、环境变量、预览隔离、国内可达性和回滚。
+- 正式域名：`https://www.ccfscu.com`；根域是否跳转到 `www` 由 Cloudflare DNS/Redirect Rules 管理；
+- 构建环境使用项目声明的 Node 24、`npm ci`/Cloudflare 自动安装和 `npm run build`；安装阶段会执行受版本保护的 Decap 媒体库补丁；
+- Astro 默认 `site` 为正式域名、`base` 为 `/`，因此 robots、sitemap、后台“返回前台”和静态资源均不依赖 GitHub Pages 域名；
+- 域名、构建变量或生产分支变更后，必须检查首页、后台、OAuth、robots 与 sitemap。
