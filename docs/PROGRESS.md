@@ -62,4 +62,6 @@
 
 ## 下一步
 
-由负责人按 `MAINTAINER_GUIDE.md` 和 `RELEASE_READINESS.md` 执行人工验收。本分支可以提交或发起评审，但本轮不 push、不创建 PR、不部署。
+下一阶段按 [`.agent/plans/2026-08-22-interaction-content-polish.md`](../.agent/plans/2026-08-22-interaction-content-polish.md) 补齐 ccfweb 动效、内页留白、搜索面板、访客文案清理和首页后台可编辑能力；该计划已完成需求整理，尚未开始页面实现。
+
+生产上线仍由负责人按 `MAINTAINER_GUIDE.md` 和 `RELEASE_READINESS.md` 执行人工验收。本分支可以提交或发起评审，但本轮不 push、不创建 PR、不部署。
