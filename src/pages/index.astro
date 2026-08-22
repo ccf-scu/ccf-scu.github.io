@@ -6,10 +6,12 @@ import { categories, sortActivities, visibleAnnouncements, withBase } from "../l
 
 const allActivities = sortActivities(await getCollection("activities"));
 const announcements = visibleAnnouncements(await getCollection("announcements")).slice(0, homepage.announcementLimit);
-const honors = (await getCollection("honors"))
-  .filter((entry) => entry.data.visible && entry.data.featured)
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 4);
+const visibleHonors = (await getCollection("honors"))
+  .filter((entry) => entry.data.visible)
+  .sort((a, b) => b.data.year - a.data.year || Number(b.data.featured) - Number(a.data.featured));
+const honors = visibleHonors.filter((honor, index, entries) =>
+  entries.findIndex((entry) => entry.data.title === honor.data.title) === index,
+).slice(0, 3);
 const categoryOrder = ["academic", "competition", "tutoring", "career"] as const;
 const fallbackImages = [
   "/uploads/featured/ccf-campus-talk.webp",
@@ -76,21 +78,21 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
     <div class="container">
       <div class="section-heading reveal"><div><p class="section-label">02 / ACTIVITIES</p><h2>{homepage.activities.title}</h2></div><p>{homepage.activities.summary}</p></div>
       <div class="activity-lab reveal" data-activity-lab data-active="academic">
-        <div class="lab-bar"><span>SCU CCF / ACTIVITY LAYERS</span><span><i></i> 移动选择　<strong data-layer-index>01 / 04</strong></span></div>
+        <div class="lab-bar"><span>SCU CCF / ACTIVITY LAYERS</span><span><i></i> 点击选择　<strong data-layer-index>01 / 04</strong></span></div>
         <div class="lab-stage">
           <div class="lab-copy" data-layer-copy>
             {activityLayers.map((layer, index) => <article class:list={[{ active: index === 0 }]} data-layer-panel={layer.category}><small>ACTIVE PROGRAM</small><span>{layer.copy.eyebrow}</span><h3>{layer.copy.title}</h3><p>{layer.copy.summary}</p>{layer.activity && <a href={withBase(`/activities/${layer.activity.id}/`)}>查看代表活动 ↗</a>}</article>)}
           </div>
           <div class="layer-rings" aria-hidden="true"><i></i><i></i><i></i></div>
           <div class="possibility-deck">
-            {activityLayers.map((layer, index) => <article class:list={["possibility-sheet", `sheet-${index + 1}`, { active: index === 0 }]} data-layer-card={layer.category}><div><span>{String(index + 1).padStart(2,"0")} / {layer.copy.eyebrow}</span><span>CCF · SCU</span></div><figure><img src={withBase(layer.image)} alt="" loading="lazy" /><b aria-hidden="true">{index === 0 ? "Σ" : index === 1 ? "</>" : index === 2 ? "A+" : "↗"}</b></figure><small>{categories[layer.category]}</small><strong>{layer.activity?.data.title ?? layer.copy.title}</strong></article>)}
+            {activityLayers.map((layer, index) => <article class:list={["possibility-sheet", `sheet-${index + 1}`, { active: index === 0 }]} data-layer-card={layer.category} role="button" tabindex={index === 0 ? "0" : "-1"} aria-label={`选择${categories[layer.category]}`} aria-pressed={index === 0 ? "true" : "false"}><div><span>{String(index + 1).padStart(2,"0")} / {layer.copy.eyebrow}</span><span>CCF · SCU</span></div><figure><img src={withBase(layer.image)} alt="" loading="lazy" /><b aria-hidden="true">{index === 0 ? "Σ" : index === 1 ? "</>" : index === 2 ? "A+" : "↗"}</b></figure><small>{categories[layer.category]}</small><strong>{layer.activity?.data.title ?? layer.copy.title}</strong></article>)}
           </div>
         </div>
         <div class="layer-tabs" role="tablist" aria-label="活动方向">
           {activityLayers.map((layer, index) => <button class:list={[{ active: index === 0 }]} type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} data-layer-tab={layer.category}><span>{String(index + 1).padStart(2,"0")}</span><strong>{categories[layer.category]}</strong></button>)}
         </div>
       </div>
-      <div class="activity-note"><span>i</span><p>当前已整理 {allActivities.length} 条活动档案；浏览完整列表可按类别筛选并查看详情。</p><a href={withBase("/activities/")}>浏览全部活动 ↗</a></div>
+      <div class="activity-note"><span>i</span><p>浏览完整列表可按类别筛选并查看详情。</p><a href={withBase("/activities/")}>浏览全部活动 ↗</a></div>
     </div>
   </section>
 
@@ -117,7 +119,6 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const lab = document.querySelector<HTMLElement>("[data-activity-lab]");
-  const stage = lab?.querySelector<HTMLElement>(".lab-stage");
   const tabs = [...document.querySelectorAll<HTMLButtonElement>("[data-layer-tab]")];
   const panels = [...document.querySelectorAll<HTMLElement>("[data-layer-panel]")];
   const cards = [...document.querySelectorAll<HTMLElement>("[data-layer-card]")];
@@ -126,7 +127,6 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
   let layerTarget = 0;
   let layerFrame = 0;
   let selectedLayer = -1;
-  let layerPointer: number | null = null;
 
   const syncLayer = (position: number) => {
     const activeIndex = Math.max(0, Math.min(cards.length - 1, Math.round(position)));
@@ -153,7 +153,12 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
       tab.tabIndex = active ? 0 : -1;
     });
     panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.layerPanel === category));
-    cards.forEach((card, cardIndex) => card.classList.toggle("active", cardIndex === activeIndex));
+    cards.forEach((card, cardIndex) => {
+      const active = cardIndex === activeIndex;
+      card.classList.toggle("active", active);
+      card.setAttribute("aria-pressed", String(active));
+      card.tabIndex = active ? 0 : -1;
+    });
     if (layerIndex) layerIndex.textContent = `${String(activeIndex + 1).padStart(2, "0")} / 04`;
   };
   const animateLayer = () => {
@@ -178,11 +183,6 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
     }
     if (focus) tabs[Math.round(layerTarget)]?.focus();
   };
-  const setLayerFromPointer = (event: PointerEvent) => {
-    if (!stage) return;
-    const bounds = stage.getBoundingClientRect();
-    setLayer(((event.clientX - bounds.left) / bounds.width) * (cards.length - 1));
-  };
   tabs.forEach((tab, tabIndex) => {
     tab.addEventListener("click", () => setLayer(tabIndex));
     tab.addEventListener("keydown", (event) => {
@@ -192,17 +192,13 @@ const qq = contacts.find((item) => /QQ/i.test(item.label));
       setLayer(next, true);
     });
   });
-  stage?.addEventListener("pointermove", (event) => {
-    if (event.pointerType !== "touch" || layerPointer === event.pointerId) setLayerFromPointer(event);
-  });
-  stage?.addEventListener("pointerdown", (event) => {
-    layerPointer = event.pointerId;
-    stage.setPointerCapture(event.pointerId);
-    setLayerFromPointer(event);
-  });
-  stage?.addEventListener("pointerup", (event) => {
-    if (layerPointer === event.pointerId) layerPointer = null;
-    setLayer(Math.round(layerTarget));
+  cards.forEach((card, cardIndex) => {
+    card.addEventListener("click", () => setLayer(cardIndex));
+    card.addEventListener("keydown", (event) => {
+      if (!['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      setLayer(cardIndex);
+    });
   });
   syncLayer(0);
 

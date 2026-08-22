@@ -1070,6 +1070,13 @@ h4 {
     transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1),
     opacity 0.4s ease;
 }
+.possibility-sheet[role="button"] {
+  cursor: pointer;
+}
+.possibility-sheet[role="button"]:focus-visible {
+  outline: 3px solid var(--layer-accent);
+  outline-offset: 5px;
+}
 .possibility-sheet > div {
   display: flex;
   justify-content: space-between;
@@ -1118,7 +1125,7 @@ h4 {
 }
 .sheet-2 {
   transform: translate(28px, 8px) rotate(5deg);
-  background: #296be4;
+  background: #eceef1;
 }
 .sheet-3 {
   transform: translate(48px, 18px) rotate(9deg);
@@ -1191,7 +1198,7 @@ h4 {
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.75);
   box-shadow: var(--shadow-sm);
-  font-size: 0.82rem;
+  font-size: 0.96rem;
 }
 .activity-note > span {
   width: 22px;
@@ -1210,6 +1217,7 @@ h4 {
 }
 .activity-note a {
   font-weight: 700;
+  font-size: 1rem;
 }
 
 /* Achievements */
@@ -1307,7 +1315,7 @@ h4 {
 }
 .archive-sheet-2 {
   transform: translate(-45%, -47%) rotate(7deg);
-  background: #2a6edf;
+  background: #e8ebef;
 }
 .archive-sheet-3 {
   transform: translate(-40%, -43%) rotate(12deg);
@@ -1823,8 +1831,8 @@ h4 {
 }
 .prose-shell {
   display: grid;
-  grid-template-columns: minmax(0, 780px) 300px;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: clamp(64px, 6vw, 84px);
   align-items: start;
 }
 .prose {
@@ -1837,8 +1845,16 @@ h4 {
 }
 .prose img,
 .prose video {
+  width: auto;
+  height: auto;
   max-width: 100%;
   border-radius: var(--radius-sm);
+}
+.prose .activity-detail-cover {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 .prose pre,
 .prose table {
@@ -1883,18 +1899,25 @@ h4 {
   font-size: 2rem;
 }
 .member-card {
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: #fff;
-}
-.member-card summary {
+  width: 100%;
   min-height: 80px;
   padding: 16px;
   display: flex;
   align-items: center;
   gap: 12px;
+  text-align: left;
+  color: inherit;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #fff;
   cursor: pointer;
-  list-style: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+.member-card:hover,
+.member-card:focus-visible {
+  border-color: rgba(42, 103, 223, 0.45);
+  box-shadow: 0 12px 28px rgba(26, 40, 72, 0.1);
+  transform: translateY(-2px);
 }
 .member-avatar {
   width: 46px;
@@ -1912,15 +1935,93 @@ h4 {
   height: 100%;
   object-fit: cover;
 }
-.member-card summary span:last-child {
+.member-card > span:last-child {
   display: grid;
 }
-.member-card summary small {
+.member-card small {
   color: var(--muted);
 }
 .member-profile {
-  padding: 0 16px 16px;
   color: var(--muted);
+}
+.member-dialog {
+  width: min(760px, calc(100% - 40px));
+  max-width: none;
+  max-height: min(82vh, 820px);
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 24px;
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 36px 100px rgba(6, 10, 20, 0.36);
+}
+.member-dialog::backdrop {
+  background: rgba(7, 10, 17, 0.68);
+  backdrop-filter: blur(7px);
+}
+.member-dialog-shell {
+  max-height: min(82vh, 820px);
+  padding: clamp(24px, 4vw, 44px);
+  overflow: auto;
+}
+.member-dialog header,
+.member-dialog-identity {
+  display: flex;
+  align-items: center;
+}
+.member-dialog header {
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--line);
+}
+.member-dialog-identity {
+  gap: 18px;
+}
+.member-dialog-identity h2,
+.member-dialog-identity p {
+  margin: 0;
+}
+.member-dialog-identity h2 {
+  margin-top: 4px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+  line-height: 1.05;
+}
+.member-dialog-identity p:last-child {
+  margin-top: 7px;
+  color: var(--muted);
+}
+.member-dialog-avatar {
+  width: 74px;
+  height: 74px;
+  flex: 0 0 auto;
+  font-size: 1.5rem;
+}
+.member-dialog-close {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.member-dialog .member-profile {
+  padding-top: 24px;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.member-dialog .member-profile > :first-child {
+  margin-top: 0;
+}
+.member-dialog .member-profile > :last-child {
+  margin-bottom: 0;
+}
+body.member-dialog-locked {
+  overflow: hidden;
 }
 .search-box {
   display: grid;

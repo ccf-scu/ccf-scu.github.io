@@ -47,6 +47,9 @@ test("desktop home has identity, content, no overflow, and no CMS bundle", async
 
 test("home activity instrument changes the visible layer", async ({ page }) => {
   await page.goto("/");
+  await page.locator(".lab-stage").hover({ position: { x: 500, y: 200 } });
+  await page.mouse.move(900, 500);
+  await expect(page.locator("[data-activity-lab]")).toHaveAttribute("data-active", "academic");
   const competition = page.locator("[data-layer-tab='competition']");
   await competition.click();
   await expect(competition).toHaveAttribute("aria-selected", "true");
@@ -54,6 +57,21 @@ test("home activity instrument changes the visible layer", async ({ page }) => {
   await expect(page.locator("[data-layer-panel='competition']")).toHaveClass(/active/);
   await competition.press("ArrowRight");
   await expect(page.locator("[data-layer-tab='tutoring']")).toHaveAttribute("aria-selected", "true");
+  await page.waitForTimeout(700);
+  const careerCard = page.locator("[data-layer-card='career']");
+  const clickablePoint = await careerCard.evaluate((card) => {
+    const bounds = card.getBoundingClientRect();
+    for (let x = bounds.right - 4; x > bounds.left; x -= 8) {
+      for (let y = bounds.top + 8; y < bounds.bottom; y += 12) {
+        if (document.elementFromPoint(x, y)?.closest("[data-layer-card]") === card) return { x, y };
+      }
+    }
+    return null;
+  });
+  expect(clickablePoint).not.toBeNull();
+  await page.mouse.click(clickablePoint.x, clickablePoint.y);
+  await expect(page.locator("[data-layer-tab='career']")).toHaveAttribute("aria-selected", "true");
+  await expect(careerCard).toHaveAttribute("aria-pressed", "true");
 });
 
 test("header search opens a full-screen dialog, searches locally, and restores focus", async ({ page }) => {
@@ -68,6 +86,8 @@ test("header search opens a full-screen dialog, searches locally, and restores f
   await expect(dialog.locator("[data-search-count]")).toContainText("1 条结果");
   await expect(dialog.locator("[data-search-results]")).toContainText("腾讯");
   await page.screenshot({ path: `${screenshots}/search-dialog-desktop.png` });
+  await dialog.click({ position: { x: 8, y: 8 } });
+  await expect(dialog).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();
   await expect(trigger).toBeFocused();
@@ -89,16 +109,22 @@ test("activity filter and sharing interactions update observable state", async (
   await expect(page.locator("[data-share-status]")).toHaveText("二维码已生成");
 });
 
-test("search and member disclosure work", async ({ page }) => {
+test("search and member dialog work", async ({ page }) => {
   await page.goto("/search/");
   const searchPage = page.locator(".search-page");
   await searchPage.getByRole("searchbox").fill("腾讯");
   await expect(searchPage.locator("[data-search-count]")).toContainText("1 条结果");
   await expect(searchPage.locator("[data-search-results]")).toContainText("腾讯");
   await page.goto("/archive/");
-  const member = page.locator("details.member-card").first();
-  await member.locator("summary").click();
-  await expect(member).toHaveAttribute("open", "");
+  const member = page.locator("button.member-card").first();
+  await member.click();
+  const dialog = page.locator("[data-member-dialog][open]");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("button", { name: /关闭.+的介绍/ })).toBeFocused();
+  await page.screenshot({ path: `${screenshots}/member-dialog-desktop.png` });
+  await dialog.getByRole("button", { name: /关闭.+的介绍/ }).click();
+  await expect(dialog).not.toBeVisible();
+  await expect(member).toBeFocused();
 });
 
 test("public inner pages share the visual system without layout regressions", async ({ page }) => {

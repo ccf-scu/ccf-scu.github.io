@@ -50,7 +50,7 @@
 
 ## 成员 `src/content/members/*.md`
 
-字段：`name`、`role`、`cohort`、`order`、可选照片及替代文本、`visible` 和 Markdown 个人简介。个人简介初始为空，可插入图片；不生成独立成员详情页，在列表内展开或弹层展示。
+字段：`name`、`role`、`cohort`、`order`、可选照片及替代文本、`visible`、`profileConfirmed` 和 Markdown 个人简介。个人简介初始为空，可写段落并插入图片；不生成独立成员详情页，点击成员卡片后在可关闭的模态介绍框中展示。`profileConfirmed: false` 时不公开正文。
 
 ## 公共 YAML
 

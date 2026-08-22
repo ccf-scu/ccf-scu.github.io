@@ -70,9 +70,6 @@ document.querySelectorAll<HTMLAnchorElement>("[data-search-open]").forEach((trig
   });
 });
 dialog?.querySelector("[data-search-close]")?.addEventListener("click", () => dialog.close());
-dialog?.addEventListener("click", (event) => {
-  if (event.target === dialog) dialog.close();
-});
 dialog?.addEventListener("close", () => {
   document.body.classList.remove("search-locked");
   searchTrigger?.focus();
