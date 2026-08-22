@@ -1,6 +1,6 @@
 teachers:
-  - name: 待负责人确认
-    title: 指导老师资料占位
-    summary: 正式发布前由分会负责人提供并确认公开范围。
+  - name: 张婷婷
+    title: 指导老师
+    summary: 四川大学计算机学院研究生辅导员
     order: 1
-    visible: false
+    visible: true
