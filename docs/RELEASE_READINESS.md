@@ -18,3 +18,11 @@
 | 分会负责人批准生产切换窗口 | 已确认 | 项目负责人 / 2026-08-22 / 本次明确批准全量上线 |
 
 批准人：项目负责人（本次上线批准）  日期：2026-08-22  目标版本：`astro-launch-2026-08-22`  回滚 commit：`b904313`
+
+## 生产发布结果
+
+- 发布 PR：[#1](https://github.com/ccf-scu/ccf-scu.github.io/pull/1)，生产 commit：`0e9f197f3f23eb212ebbba0cecbf844183111941`；
+- 发布任务：[Deploy production site #1](https://github.com/ccf-scu/ccf-scu.github.io/actions/runs/32557381718)，结论：成功；
+- 生产站点：`https://ccf-scu.github.io/`，主要页面、CMS 配置、robots 与 sitemap 均通过线上冒烟检查；
+- OAuth：健康检查返回 `configured: true`，生产授权入口成功跳转 GitHub；
+- 回滚基线：标签 `pre-astro-launch-2026-08-22`，commit `b904313`。

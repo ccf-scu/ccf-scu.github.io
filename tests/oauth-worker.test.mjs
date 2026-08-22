@@ -31,6 +31,15 @@ test("OAuth Worker fails closed while GitHub secrets are absent", async () => {
   assert.equal(response.status, 503);
 });
 
+test("OAuth Worker accepts Decap's hostname-only site_id", async () => {
+  const response = await worker.fetch(
+    new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=ccf-scu.github.io`),
+    { ...env, GITHUB_OAUTH_ID: "test-client", GITHUB_OAUTH_SECRET: "test-secret" },
+  );
+  assert.equal(response.status, 302);
+  assert.equal(new URL(response.headers.get("Location")).origin, "https://github.com");
+});
+
 test("OAuth Worker generates a scoped GitHub redirect and state cookie", async () => {
   const response = await worker.fetch(
     new Request(`${env.OAUTH_BASE_URL}/auth?provider=github&site_id=https://ccf-scu.github.io/admin/`),
