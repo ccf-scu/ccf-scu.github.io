@@ -1,0 +1,261 @@
+locale: zh_Hans
+local_backend: true
+
+backend:
+  name: github
+  repo: ccf-scu/ccf-scu.github.io
+  branch: main
+  base_url: https://ccf-scu-cms-oauth.1632145935.workers.dev
+  auth_endpoint: auth
+
+publish_mode: editorial_workflow
+media_folder: public/uploads
+public_folder: /uploads
+site_url: https://ccf-scu.github.io
+display_url: https://ccf-scu.github.io
+logo_url: /images/brand/ccf-logo.png
+
+collections:
+  - name: activities
+    label: 活动
+    label_singular: 活动
+    folder: src/content/activities
+    create: true
+    delete: false
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} · {{category}} · {{startAt}}"
+    editor:
+      preview: false
+    fields:
+      - { label: 标题, name: title, widget: string, hint: 用于页面标题和搜索结果 }
+      - { label: 摘要, name: summary, widget: text, hint: 建议 60–120 字，用于卡片和分享 }
+      - { label: 封面图片, name: cover, widget: image, hint: 建议 3:2，上传前确认授权 }
+      - { label: 封面替代文本, name: coverAlt, widget: string, hint: 描述图片内容，不写“图片”二字 }
+      - label: 分类
+        name: category
+        widget: select
+        options:
+          - { label: 学术引领, value: academic }
+          - { label: 竞赛训练, value: competition }
+          - { label: 学业帮扶, value: tutoring }
+          - { label: 生涯发展, value: career }
+          - { label: 组织建设, value: organization }
+      - { label: 开始时间, name: startAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: 结束时间, name: endAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: 首页置顶, name: featured, widget: boolean, default: false }
+      - { label: 首页显示, name: showOnHomepage, widget: boolean, default: true }
+      - { label: 归档/下架, name: archived, widget: boolean, default: false, hint: 已发布内容不要删除，使用此开关下架 }
+      - { label: 原始资料链接, name: sourceUrl, widget: string, required: false }
+      - { label: 正文, name: body, widget: vditor, hint: 保存为标准 Markdown；编辑器异常时自动回退到文本框 }
+
+  - name: announcements
+    label: 公告
+    folder: src/content/announcements
+    create: true
+    delete: false
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 摘要, name: summary, widget: text }
+      - { label: 发布时间, name: publishedAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: 失效时间, name: expiresAt, widget: datetime, required: false, format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: 置顶, name: featured, widget: boolean, default: false }
+      - { label: 显示, name: visible, widget: boolean, default: true }
+      - { label: 链接, name: link, widget: string, required: false, hint: 仅填写站内路径或 HTTPS 地址 }
+      - { label: 正文, name: body, widget: vditor, required: false }
+
+  - name: members
+    label: 成员
+    folder: src/content/members
+    create: true
+    delete: false
+    extension: md
+    format: frontmatter
+    slug: "{{cohort}}-{{slug}}"
+    fields:
+      - { label: 姓名, name: name, widget: string }
+      - { label: 职务, name: role, widget: string }
+      - { label: 届次, name: cohort, widget: string, hint: 例如“第十五届（2025–2026）” }
+      - { label: 排序, name: order, widget: number, value_type: int, default: 0 }
+      - { label: 照片, name: photo, widget: image, required: false }
+      - { label: 照片替代文本, name: photoAlt, widget: string, required: false }
+      - { label: 显示, name: visible, widget: boolean, default: true }
+      - { label: 简介已获确认, name: profileConfirmed, widget: boolean, default: false }
+      - { label: 弹窗个人介绍, name: body, widget: vditor, required: false, hint: 显示在点击执委卡片后打开的介绍框中；支持段落与插入图片，仅在本人或负责人确认后公开 }
+
+  - name: honors
+    label: 荣誉与成果
+    folder: src/content/honors
+    create: true
+    delete: false
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{slug}}"
+    fields:
+      - { label: 标题, name: title, widget: string }
+      - { label: 年份, name: year, widget: number, value_type: int }
+      - { label: 图片, name: image, widget: image, required: false }
+      - { label: 图片替代文本, name: imageAlt, widget: string, required: false }
+      - { label: 首页精选, name: featured, widget: boolean, default: false }
+      - { label: 显示, name: visible, widget: boolean, default: true }
+      - { label: 说明, name: body, widget: vditor, required: false }
+
+  - name: settings
+    label: 站点设置
+    delete: false
+    files:
+      - label: 首页设置
+        name: homepage
+        file: src/data/homepage.yml
+        fields:
+          - label: Banner
+            name: hero
+            widget: object
+            fields:
+              - { label: 眉题, name: eyebrow, widget: string }
+              - { label: 主标题第一行, name: title, widget: string }
+              - { label: 主标题第二行, name: titleLineTwo, widget: string }
+              - { label: 强调词, name: titleAccent, widget: string, hint: 使用首页蓝色衬线样式显示 }
+              - { label: 副标题, name: subtitle, widget: text }
+              - { label: 主按钮文字, name: primaryLabel, widget: string }
+              - { label: 主按钮链接, name: primaryLink, widget: string }
+              - { label: 次按钮文字, name: secondaryLabel, widget: string }
+              - { label: 次按钮链接, name: secondaryLink, widget: string }
+          - label: 分会简介
+            name: introduction
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 摘要, name: summary, widget: text }
+              - { label: 详情入口文字, name: linkLabel, widget: string }
+              - { label: 详情入口链接, name: link, widget: string }
+              - label: 三项原则
+                name: principles
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 中文标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+              - { label: 引用文字, name: quote, widget: string }
+              - { label: 引用署名, name: quoteAttribution, widget: string }
+          - label: 活动章节
+            name: activities
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - label: 四个活动方向
+                name: directions
+                widget: list
+                min: 4
+                max: 4
+                fields:
+                  - { label: 类别, name: category, widget: select, options: [{ label: 学术引领, value: academic }, { label: 竞赛训练, value: competition }, { label: 学业帮扶, value: tutoring }, { label: 生涯发展, value: career }] }
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 中文标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+          - label: 成果章节
+            name: achievements
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - { label: 档案标题, name: archiveTitle, widget: string }
+              - { label: 档案说明, name: archiveSummary, widget: text }
+              - { label: 档案入口文字, name: archiveLinkLabel, widget: string }
+              - { label: 档案入口链接, name: archiveLink, widget: string }
+              - label: 时间轴
+                name: timeline
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 年份, name: year, widget: string }
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+          - label: 开源章节
+            name: openSource
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - { label: 仓库按钮文字, name: repositoryLabel, widget: string }
+          - label: 招募信息
+            name: recruitment
+            widget: object
+            fields:
+              - { label: 状态, name: status, widget: select, options: [{ label: 开放, value: open }, { label: 关闭, value: closed }, { label: 筹备中, value: preparing }] }
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - { label: 主按钮文字, name: primaryLabel, widget: string }
+              - { label: 主按钮链接, name: primaryLink, widget: string }
+              - { label: 次按钮文字, name: secondaryLabel, widget: string }
+              - { label: 次按钮链接, name: secondaryLink, widget: string }
+              - label: 加入路径
+                name: routes
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+          - { label: 首页活动数量, name: featuredActivityLimit, widget: number, value_type: int, min: 1, max: 12 }
+          - { label: 首页公告数量, name: announcementLimit, widget: number, value_type: int, min: 1, max: 10 }
+      - label: 分会信息
+        name: organization
+        file: src/data/organization.yml
+        fields:
+          - { label: 全称, name: name, widget: string }
+          - { label: 简称, name: shortName, widget: string }
+          - { label: 简介, name: description, widget: text }
+          - { label: 成立年份, name: founded, widget: string }
+          - { label: 分会序号, name: chapterNumber, widget: string }
+      - label: 指导老师
+        name: teachers
+        file: src/data/teachers.yml
+        fields:
+          - label: 指导老师列表
+            name: teachers
+            widget: list
+            fields:
+              - { label: 姓名, name: name, widget: string }
+              - { label: 职务/职称, name: title, widget: string }
+              - { label: 简介, name: summary, widget: text }
+              - { label: 照片, name: photo, widget: image, required: false }
+              - { label: 替代文本, name: photoAlt, widget: string, required: false }
+              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示, name: visible, widget: boolean, default: true }
+      - label: 友情链接
+        name: links
+        file: src/data/links.yml
+        fields:
+          - label: 链接列表
+            name: links
+            widget: list
+            fields:
+              - { label: 名称, name: name, widget: string }
+              - { label: HTTPS 地址, name: url, widget: string }
+              - { label: 类型, name: category, widget: select, options: [{ label: 官方机构, value: official }, { label: 合作组织, value: partner }, { label: 社团, value: community }] }
+              - { label: 用途, name: placement, widget: select, options: [{ label: 普通链接, value: general }, { label: 代码仓库, value: repository }, { label: 页脚链接, value: footer }], default: general, hint: 首页开源按钮读取“代码仓库”用途的首项 }
+              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示, name: visible, widget: boolean, default: true }
+      - label: 联系方式
+        name: contact
+        file: src/data/contact.yml
+        fields:
+          - label: 联系方式列表
+            name: contacts
+            widget: list
+            fields:
+              - { label: 标签, name: label, widget: string }
+              - { label: 显示值, name: value, widget: string }
+              - { label: 链接, name: link, widget: string, required: false }
+              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示, name: visible, widget: boolean, default: true }

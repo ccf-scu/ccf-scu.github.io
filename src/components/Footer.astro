@@ -1,0 +1,20 @@
+---
+import { contacts } from "../lib/site";
+import { withBase } from "../lib/content";
+---
+
+<footer class="site-footer">
+  <div class="footer-shell">
+    <a class="brand brand-footer" href={withBase("/")} aria-label="返回首页">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-copy"><strong>CCF · SCU</strong><small>四川大学学生分会</small></span>
+    </a>
+    <div class="footer-links">
+      {contacts.map((item) => item.link ? <a href={item.link}>{item.label} · {item.value}</a> : <span>{item.label} · {item.value}</span>)}
+      <a href={withBase("/privacy/")}>隐私说明</a>
+    </div>
+    <p class="footer-meta">© {new Date().getFullYear()} CCF Sichuan University Student Chapter</p>
+    <p class="footer-note">连接知识、同伴与更大的计算机共同体</p>
+    <a class="back-to-top" href="#main-content" aria-label="返回顶部">↑</a>
+  </div>
+</footer>

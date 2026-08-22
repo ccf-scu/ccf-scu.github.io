@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ActivityCard from "../../components/ActivityCard.astro";
+import { categories, sortActivities } from "../../lib/content";
+const activities = sortActivities(await getCollection("activities"));
+---
+
+<BaseLayout title="活动中心" description="浏览 CCF 四川大学学生分会的近期活动与历史回顾。">
+  <header class="page-hero"><p class="eyebrow">ACTIVITIES</p><h1>活动中心</h1><p>按类别筛选学术、竞赛、学业、生涯与组织建设活动，进入详情页查看完整记录。</p></header>
+  <section class="page-section"><div class="page-container">
+    <div class="filters" aria-label="活动分类筛选">
+      <button class="filter-button" type="button" data-filter="all" aria-pressed="true">全部</button>
+      {Object.entries(categories).map(([value,label]) => <button class="filter-button" type="button" data-filter={value} aria-pressed="false">{label}</button>)}
+    </div>
+    <div class="activities-list" data-activity-list>
+      {activities.map((activity) => <div data-category={activity.data.category}><ActivityCard activity={activity} /></div>)}
+    </div>
+    <p class="empty-state" data-filter-empty hidden>该分类暂无公开活动。</p>
+  </div></section>
+</BaseLayout>
+
+<script>
+  const buttons = [...document.querySelectorAll("[data-filter]")];
+  const items = [...document.querySelectorAll("[data-category]")];
+  const empty = document.querySelector("[data-filter-empty]");
+  buttons.forEach((button) => button.addEventListener("click", () => {
+    const filter = button.getAttribute("data-filter");
+    buttons.forEach((entry) => entry.setAttribute("aria-pressed", String(entry === button)));
+    let visible = 0;
+    items.forEach((item) => {
+      const show = filter === "all" || item.getAttribute("data-category") === filter;
+      item.toggleAttribute("hidden", !show);
+      if (show) visible += 1;
+    });
+    empty?.toggleAttribute("hidden", visible !== 0);
+  }));
+</script>

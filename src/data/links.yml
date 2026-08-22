@@ -1,0 +1,25 @@
+links:
+  - name: 中国计算机学会
+    url: https://www.ccf.org.cn/
+    category: official
+    placement: general
+    order: 1
+    visible: true
+  - name: 四川大学
+    url: https://www.scu.edu.cn/
+    category: official
+    placement: general
+    order: 2
+    visible: true
+  - name: 四川大学计算机学院
+    url: https://cs.scu.edu.cn/
+    category: official
+    placement: general
+    order: 3
+    visible: true
+  - name: CCF 四川大学学生分会 GitHub
+    url: https://github.com/ccf-scu/ccf-scu.github.io
+    category: community
+    placement: repository
+    order: 4
+    visible: true

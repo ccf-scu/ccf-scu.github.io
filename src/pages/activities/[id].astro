@@ -1,0 +1,40 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { activityStatus, categories, formatDateRange, withBase } from "../../lib/content";
+
+export async function getStaticPaths() {
+  return (await getCollection("activities", ({ data }) => !data.archived)).map((activity) => ({ params: { id: activity.id }, props: { activity } }));
+}
+const { activity } = Astro.props;
+const { Content } = await render(activity);
+---
+
+<BaseLayout title={activity.data.title} description={activity.data.summary} image={activity.data.cover}>
+  <header class="page-hero"><p class="eyebrow">{categories[activity.data.category]} · {activityStatus(activity.data.startAt, activity.data.endAt)}</p><h1>{activity.data.title}</h1><p>{activity.data.summary}</p></header>
+  <section class="page-section"><div class="page-container prose-shell">
+    <article class="prose"><img class="activity-detail-cover" src={withBase(activity.data.cover)} alt={activity.data.coverAlt} /><p><strong>活动时间：</strong>{formatDateRange(activity.data.startAt, activity.data.endAt)}</p><Content /></article>
+    <aside class="detail-aside"><p class="eyebrow">SHARE</p><h2>分享活动</h2><div class="share-actions"><button type="button" data-copy-link disabled>复制链接</button><button type="button" data-show-qr disabled>生成二维码</button></div><div class="qr-panel" data-qr-panel hidden><img data-qr-image alt="当前活动页面二维码" /></div><p aria-live="polite" data-share-status></p></aside>
+  </div></section>
+</BaseLayout>
+
+<script>
+  import QRCode from "qrcode";
+  const status = document.querySelector("[data-share-status]");
+  const copyButton = document.querySelector("[data-copy-link]");
+  const qrButton = document.querySelector("[data-show-qr]");
+  copyButton?.removeAttribute("disabled");
+  qrButton?.removeAttribute("disabled");
+  copyButton?.addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(location.href); if (status) status.textContent = "链接已复制"; }
+    catch { if (status) status.textContent = "复制失败，请从地址栏复制"; }
+  });
+  qrButton?.addEventListener("click", async () => {
+    const panel = document.querySelector("[data-qr-panel]");
+    const image = document.querySelector("[data-qr-image]");
+    if (!(panel instanceof HTMLElement) || !(image instanceof HTMLImageElement)) return;
+    image.src = await QRCode.toDataURL(location.href, { width: 240, margin: 2, color: { dark: "#171316", light: "#fffaf4" } });
+    panel.hidden = false;
+    if (status) status.textContent = "二维码已生成";
+  });
+</script>

@@ -1,0 +1,13 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { withBase } from "../lib/content";
+import { buildSearchIndex } from "../lib/search";
+const searchIndex = buildSearchIndex(await getCollection("activities"), await getCollection("members"));
+const serializedIndex = JSON.stringify(searchIndex).replaceAll("<", "\\u003c");
+---
+
+<BaseLayout title="全站搜索" description="搜索分会活动、成员和公开档案。">
+  <header class="page-hero"><p class="eyebrow">SEARCH</p><h1>全站搜索</h1><p>搜索活动标题、摘要、类别与公开成员资料；搜索在浏览器本地完成。</p></header>
+  <section class="page-section"><div class="page-container search-page" data-search-root data-search-initial-query="url"><form class="search-box" role="search" data-search-form><label class="sr-only" for="search-query">搜索关键词</label><input id="search-query" name="q" type="search" autocomplete="off" placeholder="例如：学术报告、竞赛、2025" data-search-input /><button class="button button-primary" type="submit">搜索</button></form><p data-search-count aria-live="polite">输入关键词开始搜索。</p><div class="search-results" data-search-results></div><noscript><div class="empty-state">本地搜索需要 JavaScript；你仍可浏览<a href={withBase("/activities/")}>全部活动</a>或<a href={withBase("/archive/")}>历史档案</a>。</div></noscript><script is:inline type="application/json" data-search-index set:html={serializedIndex}></script></div></section>
+</BaseLayout>

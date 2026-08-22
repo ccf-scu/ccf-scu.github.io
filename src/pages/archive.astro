@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { sortMembersByCohort, withBase } from "../lib/content";
+const members = sortMembersByCohort(await getCollection("members", ({ data }) => data.visible));
+const cohorts = Map.groupBy(members, (entry) => entry.data.cohort);
+const honors = (await getCollection("honors", ({ data }) => data.visible)).sort((a,b) => b.data.year - a.data.year);
+const rendered = new Map();
+for (const member of members) rendered.set(member.id, (await render(member)).Content);
+---
+
+<BaseLayout title="历史档案" description="CCF 四川大学学生分会历届执委、荣誉与发展记录。">
+  <header class="page-hero"><p class="eyebrow">CHAPTER ARCHIVE</p><h1>历史档案</h1><p>记录每一届共同建设分会的同学，也保存活动、荣誉和品牌项目的公开资料。</p></header>
+  <section class="page-section"><div class="page-container"><div class="section-head"><div><p class="eyebrow">HONORS</p><h2>荣誉与成果</h2></div><p>按年份回看分会的集体荣誉、品牌活动与成长坐标。</p></div>{honors.length ? <div class="activity-grid">{honors.map((honor) => <article class="activity-card">{honor.data.image && <div class="activity-media"><img src={withBase(honor.data.image)} alt={honor.data.imageAlt ?? honor.data.title} loading="lazy" /></div>}<div class="activity-copy"><p class="eyebrow">{honor.data.year}</p><h3>{honor.data.title}</h3></div></article>)}</div> : <div class="empty-state">更多荣誉记录将持续更新。</div>}</div></section>
+  <section class="page-section"><div class="page-container"><div class="section-head"><div><p class="eyebrow">COMMITTEES</p><h2>历届执委</h2></div><p>点击卡片查看每一届伙伴留下的独特一程。</p></div>{[...cohorts.entries()].map(([cohort,entries]) => <section class="member-group"><h2>{cohort}</h2><div class="member-grid">{entries.map((member) => { const Content = rendered.get(member.id); return <>
+    <button class="member-card" type="button" data-member-open={member.id} aria-haspopup="dialog"><span class="member-avatar">{member.data.photo ? <img src={withBase(member.data.photo)} alt={member.data.photoAlt ?? member.data.name} /> : member.data.name.slice(0,1)}</span><span><strong>{member.data.name}</strong><small>{member.data.role}</small></span></button>
+    <dialog class="member-dialog" data-member-dialog={member.id} aria-labelledby={`member-title-${member.id}`}><div class="member-dialog-shell"><header><div class="member-dialog-identity"><span class="member-avatar member-dialog-avatar">{member.data.photo ? <img src={withBase(member.data.photo)} alt="" /> : member.data.name.slice(0,1)}</span><div><p class="eyebrow">{member.data.cohort}</p><h2 id={`member-title-${member.id}`}>{member.data.name}</h2><p>{member.data.role}</p></div></div><button class="member-dialog-close" type="button" data-member-close aria-label={`关闭${member.data.name}的介绍`}>×</button></header><div class="member-profile prose">{member.data.profileConfirmed && Content ? <Content /> : <p>个人介绍尚待确认。</p>}</div></div></dialog>
+  </> })}</div></section>)}</div></section>
+</BaseLayout>
+
+<script>
+  import "../scripts/member-dialog";
+</script>

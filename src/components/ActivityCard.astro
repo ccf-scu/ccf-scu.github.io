@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { activityStatus, categories, formatDateRange, withBase } from "../lib/content";
+
+interface Props { activity: CollectionEntry<"activities">; compact?: boolean }
+const { activity, compact = false } = Astro.props;
+const { data } = activity;
+---
+
+<article class:list={["activity-card", { compact }]}>
+  <a class="activity-media" href={withBase(`/activities/${activity.id}/`)} tabindex="-1" aria-hidden="true">
+    <img src={withBase(data.cover)} alt="" loading="lazy" width="960" height="640" />
+  </a>
+  <div class="activity-copy">
+    <div class="activity-meta">
+      <span>{categories[data.category]}</span>
+      <time datetime={data.startAt.toISOString()}>{formatDateRange(data.startAt, data.endAt)}</time>
+      <b>{activityStatus(data.startAt, data.endAt)}</b>
+    </div>
+    <h3><a href={withBase(`/activities/${activity.id}/`)}>{data.title}</a></h3>
+    <p>{data.summary}</p>
+  </div>
+</article>

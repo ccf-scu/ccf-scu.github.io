@@ -1,0 +1,419 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contacts, homepage, links } from "../lib/site";
+import { categories, sortActivities, visibleAnnouncements, withBase } from "../lib/content";
+
+const allActivities = sortActivities(await getCollection("activities"));
+const announcements = visibleAnnouncements(await getCollection("announcements")).slice(0, homepage.announcementLimit);
+const visibleHonors = (await getCollection("honors"))
+  .filter((entry) => entry.data.visible)
+  .sort((a, b) => b.data.year - a.data.year || Number(b.data.featured) - Number(a.data.featured));
+const honors = visibleHonors.filter((honor, index, entries) =>
+  entries.findIndex((entry) => entry.data.title === honor.data.title) === index,
+).slice(0, 3);
+const categoryOrder = ["academic", "competition", "tutoring", "career"] as const;
+const fallbackImages = [
+  "/uploads/featured/ccf-campus-talk.webp",
+  "/uploads/featured/algorithm-training.webp",
+  "/uploads/featured/full-marks-review.webp",
+  "/uploads/featured/tencent-visit.webp",
+];
+const activityLayers = categoryOrder.map((category, index) => ({
+  category,
+  activity: allActivities.find((entry) => entry.data.category === category),
+  copy: homepage.activities.directions.find((entry) => entry.category === category)!,
+  image: allActivities.find((entry) => entry.data.category === category)?.data.cover ?? fallbackImages[index],
+}));
+const github = links.find((link) => link.placement === "repository");
+const qq = contacts.find((item) => /QQ/i.test(item.label));
+---
+
+<BaseLayout>
+  <section class="resonance-hero" data-resonance-hero tabindex="0" aria-label="知识共振场，可使用指针、触摸或方向键改变背景波纹">
+    <canvas class="resonance-canvas" data-resonance-canvas aria-hidden="true"></canvas>
+    <div class="resonance-field" aria-hidden="true">
+      <i class="field-orbit orbit-one"></i><i class="field-orbit orbit-two"></i>
+      <i class="field-node node-one"></i><i class="field-node node-two"></i><i class="field-node node-three"></i>
+    </div>
+    <div class="resonance-coordinates" aria-hidden="true"><span>30.57° N / 104.07° E</span><span>FIELD 01 / SCU CCF</span></div>
+    <div class="container resonance-shell">
+      <div class="resonance-topline"><span>SCU CCF / KNOWLEDGE RESONANCE FIELD</span><span class="resonance-live"><i></i><strong data-resonance-state>等待一次移动</strong></span></div>
+      <div class="resonance-copy reveal">
+        <p class="eyebrow resonance-eyebrow"><span></span>{homepage.hero.eyebrow}</p>
+        <h1><span>{homepage.hero.title}</span><br /><span>{homepage.hero.titleLineTwo}</span><em>{homepage.hero.titleAccent}</em></h1>
+        <p class="hero-lead">{homepage.hero.subtitle}</p>
+        <div class="hero-actions">
+          <a class="button button-white" href={withBase(homepage.hero.primaryLink)}>{homepage.hero.primaryLabel}<span>↗</span></a>
+          <a class="button button-glass" href={withBase(homepage.hero.secondaryLink)}>{homepage.hero.secondaryLabel} <span>↓</span></a>
+        </div>
+      </div>
+      <div class="resonance-readout" aria-hidden="true"><span>INPUT ENERGY</span><strong data-resonance-energy>008%</strong><i><b data-resonance-meter></b></i><small>QUESTION → KNOWLEDGE → COMMUNITY</small></div>
+      <div class="resonance-foot"><span>向下探索我们的学术社区</span><i></i><span>MOVE&nbsp;&nbsp; TOUCH&nbsp;&nbsp; ARROW KEYS</span></div>
+    </div>
+  </section>
+
+  <section class="section about-section" id="about">
+    <div class="container">
+      {announcements.length > 0 && <div class="announcement-strip">{announcements.map((entry) => <p><strong>NOTICE</strong><span>{entry.data.title} · {entry.data.summary}</span></p>)}</div>}
+      <div class="split-heading reveal">
+        <div><p class="section-label">01 / ABOUT</p><h2>{homepage.introduction.title}</h2></div>
+        <div class="section-intro"><p>{homepage.introduction.summary}</p><a class="text-link" href={withBase(homepage.introduction.link)}>{homepage.introduction.linkLabel} <span>↘</span></a></div>
+      </div>
+      <div class="chapter-spectrum">
+        <div class="spectrum-instrument reveal" aria-hidden="true">
+          <div class="instrument-topline"><span>THE CHAPTER / CCF × SCU</span><span>01 — 03</span></div>
+          <div class="spectrum-space"><i class="spectrum-orbit orbit-a"></i><i class="spectrum-orbit orbit-b"></i><i class="spectrum-orbit orbit-c"></i><span class="word word-a">RESEARCH</span><span class="word word-b">BUILD</span><span class="word word-c">TOGETHER</span><strong>∞</strong></div>
+          <div class="instrument-caption"><span>ONE COMMUNITY</span><span>MORE THAN ONE DIRECTION</span></div>
+        </div>
+        <div class="chapter-principles">
+          {homepage.introduction.principles.map((principle, index) => <article class="principle-row reveal"><span>{String(index + 1).padStart(2, "0")}</span><div><small>{principle.eyebrow}</small><h3>{principle.title}</h3><p>{principle.summary}</p></div></article>)}
+        </div>
+        <blockquote class="spectrum-quote reveal"><span>“{homepage.introduction.quote}”</span><cite>SCU CCF<br />{homepage.introduction.quoteAttribution}</cite></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="section activity-section" id="activities">
+    <div class="container">
+      <div class="section-heading reveal"><div><p class="section-label">02 / ACTIVITIES</p><h2>{homepage.activities.title}</h2></div><p>{homepage.activities.summary}</p></div>
+      <div class="activity-lab reveal" data-activity-lab data-active="academic">
+        <div class="lab-bar"><span>SCU CCF / ACTIVITY LAYERS</span><span><i></i> 点击选择　<strong data-layer-index>01 / 04</strong></span></div>
+        <div class="lab-stage">
+          <div class="lab-copy" data-layer-copy>
+            {activityLayers.map((layer, index) => <article class:list={[{ active: index === 0 }]} data-layer-panel={layer.category}><small>ACTIVE PROGRAM</small><span>{layer.copy.eyebrow}</span><h3>{layer.copy.title}</h3><p>{layer.copy.summary}</p>{layer.activity && <a href={withBase(`/activities/${layer.activity.id}/`)}>查看代表活动 ↗</a>}</article>)}
+          </div>
+          <div class="layer-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+          <div class="possibility-deck">
+            {activityLayers.map((layer, index) => <article class:list={["possibility-sheet", `sheet-${index + 1}`, { active: index === 0 }]} data-layer-card={layer.category} role="button" tabindex={index === 0 ? "0" : "-1"} aria-label={`选择${categories[layer.category]}`} aria-pressed={index === 0 ? "true" : "false"}><div><span>{String(index + 1).padStart(2,"0")} / {layer.copy.eyebrow}</span><span>CCF · SCU</span></div><figure><img src={withBase(layer.image)} alt="" loading="lazy" /><b aria-hidden="true">{index === 0 ? "Σ" : index === 1 ? "</>" : index === 2 ? "A+" : "↗"}</b></figure><small>{categories[layer.category]}</small><strong>{layer.activity?.data.title ?? layer.copy.title}</strong></article>)}
+          </div>
+        </div>
+        <div class="layer-tabs" role="tablist" aria-label="活动方向">
+          {activityLayers.map((layer, index) => <button class:list={[{ active: index === 0 }]} type="button" role="tab" aria-selected={index === 0 ? "true" : "false"} data-layer-tab={layer.category}><span>{String(index + 1).padStart(2,"0")}</span><strong>{categories[layer.category]}</strong></button>)}
+        </div>
+      </div>
+      <div class="activity-note"><span>i</span><p>浏览完整列表可按类别筛选并查看详情。</p><a href={withBase("/activities/")}>浏览全部活动 ↗</a></div>
+    </div>
+  </section>
+
+  <section class="achievement-section" id="achievements">
+    <div class="container">
+      <div class="achievement-heading reveal"><p class="section-label light">03 / ACHIEVEMENTS</p><h2>{homepage.achievements.title}</h2><p>{homepage.achievements.summary}</p></div>
+      <div class="archive-composer reveal" data-archive-composer>
+        <div class="archive-index"><p><i></i> ARCHIVE / 2012—2026</p><h3>{homepage.achievements.archiveTitle}</h3><span>{homepage.achievements.archiveSummary}</span><a href={withBase(homepage.achievements.archiveLink)}>{homepage.achievements.archiveLinkLabel} ↗</a></div>
+        <div class="archive-deck" data-archive-deck>
+          {honors.slice(0,3).map((honor, index) => <article class={`archive-sheet archive-sheet-${index + 1}`} data-archive-sheet={index} role="button" tabindex="0" aria-current={index === 0 ? "true" : "false"} aria-label={`查看第 ${index + 1} 张荣誉卡：${honor.data.title}`}><div><span>HONOR RECORD</span><span>{String(index + 1).padStart(2,"0")} / 03</span></div>{honor.data.image && <img src={withBase(honor.data.image)} alt={honor.data.imageAlt ?? honor.data.title} loading="lazy" />}<small>{honor.data.year} / CCF SCU</small><strong>{honor.data.title}</strong></article>)}
+        </div>
+      </div>
+      <div class="timeline">{homepage.achievements.timeline.map((item) => <article><span>{item.year}</span><i></i><div><small>{item.eyebrow}</small><h3>{item.title}</h3><p>{item.summary}</p></div></article>)}</div>
+    </div>
+  </section>
+
+  <section class="section open-section"><div class="container"><div class="open-card reveal" data-repo-card><div class="open-copy"><p class="section-label">04 / OPEN SOURCE</p><h2>{homepage.openSource.title}</h2><p>{homepage.openSource.summary}</p>{github && <a class="button button-dark" href={github.url} target="_blank" rel="noopener noreferrer">{homepage.openSource.repositoryLabel} <span>↗</span></a>}</div><div class="repo-preview"><div><span>ccf-scu /</span><strong>ccf-scu.github.io</strong><small>Public</small></div><p>CCF 四川大学学生分会官方网站与内容档案</p><ul><li><span>◇</span><b>activities/</b><small>activity archive</small></li><li><span>◇</span><b>members/</b><small>chapter history</small></li><li><span>≡</span><b>admin/</b><small>content workflow</small></li></ul><footer><span><i></i> Astro / Markdown / Decap</span><span>Public repository</span></footer></div></div></div></section>
+
+  <section class="join-section" id="join"><div class="join-atmosphere" aria-hidden="true"><i></i><i></i><i></i><strong>SCU<br />CCF</strong></div><div class="container join-finale"><div class="join-heading reveal"><p class="section-label light">05 / JOIN US · FINAL CHAPTER</p><h2>{homepage.recruitment.title}</h2><p>{homepage.recruitment.summary}</p><div class="join-buttons"><a class="button button-white" href={withBase(homepage.recruitment.primaryLink)}>{homepage.recruitment.primaryLabel} <span>↗</span></a><a class="button button-glass" href={withBase(homepage.recruitment.secondaryLink)}>{homepage.recruitment.secondaryLabel} <span>＋</span></a></div></div><ol class="join-route">{homepage.recruitment.routes.map((route, index) => <li><span>{String(index + 1).padStart(2, "0")}</span><strong>{route.title}</strong><small>{index === 0 && qq ? `${qq.label} ${qq.value}，${route.summary}` : route.summary}</small></li>)}</ol><div class="join-signature"><span>CURIOUS IN</span><i></i><strong>POSSIBILITY OUT</strong></div></div></section>
+</BaseLayout>
+
+<script>
+  document.documentElement.classList.add("has-js");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const lab = document.querySelector<HTMLElement>("[data-activity-lab]");
+  const tabs = [...document.querySelectorAll<HTMLButtonElement>("[data-layer-tab]")];
+  const panels = [...document.querySelectorAll<HTMLElement>("[data-layer-panel]")];
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-layer-card]")];
+  const layerIndex = document.querySelector("[data-layer-index]");
+  let layerPosition = 0;
+  let layerTarget = 0;
+  let layerFrame = 0;
+  let selectedLayer = -1;
+
+  const syncLayer = (position: number) => {
+    const activeIndex = Math.max(0, Math.min(cards.length - 1, Math.round(position)));
+    cards.forEach((card, cardIndex) => {
+      const distance = cardIndex - position;
+      const absolute = Math.abs(distance);
+      card.style.setProperty("--sheet-x", `${(distance * 62).toFixed(2)}px`);
+      card.style.setProperty("--sheet-y", `${(absolute * 17).toFixed(2)}px`);
+      card.style.setProperty("--sheet-rotate", `${(distance * 7.5).toFixed(2)}deg`);
+      card.style.setProperty("--sheet-scale", `${Math.max(0.8, 1 - absolute * 0.06).toFixed(3)}`);
+      card.style.opacity = `${Math.max(0.34, 1 - absolute * 0.18).toFixed(3)}`;
+      card.style.filter = `blur(${Math.max(0, absolute - 0.75).toFixed(2)}px)`;
+      card.style.zIndex = `${100 - Math.round(absolute * 10)}`;
+    });
+    if (activeIndex === selectedLayer) return;
+    selectedLayer = activeIndex;
+    const category = tabs[activeIndex]?.dataset.layerTab;
+    if (!category) return;
+    lab?.setAttribute("data-active", category);
+    tabs.forEach((tab, tabIndex) => {
+      const active = tabIndex === activeIndex;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.layerPanel === category));
+    cards.forEach((card, cardIndex) => {
+      const active = cardIndex === activeIndex;
+      card.classList.toggle("active", active);
+      card.setAttribute("aria-pressed", String(active));
+      card.tabIndex = active ? 0 : -1;
+    });
+    if (layerIndex) layerIndex.textContent = `${String(activeIndex + 1).padStart(2, "0")} / 04`;
+  };
+  const animateLayer = () => {
+    const delta = layerTarget - layerPosition;
+    if (Math.abs(delta) < 0.002) {
+      layerPosition = layerTarget;
+      syncLayer(layerPosition);
+      layerFrame = 0;
+      return;
+    }
+    layerPosition += delta * 0.17;
+    syncLayer(layerPosition);
+    layerFrame = requestAnimationFrame(animateLayer);
+  };
+  const setLayer = (next: number, focus = false) => {
+    layerTarget = Math.max(0, Math.min(cards.length - 1, next));
+    if (reducedMotion) {
+      layerPosition = layerTarget;
+      syncLayer(layerPosition);
+    } else if (!layerFrame) {
+      layerFrame = requestAnimationFrame(animateLayer);
+    }
+    if (focus) tabs[Math.round(layerTarget)]?.focus();
+  };
+  tabs.forEach((tab, tabIndex) => {
+    tab.addEventListener("click", () => setLayer(tabIndex));
+    tab.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : event.key === "ArrowLeft" ? (tabIndex - 1 + tabs.length) % tabs.length : (tabIndex + 1) % tabs.length;
+      setLayer(next, true);
+    });
+  });
+  cards.forEach((card, cardIndex) => {
+    card.addEventListener("click", () => setLayer(cardIndex));
+    card.addEventListener("keydown", (event) => {
+      if (!['Enter', ' '].includes(event.key)) return;
+      event.preventDefault();
+      setLayer(cardIndex);
+    });
+  });
+  syncLayer(0);
+
+  const hero = document.querySelector<HTMLElement>("[data-resonance-hero]");
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-resonance-canvas]");
+  const context = canvas?.getContext("2d", { alpha: true })!;
+  const energy = document.querySelector("[data-resonance-energy]");
+  const meter = document.querySelector<HTMLElement>("[data-resonance-meter]");
+  const state = document.querySelector("[data-resonance-state]");
+  if (hero && canvas && context) {
+    let width = 1;
+    let height = 1;
+    let columns = 1;
+    let rows = 1;
+    let offsets = new Float32Array(1);
+    let velocities = new Float32Array(1);
+    let frame = 0;
+    let visible = true;
+    let inputEnergy = 8;
+    let displayedEnergy = 8;
+    let lastInput = 0;
+    let lastFrame = performance.now();
+    let pointer: { x: number; y: number; time: number } | null = null;
+    const keyboard = { x: 0.7, y: 0.44 };
+    const clamp = (value: number, minimum: number, maximum: number) => Math.max(minimum, Math.min(maximum, value));
+    const point = (column: number, row: number) => ({
+      x: (column / Math.max(1, columns - 1)) * width + (row / Math.max(1, rows - 1) - 0.5) * Math.min(50, width * 0.04),
+      y: (row / Math.max(1, rows - 1)) * height,
+    });
+    const inject = (x: number, y: number, power: number, radius: number) => {
+      for (let row = 0; row < rows; row += 1) for (let column = 0; column < columns; column += 1) {
+        const index = row * columns + column;
+        const base = point(column, row);
+        const distance = Math.hypot(base.x - x, base.y - y);
+        if (distance < radius) velocities[index] += power * (1 - distance / radius) ** 2;
+      }
+    };
+    const resize = () => {
+      const bounds = hero.getBoundingClientRect();
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      const ratio = Math.min(1.75, devicePixelRatio || 1);
+      canvas.width = Math.round(width * ratio);
+      canvas.height = Math.round(height * ratio);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      columns = clamp(Math.round(width / (width < 680 ? 48 : 35)), 18, 54);
+      rows = clamp(Math.round(height / (width < 680 ? 50 : 37)), 16, 34);
+      offsets = new Float32Array(columns * rows);
+      velocities = new Float32Array(columns * rows);
+      draw(performance.now());
+    };
+    const simulate = (scale: number) => {
+      const accelerations = new Float32Array(offsets.length);
+      for (let row = 0; row < rows; row += 1) for (let column = 0; column < columns; column += 1) {
+        const index = row * columns + column;
+        let total = 0;
+        let count = 0;
+        if (column > 0) { total += offsets[index - 1]; count += 1; }
+        if (column < columns - 1) { total += offsets[index + 1]; count += 1; }
+        if (row > 0) { total += offsets[index - columns]; count += 1; }
+        if (row < rows - 1) { total += offsets[index + columns]; count += 1; }
+        accelerations[index] = (total / count - offsets[index]) * 0.135;
+      }
+      offsets.forEach((_, index) => {
+        velocities[index] = (velocities[index] + accelerations[index] * scale) * 0.957;
+        offsets[index] = clamp((offsets[index] + velocities[index] * scale) * 0.997, -65, 65);
+      });
+    };
+    function draw(time: number) {
+      context.clearRect(0, 0, width, height);
+      const position = (column: number, row: number) => {
+        const index = row * columns + column;
+        const base = point(column, row);
+        const ambient = reducedMotion ? 0 : Math.sin(time * 0.00042 + column * 0.31 + row * 0.12) * 1.4 + Math.cos(time * 0.00027 + row * 0.46) * 0.8;
+        const displacement = offsets[index] + ambient;
+        return { x: base.x + displacement * 0.16, y: base.y + displacement * 0.72, displacement };
+      };
+      context.lineCap = "round";
+      for (let row = 0; row < rows; row += 1) {
+        context.beginPath();
+        for (let column = 0; column < columns; column += 1) {
+          const current = position(column, row);
+          column ? context.lineTo(current.x, current.y) : context.moveTo(current.x, current.y);
+        }
+        context.strokeStyle = row % 4 === 0 ? "rgba(117,151,235,.2)" : "rgba(117,151,235,.1)";
+        context.lineWidth = row % 4 === 0 ? 0.9 : 0.55;
+        context.stroke();
+      }
+      for (let column = 0; column < columns; column += 1) {
+        context.beginPath();
+        for (let row = 0; row < rows; row += 1) {
+          const current = position(column, row);
+          row ? context.lineTo(current.x, current.y) : context.moveTo(current.x, current.y);
+        }
+        context.strokeStyle = "rgba(105,137,214,.055)";
+        context.lineWidth = 0.5;
+        context.stroke();
+      }
+      context.globalCompositeOperation = "lighter";
+      for (let row = 0; row < rows; row += 1) for (let column = 0; column < columns - 1; column += 1) {
+        const first = position(column, row);
+        const second = position(column + 1, row);
+        const magnitude = Math.abs((first.displacement + second.displacement) / 2);
+        if (magnitude < 2.4) continue;
+        context.beginPath();
+        context.moveTo(first.x, first.y);
+        context.lineTo(second.x, second.y);
+        context.strokeStyle = first.displacement >= 0 ? `rgba(48,119,255,${clamp(.1 + magnitude / 60, .1, .75)})` : `rgba(235,59,91,${clamp(.1 + magnitude / 68, .1, .65)})`;
+        context.lineWidth = clamp(0.7 + magnitude / 24, 0.7, 2.2);
+        context.stroke();
+      }
+      context.globalCompositeOperation = "source-over";
+    }
+    const updateReadout = () => {
+      displayedEnergy += (inputEnergy - displayedEnergy) * 0.11;
+      const value = Math.round(clamp(displayedEnergy, 8, 99));
+      if (energy) energy.textContent = `${String(value).padStart(3, "0")}%`;
+      if (meter) meter.style.width = `${value}%`;
+      inputEnergy += (8 - inputEnergy) * 0.018;
+    };
+    const animate = (time: number) => {
+      frame = 0;
+      if (!visible || document.hidden) return;
+      const scale = clamp((time - lastFrame) / 16.667, 0.45, 1.8);
+      lastFrame = time;
+      if (time - lastInput > 1700 && time % 2100 < 20) inject(width * (0.5 + Math.sin(time * 0.0003) * 0.28), height * 0.48, 3.6, Math.min(width, height) * 0.15);
+      simulate(scale);
+      draw(time);
+      updateReadout();
+      frame = requestAnimationFrame(animate);
+    };
+    const start = () => {
+      if (reducedMotion) { draw(performance.now()); return; }
+      if (!frame && visible && !document.hidden) { lastFrame = performance.now(); frame = requestAnimationFrame(animate); }
+    };
+    const receive = (clientX: number, clientY: number, force = 1) => {
+      const bounds = hero.getBoundingClientRect();
+      const x = clamp(clientX - bounds.left, 0, width);
+      const y = clamp(clientY - bounds.top, 0, height);
+      const now = performance.now();
+      const elapsed = Math.max(8, now - (pointer?.time ?? now - 16));
+      const speed = pointer ? Math.hypot(x - pointer.x, y - pointer.y) / elapsed : 1;
+      inject(x, y, clamp((8 + speed * 24) * force, 7, 40), clamp(90 + speed * 48, 92, 190));
+      pointer = { x, y, time: now };
+      keyboard.x = x / width;
+      keyboard.y = y / height;
+      inputEnergy = Math.max(inputEnergy, clamp(18 + speed * 78, 18, 96));
+      hero.style.setProperty("--resonance-x", `${keyboard.x * 100}%`);
+      hero.style.setProperty("--resonance-y", `${keyboard.y * 100}%`);
+      hero.classList.add("resonating");
+      if (state) state.textContent = inputEnergy > 55 ? "共振持续传播" : "捕捉到一次移动";
+      lastInput = now;
+    };
+    hero.addEventListener("pointermove", (event) => { if (event.pointerType !== "touch" || event.pressure > 0) receive(event.clientX, event.clientY); });
+    hero.addEventListener("pointerdown", (event) => { pointer = null; receive(event.clientX, event.clientY, event.pointerType === "touch" ? 1.25 : 0.85); });
+    hero.addEventListener("pointerleave", () => { pointer = null; });
+    hero.addEventListener("keydown", (event) => {
+      if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key) || (event.target as HTMLElement).closest("a,button,input")) return;
+      event.preventDefault();
+      if (event.key === "ArrowLeft") keyboard.x = clamp(keyboard.x - 0.08, 0.08, 0.92);
+      if (event.key === "ArrowRight") keyboard.x = clamp(keyboard.x + 0.08, 0.08, 0.92);
+      if (event.key === "ArrowUp") keyboard.y = clamp(keyboard.y - 0.08, 0.12, 0.88);
+      if (event.key === "ArrowDown") keyboard.y = clamp(keyboard.y + 0.08, 0.12, 0.88);
+      const bounds = hero.getBoundingClientRect();
+      pointer = null;
+      receive(bounds.left + keyboard.x * width, bounds.top + keyboard.y * height, 1.35);
+    });
+    new ResizeObserver(() => resize()).observe(hero);
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else if (frame) { cancelAnimationFrame(frame); frame = 0; }
+    }, { rootMargin: "120px 0px" }).observe(hero);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && frame) { cancelAnimationFrame(frame); frame = 0; }
+      else start();
+    });
+    resize();
+    start();
+  }
+
+  const archiveSheets = [...document.querySelectorAll<HTMLElement>("[data-archive-sheet]")];
+  const selectArchive = (activeIndex: number) => {
+    archiveSheets.forEach((sheet, sheetIndex) => {
+      const distance = (sheetIndex - activeIndex + archiveSheets.length) % archiveSheets.length;
+      sheet.style.setProperty("--archive-x", `${distance * 28}px`);
+      sheet.style.setProperty("--archive-y", `${distance * 13}px`);
+      sheet.style.setProperty("--archive-rotate", `${distance * 5.5}deg`);
+      sheet.style.zIndex = `${archiveSheets.length - distance}`;
+      sheet.setAttribute("aria-current", String(distance === 0));
+    });
+  };
+  archiveSheets.forEach((sheet, index) => {
+    sheet.addEventListener("click", () => selectArchive(index));
+    sheet.addEventListener("keydown", (event) => {
+      if (!["Enter", " ", "ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const next = event.key === "ArrowLeft" ? (index - 1 + archiveSheets.length) % archiveSheets.length : event.key === "ArrowRight" ? (index + 1) % archiveSheets.length : index;
+      selectArchive(next);
+      archiveSheets[next]?.focus();
+    });
+  });
+  selectArchive(0);
+
+  const revealTargets = [...document.querySelectorAll<HTMLElement>(".reveal, [data-repo-card]")];
+  if (reducedMotion) revealTargets.forEach((element) => element.classList.add("is-visible"));
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("is-visible");
+      revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.05, rootMargin: "80px 0px" });
+  if (!reducedMotion) revealTargets.forEach((element) => revealObserver.observe(element));
+
+</script>

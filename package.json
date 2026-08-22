@@ -1,0 +1,40 @@
+{
+  "name": "ccf-scu-student-chapter-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "node scripts/run-astro.mjs dev",
+    "check": "node scripts/run-astro.mjs check",
+    "test": "node --test tests/*.test.mjs",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "build": "node scripts/run-astro.mjs build",
+    "preview": "node scripts/run-astro.mjs preview",
+    "validate:content": "node scripts/validate-content.mjs",
+    "validate:build": "node scripts/validate-build.mjs",
+    "validate": "npm run check && npm run test && npm run validate:content && npm run build && npm run validate:build",
+    "migrate:legacy": "node scripts/migrate-legacy-content.mjs",
+    "optimize:legacy": "node scripts/optimize-legacy-images.mjs"
+  },
+  "dependencies": {
+    "astro": "7.2.4",
+    "decap-cms-app": "3.15.1",
+    "qrcode": "1.5.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "vditor": "3.11.2",
+    "yaml": "2.9.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@playwright/test": "1.58.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "decap-server": "3.10.0",
+    "sharp": "0.35.3",
+    "typescript": "6.0.3"
+  }
+}
