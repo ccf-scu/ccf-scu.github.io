@@ -4,7 +4,7 @@
 >
 > 当前分支：`develop/astro-cms`
 >
-> 当前状态：全部验收完成并获负责人批准，正在执行生产全量上线
+> 当前状态：生产全量上线已完成，站点与 OAuth 线上冒烟验证通过
 
 ## 阶段总览
 
@@ -13,8 +13,8 @@
 | 1. Astro/Decap 工程基座 | 已完成 | Astro 7 静态构建、严格内容 schema、Node 测试、Linux 非生产 CI |
 | 2. 视觉骨架和移动端 | 已完成 | CCF 品牌设计、语义导航、首页、360/390/430 与桌面自动截图 |
 | 3. 内容页面和搜索 | 已完成 | 活动列表/详情、关于、归档、搜索、SEO、分享和旧入口兼容 |
-| 4. CMS、Vditor 和图片链路 | 代码完成/生产未验证 | 中文 Decap 配置、编辑工作流、Vditor 文本回退、仓库图片优化；真实 OAuth 后流程待验收 |
-| 5. 旧内容迁移和上线准备 | 代码完成/上线未执行 | 26 条活动、203 条成员、12 条荣誉、46 张 WebP、迁移清单和运维手册 |
+| 4. CMS、Vditor 和图片链路 | 已上线 | 中文 Decap 配置、编辑工作流、Vditor 文本回退、仓库图片优化；生产后台配置与 OAuth 授权跳转验证通过 |
+| 5. 旧内容迁移和上线准备 | 已完成 | 26 条活动、203 条成员、12 条荣誉、46 张 WebP、迁移清单、运维手册与生产发布记录 |
 
 ## 本轮实现
 
@@ -39,7 +39,7 @@
 - CMS 支持活动、公告、成员、荣誉、首页、分会、老师、链接和联系方式；物理删除关闭；
 - 活动支持状态、分类筛选、归档、复制链接和二维码；搜索覆盖活动与成员；
 - 旧内容保留来源，未确认成员简介统一标记 `profileConfirmed: false`，没有补写个人信息；
-- `main` 和现有 GitHub Pages 均未改变；Cloudflare Worker `ccf-scu-cms-oauth` 已部署并启用生产 `workers.dev` 地址。
+- Astro 新站已通过 PR #1 合并至 `main` 并发布到 GitHub Pages；Cloudflare Worker `ccf-scu-cms-oauth` 已部署并启用生产 `workers.dev` 地址。
 - 新增可审计的 Cloudflare OAuth Worker、生产 URL 与 ADR；2026-08-22 验证未配置凭据时 `/auth` 按设计返回 503，配置加密 Secret 后健康检查返回 `configured: true` 且 `/auth` 正确跳转 GitHub。
 
 ## 验证记录
@@ -55,6 +55,8 @@
 - 视觉截图覆盖首页、活动列表、活动详情、关于、档案、搜索和后台，保存在被忽略的 `artifacts/visual-validation/`；
 - `npm audit --omit=dev --registry=https://registry.npmjs.org`：YAML 可修复中危已升级消除；剩余 9 项 high、0 critical，均来自 Decap 间接依赖且无完整修复版本；
 - 浏览器工具未暴露可用的交互入口，按仓库规范回退到本地 Edge + Playwright；截图保存在被忽略的 `artifacts/visual-validation/`。
+- 生产发布：PR #1 已合并，生产 commit 为 `0e9f197f3f23eb212ebbba0cecbf844183111941`，GitHub Actions `Deploy production site` 第 1 次运行成功；
+- 线上冒烟：主页、活动列表、活动详情、关于、档案、搜索、后台、`robots.txt` 与 `sitemap.xml` 均返回 200；后台配置确认使用 `main` 和生产 OAuth Worker；OAuth `/health` 返回 `configured: true`，授权入口返回 302 并跳转 GitHub。
 
 ## 已知且接受的风险
 
@@ -65,10 +67,8 @@
 
 ## 上线门禁结论
 
-项目负责人于 2026-08-22 确认全部测试和人工验收完成，接受 `docs/SECURITY.md` 已记录风险，并明确批准全量上线。签字记录见 `docs/RELEASE_READINESS.md`；旧站回滚 commit 为 `b904313`。
+项目负责人于 2026-08-22 确认全部测试和人工验收完成，接受 `docs/SECURITY.md` 已记录风险，并明确批准全量上线。生产发布和线上冒烟验证均已完成。签字记录见 `docs/RELEASE_READINESS.md`；旧站回滚 commit 为 `b904313`。
 
 ## 下一步
 
-交互动效与内容维护阶段已按 [`.agent/plans/2026-08-22-interaction-content-polish.md`](../.agent/plans/2026-08-22-interaction-content-polish.md) 完成，后续代码工作仅处理评审反馈或上线验收中发现的问题。
-
-执行生产发布 PR，将 `develop/astro-cms` 合并到 `main`，由 GitHub Actions 校验、构建并发布 Pages；发布完成后记录生产 commit、workflow run 和线上冒烟验证结果。
+交互动效、内容维护与生产发布均已完成。后续进入常规内容运营和监控；如发生生产故障，按 `docs/INCIDENT_ROLLBACK.md` 回滚至 `pre-astro-launch-2026-08-22` 或 commit `b904313`。
