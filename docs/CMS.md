@@ -23,7 +23,7 @@ Decap CMS 管理首页、活动、公告、成员、指导老师、友情链接�
 
 若保存时出现 `organization has enabled OAuth App access restrictions`，说明登录成功但组织拒绝该 OAuth App 写仓库。维护者需在个人 GitHub 的 Authorized OAuth Apps 页面请求 `ccf-scu` 访问，随后由组织所有者在 `Organization Settings → Third-party Access → OAuth app policy` 中对 `CCF SCU CMS` 执行 `Review → Grant access`。批准后退出后台并重新登录。此限制不能由前端或 OAuth Worker 绕过，也不应通过关闭组织安全策略规避。
 
-`config.yml` 的 `base_url` 指向独立 Cloudflare Worker。Worker 源码、部署参数、回调地址和轮换方式见 [`../infrastructure/oauth-worker/README.md`](../infrastructure/oauth-worker/README.md)，架构决策见 [`decisions/0002-cloudflare-worker-oauth.md`](decisions/0002-cloudflare-worker-oauth.md)。只有两项 GitHub 凭据均进入 Cloudflare 加密 Secret、真实登录通过且构建产物中不存在 Secret 后，后台才可视为可发布。
+`config.yml` 的 `base_url` 指向独立 Cloudflare Worker；`api_root` 也指向该 Worker 的 `/github` 受限代理，避免 Edge 直接提交二进制媒体时出现无状态码的 `Failed to fetch`。代理只接受正式后台来源，并且只允许访问本站仓库与当前用户接口。Worker 源码、部署参数、回调地址和轮换方式见 [`../infrastructure/oauth-worker/README.md`](../infrastructure/oauth-worker/README.md)，架构决策见 [`decisions/0002-cloudflare-worker-oauth.md`](decisions/0002-cloudflare-worker-oauth.md)。只有两项 GitHub 凭据均进入 Cloudflare 加密 Secret、真实登录通过且构建产物中不存在 Secret 后，后台才可视为可发布。
 
 ## 编辑工作流
 
