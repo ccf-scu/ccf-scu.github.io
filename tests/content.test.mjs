@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { formatDateRange } from "../src/lib/content.ts";
 
 function status(startAt, endAt, now) {
   if (now < startAt) return "预告 / 报名中";
@@ -13,6 +14,17 @@ test("activity status covers upcoming, ongoing, and ended", () => {
   assert.equal(status(start, end, new Date("2026-08-22T01:00:00Z")), "预告 / 报名中");
   assert.equal(status(start, end, new Date("2026-08-22T03:00:00Z")), "进行中");
   assert.equal(status(start, end, new Date("2026-08-22T05:00:00Z")), "已结束");
+});
+
+test("activity date range omits a repeated end date on the same Shanghai calendar day", () => {
+  assert.equal(
+    formatDateRange(new Date("2026-07-09T00:00:00+08:00"), new Date("2026-07-09T23:59:59+08:00")),
+    "2026年7月9日",
+  );
+  assert.equal(
+    formatDateRange(new Date("2026-07-09T23:30:00+08:00"), new Date("2026-07-10T01:00:00+08:00")),
+    "2026年7月9日—2026年7月10日",
+  );
 });
 
 test("featured activities sort before newer regular activities", () => {

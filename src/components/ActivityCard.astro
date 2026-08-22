@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { activityStatus, categories, formatDate, withBase } from "../lib/content";
+import { activityStatus, categories, formatDateRange, withBase } from "../lib/content";
 
 interface Props { activity: CollectionEntry<"activities">; compact?: boolean }
 const { activity, compact = false } = Astro.props;
@@ -14,7 +14,7 @@ const { data } = activity;
   <div class="activity-copy">
     <div class="activity-meta">
       <span>{categories[data.category]}</span>
-      <time datetime={data.startAt.toISOString()}>{formatDate(data.startAt)}</time>
+      <time datetime={data.startAt.toISOString()}>{formatDateRange(data.startAt, data.endAt)}</time>
       <b>{activityStatus(data.startAt, data.endAt)}</b>
     </div>
     <h3><a href={withBase(`/activities/${activity.id}/`)}>{data.title}</a></h3>

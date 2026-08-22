@@ -18,6 +18,8 @@
 
 ## 本轮实现
 
+- 活动列表与详情时间按上海时区自然日格式化：当日开始并结束只显示一个日期，跨天活动才显示起止日期；
+- 活动列表卡片的类别、日期与状态标签适度放大，并统一底部对齐；
 - 首页活动切片改为通过下方类别按钮或叠放卡片点击选择，并保留键盘操作；移除指针移动选层，卡片底色不再写死蓝色；活动列表提示精简并放大；
 - 首页成果叠卡按荣誉标题去重后选择最近记录，避免三张卡片均为“CCF优秀学生分会”，同时移除固定蓝色卡片；
 - 全屏搜索不再因点击面板两侧关闭，继续支持关闭按钮与 Escape；成员卡片改为可关闭的模态介绍框，后台 Markdown 介绍支持段落和图片；
@@ -42,12 +44,12 @@
 ## 验证记录
 
 - `npm run check`：通过，0 error / 0 warning / 0 hint；
-- `npm run test`：4 项通过（含届次年份排序回归测试）；
+- `npm run test`：5 项通过（含活动日期区间与届次年份排序回归测试）；
 - `npm run validate:content`：通过；
 - `npm run build && npm run validate:build`：根路径构建通过，共生成 34 个页面；
 - `SITE_BASE=/preview-site/ npm run build && SITE_BASE=/preview-site/ npm run validate:build`：项目子路径通过；
 - `npm run test:e2e`：覆盖首页与全部主要内页、桌面、360/390/430、筛选、活动切片、搜索、成员介绍框、分享、二维码、后台登录前外壳及前后台 bundle 隔离；
-- 本轮 `npm run test:e2e` 扩展为 11 项并通过：新增全屏搜索、Escape/焦点恢复、活动键盘切换、内页容器边界与分区视口截图；
+- 本轮 `npm run test:e2e` 扩展为 12 项并通过：新增全屏搜索、Escape/焦点恢复、活动键盘切换、活动卡片元信息移动端对齐、内页容器边界与分区视口截图；
 - 本轮根路径与 `SITE_BASE=/preview-site/` 项目子路径均构建通过，各生成 34 个页面，`validate:build` 验证链接与前后台 bundle 隔离通过；
 - 视觉截图覆盖首页、活动列表、活动详情、关于、档案、搜索和后台，保存在被忽略的 `artifacts/visual-validation/`；
 - `npm audit --omit=dev --registry=https://registry.npmjs.org`：YAML 可修复中危已升级消除；剩余 9 项 high、0 critical，均来自 Decap 间接依赖且无完整修复版本；

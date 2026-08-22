@@ -1716,10 +1716,11 @@ h4 {
 }
 .activity-meta {
   display: flex;
+  align-items: flex-end;
   flex-wrap: wrap;
   gap: 8px;
   color: var(--muted);
-  font: 0.68rem var(--font-mono);
+  font: 0.78rem/1.25 var(--font-mono);
 }
 .activity-meta span,
 .activity-meta b {

@@ -98,15 +98,50 @@ test("activity filter and sharing interactions update observable state", async (
   page.on("pageerror", (error) => runtimeErrors.push(error.message));
   await page.setViewportSize({ width: 1180, height: 900 });
   await page.goto("/activities/");
+  const firstMeta = page.locator(".activity-meta").first();
+  const metaLayout = await firstMeta.evaluate((element) => {
+    const items = [...element.children];
+    return {
+      alignItems: getComputedStyle(element).alignItems,
+      fontSize: Number.parseFloat(getComputedStyle(element).fontSize),
+      bottoms: items.map((item) => Math.round(item.getBoundingClientRect().bottom)),
+    };
+  });
+  expect(metaLayout.alignItems).toBe("flex-end");
+  expect(metaLayout.fontSize).toBeGreaterThan(11);
+  expect(Math.max(...metaLayout.bottoms) - Math.min(...metaLayout.bottoms)).toBeLessThanOrEqual(1);
+  await expect(firstMeta.locator("time")).toHaveText(/^\d{4}年\d{1,2}月\d{1,2}日$/);
   await page.getByRole("button", { name: "学术引领" }).click();
   await expect(page.getByRole("button", { name: "学术引领" })).toHaveAttribute("aria-pressed", "true");
   expect(await page.locator("[data-category]:visible").count()).toBeGreaterThan(0);
   await page.locator("[data-category]:visible h3 a").first().click();
   await expect(page.getByRole("heading", { name: "分享活动" })).toBeVisible();
+  const activityTime = page.locator(".prose > p").filter({ hasText: "活动时间：" });
+  await expect(activityTime).toHaveText(/活动时间：\s*\d{4}年\d{1,2}月\d{1,2}日$/);
   await page.getByRole("button", { name: "生成二维码" }).click();
   expect(runtimeErrors).toEqual([]);
   await expect(page.locator("[data-qr-image]")).toHaveAttribute("src", /^data:image\/png/);
   await expect(page.locator("[data-share-status]")).toHaveText("二维码已生成");
+});
+
+test("activity card metadata stays readable and bottom-aligned on mobile", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/activities/");
+  const card = page.locator(".activity-card").first();
+  await card.scrollIntoViewIfNeeded();
+  const layout = await card.locator(".activity-meta").evaluate((element) => {
+    const items = [...element.children];
+    return {
+      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+      fontSize: Number.parseFloat(getComputedStyle(element).fontSize),
+      bottoms: items.map((item) => Math.round(item.getBoundingClientRect().bottom)),
+    };
+  });
+  expect(layout.overflow).toBe(false);
+  expect(layout.fontSize).toBeGreaterThan(11);
+  expect(Math.max(...layout.bottoms) - Math.min(...layout.bottoms)).toBeLessThanOrEqual(1);
+  await expect(card.locator(".activity-meta time")).toHaveText(/^\d{4}年\d{1,2}月\d{1,2}日$/);
+  await page.screenshot({ path: `${screenshots}/activities-390.png` });
 });
 
 test("search and member dialog work", async ({ page }) => {

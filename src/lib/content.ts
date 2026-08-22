@@ -43,4 +43,12 @@ export function withBase(path: string, base = import.meta.env.BASE_URL) {
   return `${normalizedBase}${path.replace(/^\//, "")}`;
 }
 
-export const formatDate = (date: Date) => new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", year: "numeric", month: "long", day: "numeric" }).format(date);
+const dateFormatter = new Intl.DateTimeFormat("zh-CN", { timeZone: "Asia/Shanghai", year: "numeric", month: "long", day: "numeric" });
+
+export const formatDate = (date: Date) => dateFormatter.format(date);
+
+export function formatDateRange(startAt: Date, endAt: Date) {
+  const start = formatDate(startAt);
+  const end = formatDate(endAt);
+  return start === end ? start : `${start}—${end}`;
+}
