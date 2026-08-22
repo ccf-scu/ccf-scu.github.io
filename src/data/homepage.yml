@@ -1,6 +1,8 @@
 hero:
   eyebrow: CCF SICHUAN UNIVERSITY STUDENT CHAPTER
-  title: 让一次好奇，引发一场共振。
+  title: 让一次好奇，
+  titleLineTwo: 引发一场
+  titleAccent: 共振。
   subtitle: 成立于 2012 年，SCU CCF 连接 CCF 优质资源与川大学生，围绕学术引领、竞赛训练、学业帮扶与生涯发展，服务专业成长。
   primaryLabel: 查看近期活动
   primaryLink: /activities/
@@ -9,9 +11,78 @@ hero:
 introduction:
   title: 为计算机学子，搭建一座通往更大世界的桥
   summary: CCF 四川大学学生分会通过学术报告、竞赛训练、学业帮扶、生涯发展和组织建设，让知识、机会与同伴在校园里持续相遇。
+  linkLabel: 看看我们如何行动
+  link: /about/
+  principles:
+    - eyebrow: RESEARCH / EXCHANGE
+      title: 让前沿，不再遥远
+      summary: 依托 CCF 平台连接专家学者、企业导师与青年学生。
+    - eyebrow: PEOPLE / TOGETHER
+      title: 让成长，有路可循
+      summary: 覆盖竞赛训练、课程学习、经验传承与生涯规划。
+    - eyebrow: LEARN / BUILD / SHARE
+      title: 让服务，成为成长
+      summary: 通过本研协作与传帮带，在组织实践中共同成长。
+  quote: 学会赋能、学院指导、学生主导。
+  quoteAttribution: 分会建设思路
+activities:
+  title: 让成长有路径，让活动成系列。
+  summary: 围绕学生成长需求，分会形成学术引领、竞赛训练、学业帮扶、生涯发展四条主线。
+  directions:
+    - category: academic
+      eyebrow: FRONTIER
+      title: 把学术前沿带进校园
+      summary: 连接专家报告、技术分享与前沿议题，让高质量学术资源进入校园。
+    - category: competition
+      eyebrow: ALGORITHM
+      title: 让训练成为进阶路径
+      summary: 以训练营、经验分享和赛事组织支持实践成长。
+    - category: tutoring
+      eyebrow: LEARN
+      title: 让经验在同伴间流动
+      summary: 围绕核心课程、经验传承与朋辈互助提供支持。
+    - category: career
+      eyebrow: FUTURE
+      title: 把视野延伸到校园之外
+      summary: 连接企业、校友与更广阔的职业发展场景。
+achievements:
+  title: 成果不是终点，是下一次出发的坐标。
+  summary: 自 2012 年成立以来，分会持续记录品牌活动、竞赛成绩、集体荣誉与成员成长。
+  archiveTitle: 把分会走过的路，变成下一程坐标。
+  archiveSummary: 从活动到荣誉，每一份公开记录都在这里连成分会共同成长的轨迹。
+  archiveLinkLabel: 进入完整档案
+  archiveLink: /archive/
+  timeline:
+    - year: "2026"
+      eyebrow: CURRENT CHAPTER
+      title: 让品牌活动持续发生
+      summary: 活动覆盖学术、竞赛、学业、生涯与组织建设。
+    - year: 2013—25
+      eyebrow: COLLECTIVE HONORS
+      title: 多次获评 CCF 优秀学生分会
+      summary: 荣誉和公开资料按年份进入可追溯档案。
+    - year: "2012"
+      eyebrow: CHAPTER ARCHIVE
+      title: 全国第 7 个 CCF 学生分会
+      summary: 持续搭建 CCF 与川大学生会员之间的桥梁。
+openSource:
+  title: 分享代码，也分享思考。
+  summary: 在 GitHub 查看分会网站源码、内容档案与开放协作记录。
+  repositoryLabel: 访问 GitHub 仓库
 recruitment:
   status: open
-  title: 新一届执委招募中
+  title: 把你的下一次好奇，带到这里。
   summary: 欢迎本科生与研究生加入分会，共同策划活动、服务同学并连接更广阔的计算机共同体。
+  primaryLabel: 加入我们
+  primaryLink: /about/#contact
+  secondaryLabel: 关注活动
+  secondaryLink: /activities/
+  routes:
+    - title: 加入迎新群
+      summary: 获取活动通知与会员资讯。
+    - title: 关注活动
+      summary: 从学术、竞赛、学业或生涯活动中找到入口。
+    - title: 参与执委招募
+      summary: 每学年招募期关注公开通知。
 featuredActivityLimit: 6
 announcementLimit: 3

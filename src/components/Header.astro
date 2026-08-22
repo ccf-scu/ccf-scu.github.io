@@ -1,6 +1,10 @@
 ---
+import { getCollection } from "astro:content";
 import { withBase } from "../lib/content";
+import { buildSearchIndex } from "../lib/search";
+import SearchPanel from "./SearchPanel.astro";
 const isHome = Astro.url.pathname === withBase("/");
+const searchIndex = buildSearchIndex(await getCollection("activities"), await getCollection("members"));
 ---
 
 <header class:list={["site-header", { "over-hero": isHome }]} data-site-header>
@@ -13,10 +17,9 @@ const isHome = Astro.url.pathname === withBase("/");
       <a href={withBase("/about/")}>关于我们</a>
       <a href={withBase("/activities/")}>活动</a>
       <a href={withBase("/archive/")}>成就与档案</a>
-      <a href={withBase("/search/")}>搜索</a>
+      <a href={withBase("/search/")} data-search-open>搜索</a>
     </nav>
     <div class="nav-actions">
-      <span class="language-chip" aria-label="当前语言：中文">CN</span>
       <a class="nav-admin" href={withBase("/admin/")}>内容后台 <span aria-hidden="true">↗</span></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
         <span class="sr-only">打开导航</span><i></i><i></i>
@@ -26,9 +29,10 @@ const isHome = Astro.url.pathname === withBase("/");
   <nav class="mobile-nav" id="site-menu" aria-label="主导航" data-site-menu>
     <a href={withBase("/")}>首页</a><a href={withBase("/about/")}>关于我们</a>
     <a href={withBase("/activities/")}>活动</a><a href={withBase("/archive/")}>成就与档案</a>
-    <a href={withBase("/search/")}>搜索</a><a href={withBase("/admin/")}>内容后台</a>
+    <a href={withBase("/search/")} data-search-open>搜索</a><a href={withBase("/admin/")}>内容后台</a>
   </nav>
 </header>
+<SearchPanel index={searchIndex} />
 
 <script>
   const header = document.querySelector("[data-site-header]");

@@ -8,7 +8,7 @@ const activities = sortActivities(await getCollection("activities"));
 
 <BaseLayout title="活动中心" description="浏览 CCF 四川大学学生分会的近期活动与历史回顾。">
   <header class="page-hero"><p class="eyebrow">ACTIVITIES</p><h1>活动中心</h1><p>按类别筛选学术、竞赛、学业、生涯与组织建设活动，进入详情页查看完整记录。</p></header>
-  <section class="section">
+  <section class="page-section"><div class="page-container">
     <div class="filters" aria-label="活动分类筛选">
       <button class="filter-button" type="button" data-filter="all" aria-pressed="true">全部</button>
       {Object.entries(categories).map(([value,label]) => <button class="filter-button" type="button" data-filter={value} aria-pressed="false">{label}</button>)}
@@ -17,7 +17,7 @@ const activities = sortActivities(await getCollection("activities"));
       {activities.map((activity) => <div data-category={activity.data.category}><ActivityCard activity={activity} /></div>)}
     </div>
     <p class="empty-state" data-filter-empty hidden>该分类暂无公开活动。</p>
-  </section>
+  </div></section>
 </BaseLayout>
 
 <script>

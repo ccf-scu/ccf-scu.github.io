@@ -14,16 +14,17 @@
 
 ## 首页 `src/data/homepage.yml`
 
-首页结构由代码锁定，维护者可改内容、顺序和显隐。计划字段：
+首页结构与装饰标签由代码锁定，维护者可改访客文案和链接：
 
-- `hero`：标题、副标题、背景图/替代文本、主次按钮；
-- `introduction`：标题、摘要、详情入口；
-- `recruitment`：状态、标题、说明、按钮和链接；
-- `sections`：预定义模块标识的顺序、显隐和显示数量；
-- `featuredActivityLimit`、`announcementLimit`；
-- 联系方式、成员、老师和友情链接只保存引用或显示设置，数据本体位于独立文件。
+- `hero`：眉题、两行主标题、强调词、副标题和主次按钮；
+- `introduction`：标题、摘要、详情入口、固定 3 项原则、引用和署名；
+- `activities`：章节标题、说明，以及固定 4 个活动方向的类别、眉题、标题和说明；代表活动仍从活动集合按类别读取；
+- `achievements`：章节与档案文案、档案入口，以及固定 3 项时间轴；荣誉卡仍从荣誉集合读取；
+- `openSource`：章节标题、说明和仓库按钮文字；目标 URL 从 `links.yml` 的 `repository` 用途读取；
+- `recruitment`：状态、标题、说明、主次按钮和固定 3 项加入路径；
+- `featuredActivityLimit`、`announcementLimit`：构建时展示数量限制。
 
-`sections` 只允许 `announcements`、`activities`、`about`、`recruitment`、`members`、`teachers`、`links`、`contact` 等已实现标识。
+固定长度数组由 Zod 和 CMS 的 `min`/`max` 同时限制。动画参数、章节编号、坐标和技术状态不进入 CMS。
 
 ## 活动 `src/content/activities/*.md`
 
@@ -55,7 +56,7 @@
 
 - `organization.yml`：分会名称、简介、成立信息和品牌描述；
 - `teachers.yml`：姓名、职务/职称、简介、照片、排序、显隐；
-- `links.yml`：名称、HTTPS URL、Logo、排序、显隐；
+- `links.yml`：名称、HTTPS URL、类型、用途、排序和显隐。`placement` 只允许 `general`、`repository`、`footer`；首页开源按钮读取排序最前的可见 `repository` 链接，不按名称猜测；
 - `contact.yml`：邮箱、QQ群、GitHub、二维码、标签和显隐；
 - 招新状态可进入 `homepage.yml` 或独立 `recruitment.yml`，实现前以避免字段重复为准。
 

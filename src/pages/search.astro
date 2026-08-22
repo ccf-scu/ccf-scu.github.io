@@ -1,34 +1,13 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { categories, withBase } from "../lib/content";
-const activities = await getCollection("activities", ({ data }) => !data.archived);
-const members = await getCollection("members", ({ data }) => data.visible);
-const searchIndex = [
-  ...activities.map((entry) => ({ title: entry.data.title, summary: `${categories[entry.data.category]} · ${entry.data.summary}`, url: withBase(`/activities/${entry.id}/`), keywords: `${entry.data.title} ${entry.data.summary} ${categories[entry.data.category]} ${entry.body ?? ""}` })),
-  ...members.map((entry) => ({ title: entry.data.name, summary: `${entry.data.cohort} · ${entry.data.role}`, url: withBase("/archive/"), keywords: `${entry.data.name} ${entry.data.role} ${entry.data.cohort}` })),
-];
+import { withBase } from "../lib/content";
+import { buildSearchIndex } from "../lib/search";
+const searchIndex = buildSearchIndex(await getCollection("activities"), await getCollection("members"));
+const serializedIndex = JSON.stringify(searchIndex).replaceAll("<", "\\u003c");
 ---
 
 <BaseLayout title="全站搜索" description="搜索分会活动、成员和公开档案。">
   <header class="page-hero"><p class="eyebrow">SEARCH</p><h1>全站搜索</h1><p>搜索活动标题、摘要、类别与公开成员资料；搜索在浏览器本地完成。</p></header>
-  <section class="section"><form class="search-box" data-search-form><label class="sr-only" for="search-query">搜索关键词</label><input id="search-query" name="q" type="search" autocomplete="off" placeholder="例如：学术报告、竞赛、2025" data-search-input /><button class="button button-primary" type="submit">搜索</button></form><p data-search-count aria-live="polite">输入关键词开始搜索。</p><div class="search-results" data-search-results></div></section>
+  <section class="page-section"><div class="page-container search-page" data-search-root data-search-initial-query="url"><form class="search-box" role="search" data-search-form><label class="sr-only" for="search-query">搜索关键词</label><input id="search-query" name="q" type="search" autocomplete="off" placeholder="例如：学术报告、竞赛、2025" data-search-input /><button class="button button-primary" type="submit">搜索</button></form><p data-search-count aria-live="polite">输入关键词开始搜索。</p><div class="search-results" data-search-results></div><noscript><div class="empty-state">本地搜索需要 JavaScript；你仍可浏览<a href={withBase("/activities/")}>全部活动</a>或<a href={withBase("/archive/")}>历史档案</a>。</div></noscript><script is:inline type="application/json" data-search-index set:html={serializedIndex}></script></div></section>
 </BaseLayout>
-
-<script is:inline define:vars={{ searchIndex }}>
-  const form = document.querySelector("[data-search-form]");
-  const input = document.querySelector("[data-search-input]");
-  const results = document.querySelector("[data-search-results]");
-  const count = document.querySelector("[data-search-count]");
-  const escapeHtml = (value) => value.replace(/[&<>'"]/g, (character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"})[character]);
-  const run = () => {
-    const query = input.value.trim().toLocaleLowerCase("zh-CN");
-    const matches = query ? searchIndex.filter((entry) => entry.keywords.toLocaleLowerCase("zh-CN").includes(query)).slice(0,30) : [];
-    count.textContent = query ? `找到 ${matches.length} 条结果` : "输入关键词开始搜索。";
-    results.innerHTML = matches.map((entry) => `<article class="search-result"><h2><a href="${entry.url}">${escapeHtml(entry.title)}</a></h2><p>${escapeHtml(entry.summary)}</p></article>`).join("");
-  };
-  form?.addEventListener("submit", (event) => { event.preventDefault(); run(); });
-  input?.addEventListener("input", run);
-  const initial = new URLSearchParams(location.search).get("q");
-  if (initial && input) { input.value = initial; run(); }
-</script>

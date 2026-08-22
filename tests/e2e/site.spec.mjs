@@ -11,8 +11,16 @@ const warmLazyImages = async (page) => page.evaluate(async () => {
   await Promise.all([...document.images].map((image) => image.complete
     ? image.decode?.().catch(() => undefined)
     : new Promise((resolve) => image.addEventListener("load", resolve, { once: true }))));
+  document.querySelector("astro-dev-toolbar")?.remove();
   window.scrollTo(0, 0);
 });
+const captureSection = async (page, selector, path) => {
+  const target = page.locator(selector);
+  await target.evaluate((element) => window.scrollTo(0, element.getBoundingClientRect().top + window.scrollY - 110));
+  await page.waitForTimeout(180);
+  await expect(target).toBeInViewport({ ratio: 0.45 });
+  await page.screenshot({ path });
+};
 
 test.beforeAll(async () => mkdir(screenshots, { recursive: true }));
 
@@ -24,12 +32,17 @@ test("desktop home has identity, content, no overflow, and no CMS bundle", async
   await expect(page).toHaveTitle(/CCF 四川大学学生分会/);
   await expect(page.getByRole("heading", { name: /让一次好奇.*共振/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /让成长有路径/ })).toBeVisible();
+  await expect(page.getByText("CN", { exact: true })).toHaveCount(0);
+  await expect(page.locator("[data-resonance-canvas]")).toBeVisible();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
   expect(overflow).toBe(false);
   expect(adminRequests).toEqual([]);
   await warmLazyImages(page);
   await expect(page.locator(".possibility-sheet img").first()).toHaveJSProperty("complete", true);
   await page.screenshot({ path: `${screenshots}/home-desktop.png`, fullPage: true });
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await captureSection(page, "[data-activity-lab]", `${screenshots}/home-activity-desktop.png`);
+  await captureSection(page, "[data-repo-card]", `${screenshots}/home-open-source-desktop.png`);
 });
 
 test("home activity instrument changes the visible layer", async ({ page }) => {
@@ -39,6 +52,25 @@ test("home activity instrument changes the visible layer", async ({ page }) => {
   await expect(competition).toHaveAttribute("aria-selected", "true");
   await expect(page.locator("[data-activity-lab]")).toHaveAttribute("data-active", "competition");
   await expect(page.locator("[data-layer-panel='competition']")).toHaveClass(/active/);
+  await competition.press("ArrowRight");
+  await expect(page.locator("[data-layer-tab='tutoring']")).toHaveAttribute("aria-selected", "true");
+});
+
+test("header search opens a full-screen dialog, searches locally, and restores focus", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  const trigger = page.locator(".desktop-nav [data-search-open]");
+  await trigger.click();
+  const dialog = page.locator("[data-search-dialog]");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByRole("searchbox")).toBeFocused();
+  await dialog.getByRole("searchbox").fill("腾讯");
+  await expect(dialog.locator("[data-search-count]")).toContainText("1 条结果");
+  await expect(dialog.locator("[data-search-results]")).toContainText("腾讯");
+  await page.screenshot({ path: `${screenshots}/search-dialog-desktop.png` });
+  await page.keyboard.press("Escape");
+  await expect(dialog).not.toBeVisible();
+  await expect(trigger).toBeFocused();
 });
 
 test("activity filter and sharing interactions update observable state", async ({ page }) => {
@@ -59,9 +91,10 @@ test("activity filter and sharing interactions update observable state", async (
 
 test("search and member disclosure work", async ({ page }) => {
   await page.goto("/search/");
-  await page.getByRole("searchbox").fill("腾讯");
-  await expect(page.locator("[data-search-count]")).toContainText("1 条结果");
-  await expect(page.locator("[data-search-results]")).toContainText("腾讯");
+  const searchPage = page.locator(".search-page");
+  await searchPage.getByRole("searchbox").fill("腾讯");
+  await expect(searchPage.locator("[data-search-count]")).toContainText("1 条结果");
+  await expect(searchPage.locator("[data-search-results]")).toContainText("腾讯");
   await page.goto("/archive/");
   const member = page.locator("details.member-card").first();
   await member.locator("summary").click();
@@ -80,12 +113,18 @@ test("public inner pages share the visual system without layout regressions", as
   ]) {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: heading, level: 1 })).toBeVisible();
-    const layout = await page.evaluate(() => ({
-      overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
-      headingTop: document.querySelector("h1")?.getBoundingClientRect().top ?? 0,
-    }));
+    const layout = await page.evaluate(() => {
+      const container = document.querySelector(".page-container")?.getBoundingClientRect();
+      return {
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+        headingTop: document.querySelector("h1")?.getBoundingClientRect().top ?? 0,
+        container: container ? { left: container.left, right: container.right } : null,
+      };
+    });
     expect(layout.overflow).toBe(false);
     expect(layout.headingTop).toBeGreaterThan(80);
+    expect(layout.container?.left).toBeGreaterThanOrEqual(31);
+    expect(layout.container?.right).toBeLessThanOrEqual(1409);
     await warmLazyImages(page);
     await page.screenshot({ path: `${screenshots}/${screenshot}`, fullPage: true });
   }
@@ -119,6 +158,11 @@ for (const width of [360, 390, 430]) {
     await toggle.click();
     await warmLazyImages(page);
     await page.screenshot({ path: `${screenshots}/home-${width}.png`, fullPage: true });
+    if (width === 360) {
+      await page.setViewportSize({ width, height: 844 });
+      await captureSection(page, "[data-activity-lab]", `${screenshots}/home-activity-360.png`);
+      await captureSection(page, "[data-repo-card]", `${screenshots}/home-open-source-360.png`);
+    }
   });
 }
 

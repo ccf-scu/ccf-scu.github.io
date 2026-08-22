@@ -117,7 +117,9 @@ collections:
             widget: object
             fields:
               - { label: 眉题, name: eyebrow, widget: string }
-              - { label: 主标题, name: title, widget: string }
+              - { label: 主标题第一行, name: title, widget: string }
+              - { label: 主标题第二行, name: titleLineTwo, widget: string }
+              - { label: 强调词, name: titleAccent, widget: string, hint: 使用首页蓝色衬线样式显示 }
               - { label: 副标题, name: subtitle, widget: text }
               - { label: 主按钮文字, name: primaryLabel, widget: string }
               - { label: 主按钮链接, name: primaryLink, widget: string }
@@ -129,6 +131,62 @@ collections:
             fields:
               - { label: 标题, name: title, widget: string }
               - { label: 摘要, name: summary, widget: text }
+              - { label: 详情入口文字, name: linkLabel, widget: string }
+              - { label: 详情入口链接, name: link, widget: string }
+              - label: 三项原则
+                name: principles
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 中文标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+              - { label: 引用文字, name: quote, widget: string }
+              - { label: 引用署名, name: quoteAttribution, widget: string }
+          - label: 活动章节
+            name: activities
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - label: 四个活动方向
+                name: directions
+                widget: list
+                min: 4
+                max: 4
+                fields:
+                  - { label: 类别, name: category, widget: select, options: [{ label: 学术引领, value: academic }, { label: 竞赛训练, value: competition }, { label: 学业帮扶, value: tutoring }, { label: 生涯发展, value: career }] }
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 中文标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+          - label: 成果章节
+            name: achievements
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - { label: 档案标题, name: archiveTitle, widget: string }
+              - { label: 档案说明, name: archiveSummary, widget: text }
+              - { label: 档案入口文字, name: archiveLinkLabel, widget: string }
+              - { label: 档案入口链接, name: archiveLink, widget: string }
+              - label: 时间轴
+                name: timeline
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 年份, name: year, widget: string }
+                  - { label: 英文眉题, name: eyebrow, widget: string }
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
+          - label: 开源章节
+            name: openSource
+            widget: object
+            fields:
+              - { label: 标题, name: title, widget: string }
+              - { label: 说明, name: summary, widget: text }
+              - { label: 仓库按钮文字, name: repositoryLabel, widget: string }
           - label: 招募信息
             name: recruitment
             widget: object
@@ -136,6 +194,18 @@ collections:
               - { label: 状态, name: status, widget: select, options: [{ label: 开放, value: open }, { label: 关闭, value: closed }, { label: 筹备中, value: preparing }] }
               - { label: 标题, name: title, widget: string }
               - { label: 说明, name: summary, widget: text }
+              - { label: 主按钮文字, name: primaryLabel, widget: string }
+              - { label: 主按钮链接, name: primaryLink, widget: string }
+              - { label: 次按钮文字, name: secondaryLabel, widget: string }
+              - { label: 次按钮链接, name: secondaryLink, widget: string }
+              - label: 加入路径
+                name: routes
+                widget: list
+                min: 3
+                max: 3
+                fields:
+                  - { label: 标题, name: title, widget: string }
+                  - { label: 说明, name: summary, widget: text }
           - { label: 首页活动数量, name: featuredActivityLimit, widget: number, value_type: int, min: 1, max: 12 }
           - { label: 首页公告数量, name: announcementLimit, widget: number, value_type: int, min: 1, max: 10 }
       - label: 分会信息
@@ -173,6 +243,7 @@ collections:
               - { label: 名称, name: name, widget: string }
               - { label: HTTPS 地址, name: url, widget: string }
               - { label: 类型, name: category, widget: select, options: [{ label: 官方机构, value: official }, { label: 合作组织, value: partner }, { label: 社团, value: community }] }
+              - { label: 用途, name: placement, widget: select, options: [{ label: 普通链接, value: general }, { label: 代码仓库, value: repository }, { label: 页脚链接, value: footer }], default: general, hint: 首页开源按钮读取“代码仓库”用途的首项 }
               - { label: 排序, name: order, widget: number, value_type: int }
               - { label: 显示, name: visible, widget: boolean, default: true }
       - label: 联系方式

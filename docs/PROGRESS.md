@@ -4,7 +4,7 @@
 >
 > 当前分支：`develop/astro-cms`
 >
-> 当前状态：五阶段代码、内容迁移与 ccfweb 视觉母版迁移完成，等待生产上线人工门禁
+> 当前状态：交互动效、内页版式、搜索面板与首页后台可编辑能力完成，等待生产上线人工门禁
 
 ## 阶段总览
 
@@ -18,6 +18,12 @@
 
 ## 本轮实现
 
+- 补回 Hero Canvas 线状共振场、About 无限轨道、活动平滑切片、成果叠卡与仓库逐行入场；页面隐藏时暂停 Canvas，移动端降低网格密度，减少动态偏好下直接显示稳定内容；
+- Header 删除 `CN`，搜索入口改为全屏可访问对话框；输入、结果计数、Escape 关闭和焦点恢复已验证，`/search/` 继续作为直接访问与无脚本兼容入口；
+- 关于、活动、档案、搜索和活动详情改用 1240px 居中内容容器，详情正文与侧栏整体居中，360/390/430 无页面级横向溢出；
+- 首页 Hero、分会介绍、三项原则、活动方向、成果时间轴、开源和招募文案全部进入 `homepage.yml` 并同步 Zod 与 Decap；
+- 友情链接新增 `placement` 用途，支持后台添加多项并按 `repository` 稳定选择真实 GitHub 仓库，不再依赖显示名称；
+- 放大 NOTICE 标签和正文，删除 Hero 操作提示、迁移核验与待补充等面向开发者的访客文案；页脚年份继续在每次静态构建时自动取得当前年份；
 - 完成 `../ccfweb` 的视觉、排版、交互与响应式审计，形成可持续维护的迁移规范；
 - 以“视觉等价、架构原生”方式迁移深色共振 Hero、编辑式 About、活动切片仪、深色成果档案、开源卡片与 Join 收束章节；
 - Header、Footer、活动列表/详情、关于、档案、搜索与隐私页统一使用母版的字体、色彩、容器、章节标题和卡片语言；
@@ -37,6 +43,8 @@
 - `npm run build && npm run validate:build`：根路径构建通过，共生成 34 个页面；
 - `SITE_BASE=/preview-site/ npm run build && SITE_BASE=/preview-site/ npm run validate:build`：项目子路径通过；
 - `npm run test:e2e`：10 项通过；Edge/Playwright 验证首页与全部主要内页、桌面、360/390/430、筛选、活动切片、搜索、成员展开、分享、二维码、后台登录前外壳及前后台 bundle 隔离；
+- 本轮 `npm run test:e2e` 扩展为 11 项并通过：新增全屏搜索、Escape/焦点恢复、活动键盘切换、内页容器边界与分区视口截图；
+- 本轮根路径与 `SITE_BASE=/preview-site/` 项目子路径均构建通过，各生成 34 个页面，`validate:build` 验证链接与前后台 bundle 隔离通过；
 - 视觉截图覆盖首页、活动列表、活动详情、关于、档案、搜索和后台，保存在被忽略的 `artifacts/visual-validation/`；
 - `npm audit --omit=dev --registry=https://registry.npmjs.org`：YAML 可修复中危已升级消除；剩余 9 项 high、0 critical，均来自 Decap 间接依赖且无完整修复版本；
 - 浏览器工具未暴露可用的交互入口，按仓库规范回退到本地 Edge + Playwright；截图保存在被忽略的 `artifacts/visual-validation/`。
@@ -62,6 +70,6 @@
 
 ## 下一步
 
-下一阶段按 [`.agent/plans/2026-08-22-interaction-content-polish.md`](../.agent/plans/2026-08-22-interaction-content-polish.md) 补齐 ccfweb 动效、内页留白、搜索面板、访客文案清理和首页后台可编辑能力；该计划已完成需求整理，尚未开始页面实现。
+交互动效与内容维护阶段已按 [`.agent/plans/2026-08-22-interaction-content-polish.md`](../.agent/plans/2026-08-22-interaction-content-polish.md) 完成，后续代码工作仅处理评审反馈或上线验收中发现的问题。
 
 生产上线仍由负责人按 `MAINTAINER_GUIDE.md` 和 `RELEASE_READINESS.md` 执行人工验收。本分支可以提交或发起评审，但本轮不 push、不创建 PR、不部署。

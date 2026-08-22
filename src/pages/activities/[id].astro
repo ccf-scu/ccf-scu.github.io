@@ -12,10 +12,10 @@ const { Content } = await render(activity);
 
 <BaseLayout title={activity.data.title} description={activity.data.summary} image={activity.data.cover}>
   <header class="page-hero"><p class="eyebrow">{categories[activity.data.category]} · {activityStatus(activity.data.startAt, activity.data.endAt)}</p><h1>{activity.data.title}</h1><p>{activity.data.summary}</p></header>
-  <section class="section prose-shell">
+  <section class="page-section"><div class="page-container prose-shell">
     <article class="prose"><img src={withBase(activity.data.cover)} alt={activity.data.coverAlt} width="1200" height="800" /><p><strong>活动时间：</strong>{formatDate(activity.data.startAt)}—{formatDate(activity.data.endAt)}</p><Content /></article>
     <aside class="detail-aside"><p class="eyebrow">SHARE</p><h2>分享活动</h2><div class="share-actions"><button type="button" data-copy-link disabled>复制链接</button><button type="button" data-show-qr disabled>生成二维码</button></div><div class="qr-panel" data-qr-panel hidden><img data-qr-image alt="当前活动页面二维码" /></div><p aria-live="polite" data-share-status></p></aside>
-  </section>
+  </div></section>
 </BaseLayout>
 
 <script>
