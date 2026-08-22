@@ -62,3 +62,57 @@ test("OAuth Worker rejects callbacks without matching state", async () => {
   );
   assert.equal(response.status, 400);
 });
+
+test("GitHub API proxy answers trusted CORS preflight requests", async () => {
+  const response = await worker.fetch(
+    new Request(`${env.OAUTH_BASE_URL}/github/repos/${env.GITHUB_REPOSITORY}/git/blobs`, {
+      method: "OPTIONS",
+      headers: { Origin: env.ADMIN_ORIGIN },
+    }),
+    env,
+  );
+  assert.equal(response.status, 204);
+  assert.equal(response.headers.get("Access-Control-Allow-Origin"), env.ADMIN_ORIGIN);
+  assert.match(response.headers.get("Access-Control-Allow-Methods"), /POST/);
+});
+
+test("GitHub API proxy rejects requests for other repositories", async () => {
+  const response = await worker.fetch(
+    new Request(`${env.OAUTH_BASE_URL}/github/repos/attacker/example/git/blobs`, {
+      headers: { Origin: env.ADMIN_ORIGIN, Authorization: "token test" },
+    }),
+    env,
+  );
+  assert.equal(response.status, 403);
+});
+
+test("GitHub API proxy forwards media blob writes without exposing another repository", async () => {
+  const originalFetch = globalThis.fetch;
+  let forwarded;
+  globalThis.fetch = async (input, init) => {
+    forwarded = { input, init };
+    return Response.json({ sha: "uploaded-sha" }, { status: 201, headers: { ETag: "test-etag" } });
+  };
+
+  try {
+    const response = await worker.fetch(
+      new Request(`${env.OAUTH_BASE_URL}/github/repos/${env.GITHUB_REPOSITORY}/git/blobs`, {
+        method: "POST",
+        headers: {
+          Origin: env.ADMIN_ORIGIN,
+          Authorization: "token test-token",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content: "aW1hZ2U=", encoding: "base64" }),
+      }),
+      env,
+    );
+    assert.equal(response.status, 201);
+    assert.equal(response.headers.get("Access-Control-Allow-Origin"), env.ADMIN_ORIGIN);
+    assert.equal(forwarded.input, `https://api.github.com/repos/${env.GITHUB_REPOSITORY}/git/blobs`);
+    assert.equal(forwarded.init.headers.get("Authorization"), "token test-token");
+    assert.equal(forwarded.init.method, "POST");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

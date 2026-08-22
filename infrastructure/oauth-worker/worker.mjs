@@ -1,6 +1,18 @@
 const STATE_COOKIE = "ccf_scu_oauth_state";
 const STATE_TTL_SECONDS = 600;
 const MAX_TOKEN_RESPONSE_BYTES = 16 * 1024;
+const GITHUB_API_PREFIX = "/github";
+
+function corsHeaders(adminOrigin) {
+  return {
+    "Access-Control-Allow-Origin": adminOrigin,
+    "Access-Control-Allow-Methods": "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS",
+    "Access-Control-Allow-Headers": "Accept, Authorization, Content-Type, If-Match, If-Modified-Since, If-None-Match, If-Unmodified-Since, X-GitHub-Api-Version",
+    "Access-Control-Expose-Headers": "Content-Length, Content-Type, ETag, Link, Location, Retry-After, X-GitHub-Request-Id, X-OAuth-Scopes, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-RateLimit-Used",
+    "Access-Control-Max-Age": "86400",
+    Vary: "Origin",
+  };
+}
 
 function securityHeaders(extra = {}) {
   return {
@@ -210,12 +222,76 @@ async function handleCallback(request, url, env) {
   return callbackPage("success", { token }, env.ADMIN_ORIGIN);
 }
 
+function isTrustedAdminOrigin(request, adminOrigin) {
+  return request.headers.get("Origin") === adminOrigin;
+}
+
+function githubApiPath(url, repository) {
+  const path = url.pathname.slice(GITHUB_API_PREFIX.length) || "/";
+  const repositoryPrefix = `/repos/${repository}`;
+  if (path === "/user" || path === repositoryPrefix || path.startsWith(`${repositoryPrefix}/`)) {
+    return `${path}${url.search}`;
+  }
+  return null;
+}
+
+async function handleGitHubApi(request, url, env) {
+  const cors = corsHeaders(env.ADMIN_ORIGIN);
+  if (request.method === "OPTIONS") {
+    if (!isTrustedAdminOrigin(request, env.ADMIN_ORIGIN)) return textResponse("Untrusted CMS origin", 403);
+    return new Response(null, { status: 204, headers: securityHeaders(cors) });
+  }
+  if (!isTrustedAdminOrigin(request, env.ADMIN_ORIGIN)) {
+    return textResponse("Untrusted CMS origin", 403, cors);
+  }
+  const authorization = request.headers.get("Authorization");
+  if (!authorization) return textResponse("Missing GitHub authorization", 401, cors);
+
+  const apiPath = githubApiPath(url, env.GITHUB_REPOSITORY);
+  if (!apiPath) return textResponse("GitHub API path is outside the CMS repository", 403, cors);
+
+  const headers = new Headers();
+  for (const name of [
+    "Accept",
+    "Authorization",
+    "Content-Type",
+    "If-Match",
+    "If-Modified-Since",
+    "If-None-Match",
+    "If-Unmodified-Since",
+    "X-GitHub-Api-Version",
+  ]) {
+    const value = request.headers.get(name);
+    if (value) headers.set(name, value);
+  }
+  headers.set("User-Agent", "ccf-scu-cms-api-proxy");
+  headers.set("X-GitHub-Api-Version", headers.get("X-GitHub-Api-Version") || "2022-11-28");
+
+  const response = await fetch(`https://api.github.com${apiPath}`, {
+    method: request.method,
+    headers,
+    body: request.method === "GET" || request.method === "HEAD" ? undefined : request.body,
+    redirect: "manual",
+  });
+  const responseHeaders = new Headers(response.headers);
+  for (const [name, value] of Object.entries(cors)) responseHeaders.set(name, value);
+  responseHeaders.set("Cache-Control", "no-store");
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: responseHeaders,
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (request.method !== "GET") return textResponse("Method not allowed", 405, { Allow: "GET" });
 
     try {
+      if (url.pathname === GITHUB_API_PREFIX || url.pathname.startsWith(`${GITHUB_API_PREFIX}/`)) {
+        return await handleGitHubApi(request, url, env);
+      }
+      if (request.method !== "GET") return textResponse("Method not allowed", 405, { Allow: "GET" });
       if (url.pathname === "/auth") return await handleAuth(request, url, env);
       if (url.pathname === "/callback") return await handleCallback(request, url, env);
       if (url.pathname === "/health") {
@@ -231,7 +307,11 @@ export default {
         path: url.pathname,
         message: error instanceof Error ? error.message : "Unknown error",
       }));
+      const extraHeaders = url.pathname.startsWith(`${GITHUB_API_PREFIX}/`)
+        ? corsHeaders(env.ADMIN_ORIGIN)
+        : {};
       return textResponse("OAuth request failed", 502, {
+        ...extraHeaders,
         "Set-Cookie": stateCookie("", 0),
       });
     }

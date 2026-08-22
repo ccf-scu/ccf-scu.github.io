@@ -7,6 +7,7 @@ backend:
   branch: main
   base_url: https://ccf-scu-cms-oauth.1632145935.workers.dev
   auth_endpoint: auth
+  api_root: https://ccf-scu-cms-oauth.1632145935.workers.dev/github
 
 publish_mode: editorial_workflow
 media_folder: public/uploads

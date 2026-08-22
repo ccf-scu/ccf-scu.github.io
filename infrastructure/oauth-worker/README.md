@@ -1,6 +1,6 @@
 # Decap CMS OAuth Worker
 
-该 Worker 只负责在 Decap CMS 与 GitHub 之间交换 OAuth 授权码，不保存网站内容。
+该 Worker 负责在 Decap CMS 与 GitHub 之间交换 OAuth 授权码，并转发后台所需的受限 GitHub API 请求；不保存网站内容或访问令牌。
 
 ## 生产地址
 
@@ -8,6 +8,7 @@
 - 授权入口：`/auth`
 - GitHub 回调：`https://ccf-scu-cms-oauth.1632145935.workers.dev/callback`
 - 健康检查：`/health`
+- GitHub API 代理：`/github`（仅允许正式后台来源、当前用户接口和 `ccf-scu/ccf-scu.github.io` 仓库路径）
 
 ## GitHub OAuth App
 
@@ -48,5 +49,6 @@ npx wrangler@4.59.1 secret put GITHUB_OAUTH_SECRET
 - 只接受 `https://www.ccfscu.com` 发起的登录；
 - 回调令牌只通过精确的 `targetOrigin` 发回 CMS；
 - 返回令牌前再次确认用户对 `ccf-scu/ccf-scu.github.io` 有写权限；
+- GitHub API 代理校验精确的后台 Origin，并拒绝访问其他仓库；
 - 仅请求公开仓库所需的 `public_repo` scope；
 - GitHub OAuth App 的 `public_repo` 仍覆盖用户可访问的所有公开仓库，无法缩小到单仓库。安全负责人必须明确接受该剩余风险。
