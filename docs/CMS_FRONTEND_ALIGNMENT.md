@@ -23,14 +23,30 @@
 1. 在“成员”中新建新一届成员，每一条的“届次”填写完全相同的文本，例如 `第十六届（2026–2027）`。
 2. 设置姓名、职务和排序；确认可公开后开启“显示”。个人简介只有同时开启“简介已获确认”才公开。
 3. 先发布这些成员，并确认历史档案自动出现新的届次标题和成员组。
-4. 打开“站点设置 → 分会信息”，把“本届执委届次”改为同一文本，再发布。
+4. 打开“页面设置｜首页、关于分会与全站 → 03 关于分会｜分会信息与本届届次”，把“本届执委届次”改为同一文本，再发布。
 5. 确认“关于分会”已切换到新一届。旧成员不删除、不隐藏，继续保留在历史档案。
 
 构建校验会拒绝不存在于成员记录中的“本届执委届次”，避免拼写差异导致本届区域为空。
 
-## 正文编辑器故障降级
+## 正文编辑器与预览
 
-Vditor 保存标准 Markdown。编辑器初始化失败时，后台显示原生 Markdown 文本框，内容仍可编辑和保存。离开编辑页时只销毁已经完成初始化的实例，避免初始化与路由切换竞态触发 `Cannot read properties of undefined (reading 'element')`。
+正文已改用 Decap 原生 Markdown 编辑器，保存格式仍是标准 Markdown。项目不再加载 Vditor，也不再请求 unpkg 语言包或其他 Vditor 运行资源。
+
+正文预览会把 Markdown 渲染成接近前台正文的排版；它用于检查标题、段落、列表、链接、代码和图片，不代表整页导航、动画或最终构建结果。最终仍以内容工作流预览和生产构建页面为准。
+
+## 保存时报 GitHub 组织 OAuth 限制
+
+`API_ERROR: ... organization has enabled OAuth App access restrictions` 不是内容字段或浏览器故障，而是 GitHub 拒绝当前 OAuth App 写入 `ccf-scu` 组织仓库。代码不能、也不应绕过该组织安全策略。
+
+处理步骤：
+
+1. 当前维护者在 GitHub 打开“Settings → Applications → Authorized OAuth Apps → CCF SCU CMS”，在 `ccf-scu` 旁点击 **Request access**；
+2. `ccf-scu` 组织所有者打开“Organization Settings → Third-party Access → OAuth app policy”；
+3. 找到 `CCF SCU CMS`，点击 **Review → Grant access**；
+4. 维护者退出 CMS 后重新登录，再保存一条无敏感信息的测试草稿；
+5. 若列表中没有该 App，确认 Worker 使用的 Client ID 对应哪个 OAuth App，且维护者已先在个人账号授权该 App。
+
+不建议为了省略审批而关闭整个组织的 OAuth App access restrictions。若组织长期不接受 OAuth App，后续应单独迁移到按仓库安装、权限更细的 GitHub App 方案，而不是扩大现有 Token 权限。
 
 ## 发布后检查
 
@@ -38,4 +54,4 @@ Vditor 保存标准 Markdown。编辑器初始化失败时，后台显示原生 
 - 组织：关于页的指导老师、本届执委、相关链接和联系方式；
 - 换届：历史档案新增届次标题，旧届次仍存在；
 - 全站：页脚 QQ 群或其他联系方式已更新；
-- 后台：进入带正文的活动或成员，编辑器可见，返回列表无错误覆盖层。
+- 后台：进入带正文的活动或成员，原生 Markdown 编辑器与右侧格式化预览可见，返回列表无错误覆盖层。

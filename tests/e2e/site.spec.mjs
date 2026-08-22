@@ -240,7 +240,7 @@ test("admin page is isolated and renders its application shell", async ({ page }
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/admin/");
   await expect(page).toHaveTitle(/内容后台/);
-  await expect(page.getByRole("button", { name: "使用 GitHub 登录" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: /登录/ })).toBeVisible({ timeout: 15_000 });
   await expect(page.locator("body")).not.toContainText("Error loading the CMS configuration");
   await page.screenshot({ path: `${screenshots}/admin-desktop.png`, fullPage: true });
 });

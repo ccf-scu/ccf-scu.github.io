@@ -5,7 +5,7 @@
 网站面向公众的生产链路必须是静态文件。后台只负责把受控内容写入 GitHub；CMS 或 OAuth 故障不能使已发布页面下线。
 
 ```text
-维护者 -> /admin/ Decap + Vditor -> OAuth 辅助服务 -> GitHub 内容分支
+维护者 -> /admin/ Decap 原生 Markdown -> OAuth 辅助服务 -> GitHub 内容分支
                                                      -> PR/审核/合并
 GitHub 仓库 -> Actions 校验与 Astro 构建 -> GitHub Pages -> 访问者
 ```
@@ -17,7 +17,7 @@ OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章�
 - Astro：固定稳定版本，`output: "static"`；
 - TypeScript：内容 schema、工具函数和组件接口使用严格类型；
 - Decap CMS：后台内容管理，固定已验证版本；
-- Vditor：Decap 自定义 Markdown widget，只进入后台 bundle；
+- Decap Markdown：内置编辑与预览，保存标准 Markdown；
 - Markdown/YAML：Git 中的内容源；
 - Sharp/Astro 图片能力：构建期生成响应式图片；
 - GitHub Actions：检查、构建和最终发布；
@@ -51,7 +51,7 @@ OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章�
 - 核心内容必须在服务端静态 HTML 中存在；
 - Header 搜索入口在 JavaScript 可用时打开原生全屏 `dialog`，否则链接到 `/search/`；菜单、动画等客户端能力失败时仍可浏览主要页面；
 - Canvas 和重动画独立加载，遵守 `prefers-reduced-motion`；
-- 前台不得加载 Decap/Vditor；
+- 前台不得加载 Decap；
 - 第三方统计或图片失败不得阻断正文。
 
 ## URL 设计

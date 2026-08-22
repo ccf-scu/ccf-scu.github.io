@@ -18,7 +18,7 @@
 | [`ARCHITECTURE.md`](ARCHITECTURE.md) | Astro、CMS、OAuth、静态输出和目录职责 |
 | [`DEVELOPMENT.md`](DEVELOPMENT.md) | 开发环境、命令、编码和依赖流程 |
 | [`CONTENT_MODEL.md`](CONTENT_MODEL.md) | 首页、活动、公告、成员及公共数据 schema |
-| [`CMS.md`](CMS.md) | Decap、Vditor、审核和图片上传 |
+| [`CMS.md`](CMS.md) | Decap、Markdown、审核和图片上传 |
 | [`TESTING.md`](TESTING.md) | 自动检查、浏览器、移动端和上线验收 |
 | [`DEPLOYMENT.md`](DEPLOYMENT.md) | 分支、GitHub Pages、预览、发布和回滚 |
 | [`SECURITY.md`](SECURITY.md) | OAuth、依赖、内容、隐私和事件响应 |

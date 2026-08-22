@@ -20,6 +20,8 @@ Decap CMS 管理首页、活动、公告、成员、指导老师、友情链接�
 - Secret 只存外部运行环境的秘密存储；
 - 至少两名维护者完成真实登录演练后才能上线后台。
 
+若保存时出现 `organization has enabled OAuth App access restrictions`，说明登录成功但组织拒绝该 OAuth App 写仓库。维护者需在个人 GitHub 的 Authorized OAuth Apps 页面请求 `ccf-scu` 访问，随后由组织所有者在 `Organization Settings → Third-party Access → OAuth app policy` 中对 `CCF SCU CMS` 执行 `Review → Grant access`。批准后退出后台并重新登录。此限制不能由前端或 OAuth Worker 绕过，也不应通过关闭组织安全策略规避。
+
 `config.yml` 的 `base_url` 指向独立 Cloudflare Worker。Worker 源码、部署参数、回调地址和轮换方式见 [`../infrastructure/oauth-worker/README.md`](../infrastructure/oauth-worker/README.md)，架构决策见 [`decisions/0002-cloudflare-worker-oauth.md`](decisions/0002-cloudflare-worker-oauth.md)。只有两项 GitHub 凭据均进入 Cloudflare 加密 Secret、真实登录通过且构建产物中不存在 Secret 后，后台才可视为可发布。
 
 ## 编辑工作流
@@ -36,20 +38,19 @@ Decap CMS 管理首页、活动、公告、成员、指导老师、友情链接�
 
 ## 成员介绍
 
-- “成员 → 弹窗个人介绍”保存标准 Markdown，可写多段文字，也可通过 Vditor 插入图片；
+- “执委成员 → 弹窗个人介绍”保存标准 Markdown，可写多段文字，也可通过 Decap 原生编辑器插入图片；
 - 前台点击执委卡片后，在高于当前页面的介绍框内显示姓名、职务、届次和正文；关闭后焦点返回原卡片；
 - 只有“简介已获确认”开启后才公开正文，未确认内容继续显示占位提示；照片和正文图片发布前均需完成本人或负责人确认。
 
-## Vditor 契约
+## Markdown 编辑器契约
 
-- 以 Decap 自定义 widget 接入，不修改 Decap 内核；
+- 使用 Decap 内置 `markdown` widget，不维护第三方编辑器适配层；
 - 保存标准 Markdown，不保存专有编辑器 JSON；
 - 支持中文输入、标题、列表、链接、表格、代码和图片；
 - 清理危险 HTML 和脚本协议；
-- 编辑器加载失败时回退到 Markdown 文本框；
 - 复杂编辑以桌面端为主，手机支持应急短改。
 
-当前代码已注册 Vditor 自定义控件并提供普通 Markdown 文本框回退。由于真实仓库媒体写入依赖 OAuth 后端，保存重开、媒体库和正文图片上传属于上线前人工硬门禁。
+项目已移除 Vditor 依赖、自定义控件和动态 CDN 资源，正文编辑与预览均由 Decap 提供，因此不会再请求 unpkg。由于真实仓库媒体写入依赖 OAuth 后端，保存重开、媒体库和正文图片上传属于上线前人工硬门禁。
 
 ## 图片
 

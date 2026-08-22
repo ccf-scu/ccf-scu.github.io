@@ -17,8 +17,9 @@ logo_url: /images/brand/ccf-logo.png
 
 collections:
   - name: activities
-    label: 活动
+    label: 02 活动中心｜活动内容
     label_singular: 活动
+    description: 对应前台“活动”列表、活动详情和首页四个活动方向。
     folder: src/content/activities
     create: true
     delete: false
@@ -26,8 +27,6 @@ collections:
     format: frontmatter
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     summary: "{{title}} · {{category}} · {{startAt}}"
-    editor:
-      preview: false
     fields:
       - { label: 标题, name: title, widget: string, hint: 用于页面标题和搜索结果 }
       - { label: 摘要, name: summary, widget: text, hint: 建议 60–120 字，用于卡片和分享 }
@@ -48,10 +47,11 @@ collections:
       - { label: 首页显示, name: showOnHomepage, widget: boolean, default: true, hint: 关闭后仍显示在活动列表，但不会成为首页代表活动 }
       - { label: 归档/下架, name: archived, widget: boolean, default: false, hint: 已发布内容不要删除，使用此开关下架 }
       - { label: 原始资料链接, name: sourceUrl, widget: string, required: false }
-      - { label: 正文, name: body, widget: vditor, hint: 保存为标准 Markdown；编辑器异常时自动回退到文本框 }
+      - { label: 正文, name: body, widget: markdown, hint: Decap 原生 Markdown 编辑器；支持可视化与源码模式，保存为标准 Markdown }
 
   - name: announcements
-    label: 公告
+    label: 01 首页｜公告通知
+    description: 对应首页 NOTICE 公告条；正文预览仅用于检查排版。
     folder: src/content/announcements
     create: true
     delete: false
@@ -66,10 +66,11 @@ collections:
       - { label: 置顶, name: featured, widget: boolean, default: false }
       - { label: 显示, name: visible, widget: boolean, default: true }
       - { label: 链接, name: link, widget: string, required: false, hint: 仅填写站内路径或 HTTPS 地址 }
-      - { label: 正文, name: body, widget: vditor, required: false }
+      - { label: 正文, name: body, widget: markdown, required: false }
 
   - name: members
-    label: 成员
+    label: 03 关于分会／04 历史档案｜执委成员
+    description: 本届成员显示在“关于分会”，全部可见届次自动进入“历史档案”。
     folder: src/content/members
     create: true
     delete: false
@@ -85,10 +86,11 @@ collections:
       - { label: 照片替代文本, name: photoAlt, widget: string, required: false }
       - { label: 显示, name: visible, widget: boolean, default: true }
       - { label: 简介已获确认, name: profileConfirmed, widget: boolean, default: false }
-      - { label: 弹窗个人介绍, name: body, widget: vditor, required: false, hint: 显示在点击执委卡片后打开的介绍框中；支持段落与插入图片，仅在本人或负责人确认后公开 }
+      - { label: 弹窗个人介绍, name: body, widget: markdown, required: false, hint: 显示在点击执委卡片后打开的介绍框中；支持段落与插入图片，仅在本人或负责人确认后公开 }
 
   - name: honors
-    label: 荣誉与成果
+    label: 01 首页／04 历史档案｜荣誉成果
+    description: 首页显示精选成果，历史档案显示全部可见荣誉。
     folder: src/content/honors
     create: true
     delete: false
@@ -102,13 +104,14 @@ collections:
       - { label: 图片替代文本, name: imageAlt, widget: string, required: false }
       - { label: 首页精选, name: featured, widget: boolean, default: false }
       - { label: 显示, name: visible, widget: boolean, default: true }
-      - { label: 说明, name: body, widget: vditor, required: false }
+      - { label: 说明, name: body, widget: markdown, required: false }
 
   - name: settings
-    label: 站点设置
+    label: 页面设置｜首页、关于分会与全站
+    description: 按下方页面名称进入设置；指导老师和相关链接均位于“关于分会”。
     delete: false
     files:
-      - label: 首页设置
+      - label: 01 首页｜页面文案与招募
         name: homepage
         file: src/data/homepage.yml
         fields:
@@ -207,7 +210,7 @@ collections:
                   - { label: 标题, name: title, widget: string }
                   - { label: 说明, name: summary, widget: text }
           - { label: 首页公告数量, name: announcementLimit, widget: number, value_type: int, min: 1, max: 10 }
-      - label: 分会信息
+      - label: 03 关于分会｜分会信息与本届届次
         name: organization
         file: src/data/organization.yml
         fields:
@@ -217,7 +220,7 @@ collections:
           - { label: 成立年份, name: founded, widget: string }
           - { label: 分会序号, name: chapterNumber, widget: string }
           - { label: 本届执委届次, name: currentCohort, widget: string, hint: 必须与成员条目的“届次”完全一致；换届时先新增成员，再在此切换本届 }
-      - label: 指导老师
+      - label: 03 关于分会｜指导老师
         name: teachers
         file: src/data/teachers.yml
         fields:
@@ -232,7 +235,7 @@ collections:
               - { label: 替代文本, name: photoAlt, widget: string, required: false }
               - { label: 排序, name: order, widget: number, value_type: int }
               - { label: 显示, name: visible, widget: boolean, default: true }
-      - label: 友情链接
+      - label: 03 关于分会｜相关链接
         name: links
         file: src/data/links.yml
         fields:
@@ -246,7 +249,7 @@ collections:
               - { label: 用途, name: placement, widget: select, options: [{ label: 普通链接, value: general }, { label: 代码仓库, value: repository }, { label: 页脚链接, value: footer }], default: general, hint: 首页开源按钮读取“代码仓库”用途的首项 }
               - { label: 排序, name: order, widget: number, value_type: int }
               - { label: 显示, name: visible, widget: boolean, default: true }
-      - label: 联系方式
+      - label: 全站｜联系方式与 QQ 群
         name: contact
         file: src/data/contact.yml
         fields:

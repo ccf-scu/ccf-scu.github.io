@@ -1,0 +1,45 @@
+/* Decap renders its preview iframe beside the form even on narrow screens. Keep
+   emergency mobile editing usable; formatted preview remains available on desktop. */
+@media (max-width: 700px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  #preview-pane {
+    display: none !important;
+  }
+
+  .Pane1 {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+
+  .Pane2 {
+    display: none !important;
+  }
+
+  [class*="ControlPaneContainer"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  [class*="EditorContainer"],
+  [class*="ToolbarContainer"] {
+    width: 100vw !important;
+    min-width: 0 !important;
+    max-width: 100vw !important;
+  }
+
+  [class*="ToolbarContainer"] {
+    overflow-x: auto;
+  }
+
+  [class*="ToolbarSection"] {
+    min-width: 0 !important;
+  }
+
+  [data-slate-editor="true"] {
+    max-width: 100%;
+    min-width: 0;
+  }
+}

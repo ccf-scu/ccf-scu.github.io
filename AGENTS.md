@@ -12,8 +12,8 @@
 ## 不可破坏的约束
 
 1. 站点必须输出纯静态文件；不得引入需要常驻业务服务器的功能。
-2. CMS 固定为 Decap CMS；正文编辑器采用 Vditor，但必须保存标准 Markdown 并保留文本回退。
-3. 前台不得加载 Decap、Vditor或 OAuth 代码。
+2. CMS 固定为 Decap CMS；正文使用 Decap 原生 Markdown 编辑器并保存标准 Markdown。
+3. 前台不得加载 Decap 或 OAuth 代码。
 4. 首期不得依赖 Google Fonts、unpkg 或只有境外节点可用的公共资源。
 5. 移动端适配是功能要求；任何 UI 改动都要验证桌面端和至少一个移动端视口。
 6. 旧站以 commit `b904313` 和标签 `pre-astro-launch-2026-08-22` 保持可恢复；非 `main` 分支不得部署到正式 GitHub Pages。
