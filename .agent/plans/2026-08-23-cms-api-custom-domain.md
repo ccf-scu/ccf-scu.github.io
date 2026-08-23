@@ -26,6 +26,7 @@
 ## 进度（带时间）
 - 2026-08-23：完成根因边界确认，开始自定义域名迁移。
 - 2026-08-23：实现、自动验证与 Worker Custom Domain 部署完成，进入 Pages 发布。
+- 2026-08-23：提交 `e1abdd2` 已推送 `main`，Cloudflare Pages 生产配置与 CSP 冒烟通过，迁移完成。
 
 ## 发现与证据
 - 服务端测试 POST 可见于 Worker 日志，但用户上传失败时没有 Worker invocation，失败发生在请求到达 Worker 之前。
@@ -44,4 +45,4 @@
 - 若证书未就绪，后台暂不切换；回滚时恢复旧 `api_root` 并移除 Custom Domain 配置。
 
 ## 未完成项与下一步
-- 提交推送 `main`，等待 Cloudflare Pages 更新后台配置并完成线上冒烟。
+- 无；待维护者下次可操作浏览器时执行一次真实登录媒体上传验收。
