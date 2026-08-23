@@ -1,16 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { contacts, homepage, repository } from "../lib/site";
+import { contacts, homepage, homepageFeatured, repository } from "../lib/site";
 import { categories, selectByIds, selectHomepageActivities, visibleAnnouncements, withBase } from "../lib/content";
 
 const allActivities = await getCollection("activities");
 const allAnnouncements = visibleAnnouncements(await getCollection("announcements"));
-const announcements = selectByIds(allAnnouncements, homepage.featuredContent.announcements, "首页公告");
+const announcements = selectByIds(allAnnouncements, homepageFeatured.announcements, "首页公告");
 const visibleHonors = (await getCollection("honors")).filter((entry) => entry.data.visible);
-const honors = selectByIds(visibleHonors, homepage.featuredContent.honors, "首页荣誉");
+const honors = selectByIds(visibleHonors, homepageFeatured.honors, "首页荣誉");
 const categoryOrder = ["academic", "competition", "tutoring", "career"] as const;
-const featuredActivities = selectHomepageActivities(allActivities, homepage.featuredContent.activities);
+const featuredActivities = selectHomepageActivities(allActivities, homepageFeatured.activities);
 const fallbackImages = [
   "/uploads/featured/ccf-campus-talk.webp",
   "/uploads/featured/algorithm-training.webp",

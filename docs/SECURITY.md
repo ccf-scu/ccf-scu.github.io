@@ -10,6 +10,7 @@
 
 ## 账号与权限
 
+- `/admin/` 未认证时只渲染 Decap 登录界面；自定义管理壳层以 Decap 的认证状态为唯一门槛，不读取或复制 OAuth Token；
 - 维护者使用个人 GitHub 账号，不共享密码；
 - 强烈要求启用 GitHub 2FA；
 - Organization 定期清理离任人员；

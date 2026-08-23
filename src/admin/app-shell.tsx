@@ -42,12 +42,19 @@ function routeFromHash(hash: string) {
   if (collection === "members" || collection === "honors") return { page: "about", custom: false };
   if (collection === "settings") {
     const entry = hash.match(/\/entries\/([^/?]+)/)?.[1];
-    if (entry === "homepage") return { page: "home", custom: false };
+    if (entry === "homepage" || entry === "homepageFeatured") return { page: "home", custom: false };
     if (["organization", "teachers", "links"].includes(entry ?? "")) return { page: "about", custom: false };
     return { page: "settings", custom: false };
   }
   if (hash.startsWith("#/workflow")) return { page: "workflow", custom: false };
   return { page: "home", custom: true };
+}
+
+function returnPageForSettingsEntry(hash: string) {
+  const entry = hash.match(/^#\/collections\/settings\/entries\/([^/?]+)/)?.[1];
+  if (entry === "homepage" || entry === "homepageFeatured") return "home";
+  if (["organization", "teachers", "links"].includes(entry ?? "")) return "about";
+  return entry ? "settings" : undefined;
 }
 
 function Section({ title, description, action, children }: React.PropsWithChildren<{ title: string; description?: string; action?: React.ReactNode }>) {
@@ -62,7 +69,10 @@ function HomePage({ data }: { data: AdminIndex }) {
   const activityById = new Map(data.activities.map((item) => [item.id, item]));
   const honorById = new Map(data.honors.map((item) => [item.id, item]));
   return <>
-    <Section title="页面文案" description="Banner、分会简介、活动方向、开源和招募内容集中在同一份首页设置中。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
+    <Section title="页面文案" description="这里只维护访客看到的 Banner、分会简介、固定活动方向文案、开源和招募文案，不包含公告、活动或荣誉条目。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
+      <p className="admin-section-note">三项原则、四个活动方向、三项成果时间轴和三个加入路径均为固定结构，只能修改文案。</p>
+    </Section>
+    <Section title="首页展示编排" description="只从已有内容中选择首页公告、四个代表活动和三项荣誉；具体内容仍在对应条目中维护。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整首页展示</a>}>
       <div className="admin-summary-grid"><article><strong>首页公告</strong><b>{data.homepage.announcements.length}</b><small>条已编排</small></article><article><strong>活动槽位</strong><b>4</b><small>个固定方向</small></article><article><strong>精选荣誉</strong><b>{data.homepage.honors.length}</b><small>项成果</small></article></div>
     </Section>
     <Section title="公告" description="调整公告内容后，再到首页设置中控制展示顺序。" action={<a className="button" href={nativeCollection("announcements")}>管理全部公告</a>}>
@@ -126,9 +136,9 @@ function ImageCenter({ picker, onClose }: { picker?: PickerRequest; onClose?: ()
 }
 
 function AppShell() {
-  const [hash, setHash] = useState(location.hash || "#/manage/home"); const [data, setData] = useState<AdminIndex | null>(null); const [mobileOpen, setMobileOpen] = useState(false); const [picker, setPicker] = useState<PickerRequest | undefined>(); const menuButton = useRef<HTMLButtonElement>(null); const closeMenuButton = useRef<HTMLButtonElement>(null);
+  const [hash, setHash] = useState(location.hash || "#/manage/home"); const [data, setData] = useState<AdminIndex | null>(null); const [mobileOpen, setMobileOpen] = useState(false); const [picker, setPicker] = useState<PickerRequest | undefined>(); const menuButton = useRef<HTMLButtonElement>(null); const closeMenuButton = useRef<HTMLButtonElement>(null); const previousHash = useRef(hash);
   const route = routeFromHash(hash); const current = navItems.find(([key]) => key === route.page) ?? navItems[0];
-  useEffect(() => { if (!location.hash) location.hash = "/manage/home"; const update = () => { setHash(location.hash); setMobileOpen(false); }; addEventListener("hashchange", update); fetch(new URL("admin/content-index.json", new URL(import.meta.env.BASE_URL, location.origin))).then((response) => response.json()).then(setData); const openPicker = (event: Event) => setPicker((event as CustomEvent<PickerRequest>).detail ?? {}); addEventListener("ccf:image-center:open", openPicker); return () => { removeEventListener("hashchange", update); removeEventListener("ccf:image-center:open", openPicker); }; }, []);
+  useEffect(() => { if (!location.hash) location.hash = "/manage/home"; const update = () => { window.scrollTo(0, 0); requestAnimationFrame(() => window.scrollTo(0, 0)); const nextHash = location.hash; const returnPage = returnPageForSettingsEntry(previousHash.current); if (nextHash === "#/collections/settings" && returnPage) { previousHash.current = `#/manage/${returnPage}`; location.hash = `/manage/${returnPage}`; return; } previousHash.current = nextHash; setHash(nextHash); setMobileOpen(false); }; addEventListener("hashchange", update); fetch(new URL("admin/content-index.json", new URL(import.meta.env.BASE_URL, location.origin))).then((response) => response.json()).then(setData); const openPicker = (event: Event) => setPicker((event as CustomEvent<PickerRequest>).detail ?? {}); addEventListener("ccf:image-center:open", openPicker); return () => { removeEventListener("hashchange", update); removeEventListener("ccf:image-center:open", openPicker); }; }, []);
   useEffect(() => { document.documentElement.dataset.adminCustomPage = String(route.custom); }, [route.custom]);
   useEffect(() => { if (!mobileOpen) return; closeMenuButton.current?.focus(); const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") closeMobile(); }; addEventListener("keydown", closeOnEscape); return () => removeEventListener("keydown", closeOnEscape); }, [mobileOpen]);
   const closeMobile = () => { setMobileOpen(false); requestAnimationFrame(() => menuButton.current?.focus()); };

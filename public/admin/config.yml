@@ -80,7 +80,7 @@ collections:
       - { label: 姓名, name: name, widget: string }
       - { label: 职务, name: role, widget: string }
       - { label: 届次, name: cohort, widget: string, hint: 例如“第十五届（2025–2026）” }
-      - { label: 排序, name: order, widget: number, value_type: int, default: 0 }
+      - { label: 显示顺序, name: order, widget: number, value_type: int, default: 0, hint: 数字越小越靠前；成员列表不提供拖动排序。 }
       - { label: 照片 URL, name: photo, widget: external-image, required: false }
       - { label: 照片替代文本, name: photoAlt, widget: string, required: false }
       - { label: 显示, name: visible, widget: boolean, default: true }
@@ -108,7 +108,7 @@ collections:
     description: 按下方页面名称进入设置；指导老师和相关链接均位于“关于分会”。
     delete: false
     files:
-      - label: 01 首页｜页面内容与展示编排
+      - label: 01 首页｜页面文案
         name: homepage
         file: src/data/homepage.yml
         fields:
@@ -138,6 +138,10 @@ collections:
                 widget: list
                 min: 3
                 max: 3
+                allow_add: false
+                allow_remove: false
+                allow_reorder: false
+                hint: 固定为三项，只修改每项文案。
                 fields:
                   - { label: 英文眉题, name: eyebrow, widget: string }
                   - { label: 中文标题, name: title, widget: string }
@@ -155,6 +159,10 @@ collections:
                 widget: list
                 min: 4
                 max: 4
+                allow_add: false
+                allow_remove: false
+                allow_reorder: false
+                hint: 固定为四个方向，只修改对应文案。
                 fields:
                   - { label: 类别, name: category, widget: select, options: [{ label: 学术引领, value: academic }, { label: 竞赛训练, value: competition }, { label: 学业帮扶, value: tutoring }, { label: 生涯发展, value: career }] }
                   - { label: 英文眉题, name: eyebrow, widget: string }
@@ -175,6 +183,10 @@ collections:
                 widget: list
                 min: 3
                 max: 3
+                allow_add: false
+                allow_remove: false
+                allow_reorder: false
+                hint: 固定为三项，只修改每项文案。
                 fields:
                   - { label: 年份, name: year, widget: string }
                   - { label: 英文眉题, name: eyebrow, widget: string }
@@ -202,34 +214,42 @@ collections:
                 widget: list
                 min: 3
                 max: 3
+                allow_add: false
+                allow_remove: false
+                allow_reorder: false
+                hint: 固定为三条路径，只修改每项文案。
                 fields:
                   - { label: 标题, name: title, widget: string }
                   - { label: 说明, name: summary, widget: text }
-          - label: 首页展示编排
-            name: featuredContent
+      - label: 01 首页｜展示编排（仅选择已有内容）
+        name: homepageFeatured
+        file: src/data/homepage-featured.yml
+        fields:
+          - label: 首页公告引用
+            name: announcements
+            widget: list
+            min: 1
+            max: 10
+            hint: 这里只选择已有公告及其显示顺序；公告文案仍在“首页公告”条目中编辑。
+            field: { label: 已有公告, name: announcement, widget: relation, collection: announcements, search_fields: [title, summary], value_field: '{{slug}}', display_fields: [title] }
+          - label: 首页活动引用（固定四方向）
+            name: activities
             widget: object
-            hint: 按前台显示顺序选择内容；隐藏、归档、类别不符或不存在的引用会阻止构建。
+            hint: 每个方向只选择一个已有活动，不在这里编辑活动内容。
             fields:
-              - label: 首页公告
-                name: announcements
-                widget: list
-                min: 1
-                max: 10
-                field: { label: 公告, name: announcement, widget: relation, collection: announcements, search_fields: [title, summary], value_field: '{{slug}}', display_fields: [title] }
-              - label: 首页活动（固定四方向）
-                name: activities
-                widget: object
-                fields:
-                  - { label: 学术引领, name: academic, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
-                  - { label: 竞赛训练, name: competition, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
-                  - { label: 学业帮扶, name: tutoring, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
-                  - { label: 生涯发展, name: career, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
-              - label: 首页荣誉（固定 3 项）
-                name: honors
-                widget: list
-                min: 3
-                max: 3
-                field: { label: 荣誉, name: honor, widget: relation, collection: honors, search_fields: [title, year], value_field: '{{slug}}', display_fields: [year, title] }
+              - { label: 学术引领, name: academic, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
+              - { label: 竞赛训练, name: competition, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
+              - { label: 学业帮扶, name: tutoring, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
+              - { label: 生涯发展, name: career, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
+          - label: 首页荣誉引用（固定 3 项）
+            name: honors
+            widget: list
+            min: 3
+            max: 3
+            allow_add: false
+            allow_remove: false
+            hint: 这里只替换和拖动三项已有荣誉；不能新增荣誉条目，拖动顺序就是首页顺序。
+            field: { label: 已有荣誉, name: honor, widget: relation, collection: honors, search_fields: [title, year], value_field: '{{slug}}', display_fields: [year, title] }
       - label: 03 关于分会｜分会信息与本届届次
         name: organization
         file: src/data/organization.yml
@@ -247,13 +267,15 @@ collections:
           - label: 指导老师列表
             name: teachers
             widget: list
+            allow_reorder: false
+            hint: 以“显示顺序”数字为准，数字越小越靠前。
             fields:
               - { label: 姓名, name: name, widget: string }
               - { label: 职务/职称, name: title, widget: string }
               - { label: 简介, name: summary, widget: text }
               - { label: 照片 URL, name: photo, widget: external-image, required: false }
               - { label: 替代文本, name: photoAlt, widget: string, required: false }
-              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示顺序, name: order, widget: number, value_type: int, hint: 数字越小越靠前。 }
               - { label: 显示, name: visible, widget: boolean, default: true }
       - label: 03 关于分会｜相关链接
         name: links
@@ -262,10 +284,12 @@ collections:
           - label: 链接列表
             name: links
             widget: list
+            allow_reorder: false
+            hint: 以“显示顺序”数字为准，数字越小越靠前。
             fields:
               - { label: 名称, name: name, widget: string }
               - { label: 网址, name: url, widget: string, pattern: ['^https?://.+', '请输入以 http:// 或 https:// 开头的完整网址'] }
-              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示顺序, name: order, widget: number, value_type: int, hint: 数字越小越靠前。 }
               - { label: 显示, name: visible, widget: boolean, default: true }
       - label: 01 首页｜开源按钮
         name: repository
@@ -281,10 +305,12 @@ collections:
           - label: 页脚链接列表
             name: links
             widget: list
+            allow_reorder: false
+            hint: 以“显示顺序”数字为准，数字越小越靠前。
             fields:
               - { label: 名称, name: name, widget: string }
               - { label: 网址, name: url, widget: string, pattern: ['^https?://.+', '请输入以 http:// 或 https:// 开头的完整网址'] }
-              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示顺序, name: order, widget: number, value_type: int, hint: 数字越小越靠前。 }
               - { label: 显示, name: visible, widget: boolean, default: true }
       - label: 全站｜联系方式与 QQ 群
         name: contact
@@ -293,9 +319,11 @@ collections:
           - label: 联系方式列表
             name: contacts
             widget: list
+            allow_reorder: false
+            hint: 以“显示顺序”数字为准，数字越小越靠前。
             fields:
               - { label: 标签, name: label, widget: string }
               - { label: 显示值, name: value, widget: string }
               - { label: 链接, name: link, widget: string, required: false }
-              - { label: 排序, name: order, widget: number, value_type: int }
+              - { label: 显示顺序, name: order, widget: number, value_type: int, hint: 数字越小越靠前。 }
               - { label: 显示, name: visible, widget: boolean, default: true }

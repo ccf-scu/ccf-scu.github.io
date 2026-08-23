@@ -1,6 +1,7 @@
 import { z, type ZodType } from "astro/zod";
 import YAML from "yaml";
 import homepageSource from "../data/homepage.yml?raw";
+import homepageFeaturedSource from "../data/homepage-featured.yml?raw";
 import organizationSource from "../data/organization.yml?raw";
 import teachersSource from "../data/teachers.yml?raw";
 import linksSource from "../data/links.yml?raw";
@@ -63,16 +64,17 @@ const homepageSchema = z.object({
     secondaryLink: linkSchema,
     routes: z.array(z.object({ title: z.string(), summary: z.string() })).length(3),
   }),
-  featuredContent: z.object({
-    announcements: z.array(z.string().min(1)).min(1).max(10).refine((ids) => new Set(ids).size === ids.length, "首页公告不能重复"),
-    activities: z.object({
-      academic: z.string().min(1),
-      competition: z.string().min(1),
-      tutoring: z.string().min(1),
-      career: z.string().min(1),
-    }),
-    honors: z.array(z.string().min(1)).length(3).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
+});
+
+const homepageFeaturedSchema = z.object({
+  announcements: z.array(z.string().min(1)).min(1).max(10).refine((ids) => new Set(ids).size === ids.length, "首页公告不能重复"),
+  activities: z.object({
+    academic: z.string().min(1),
+    competition: z.string().min(1),
+    tutoring: z.string().min(1),
+    career: z.string().min(1),
   }),
+  honors: z.array(z.string().min(1)).length(3).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
 });
 
 const organizationSchema = z.object({
@@ -100,6 +102,7 @@ function parse<T>(source: string, schema: ZodType<T>): T {
 }
 
 export const homepage = parse(homepageSource, homepageSchema);
+export const homepageFeatured = parse(homepageFeaturedSource, homepageFeaturedSchema);
 export const organization = parse(organizationSource, organizationSchema);
 export const teachers = parse(teachersSource, teachersSchema).teachers.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);
 export const links = parse(linksSource, linksSchema).links.filter((entry) => entry.visible).sort((a, b) => a.order - b.order);

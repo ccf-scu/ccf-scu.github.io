@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
-import { homepage, organization, teachers, links, contacts, repository, footerLinks } from "../../lib/site";
+import { homepageFeatured, organization, teachers, links, contacts, repository, footerLinks } from "../../lib/site";
 
 export const GET: APIRoute = async () => {
   const [activities, announcements, members, honors] = await Promise.all([
@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    homepage: homepage.featuredContent,
+    homepage: homepageFeatured,
     organization: {
       name: organization.name,
       currentCohort: organization.currentCohort,

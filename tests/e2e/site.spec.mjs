@@ -242,17 +242,15 @@ for (const width of [360, 390, 430]) {
   });
 }
 
-test("admin page is isolated and renders its application shell", async ({ page }) => {
+test("admin page is isolated and requires authentication before rendering its shell", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/admin/");
   await expect(page).toHaveTitle(/内容后台/);
-  await expect(page.getByRole("heading", { name: "首页管理", exact: true })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: /登录/ })).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("heading", { name: "首页管理", exact: true })).toBeHidden();
   await expect(page.locator("body")).not.toContainText("Error loading the CMS configuration");
-  await expect(page.getByRole("navigation").getByRole("link")).toHaveCount(6);
-  await page.getByRole("link", { name: /图片中心/ }).click();
-  await expect(page.getByRole("heading", { name: "图片中心", exact: true })).toBeVisible();
-  await expect(page.getByText(/张已发布图片/)).toBeVisible();
+  await expect(page.locator("#admin-shell-root")).toBeHidden();
   await expect(page.locator(".cms-image-center-button")).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
-  await page.screenshot({ path: `${screenshots}/admin-desktop.png`, fullPage: true });
+  await page.screenshot({ path: `${screenshots}/admin-login-desktop.png`, fullPage: true });
 });

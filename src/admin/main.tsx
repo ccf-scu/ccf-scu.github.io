@@ -41,5 +41,27 @@ const ContentPreview = ({ entry, widgetFor }: { entry: { getIn(path: string[]): 
 CMS.registerPreviewStyle(previewStyles, { raw: true });
 CMS.registerPreviewStyle(".cms-content-preview{max-width:860px;margin:0 auto;padding:48px 32px}.cms-content-preview h1{font-size:clamp(2rem,6vw,4.5rem);margin:.25em 0}.cms-preview-summary{font-size:1.1rem;color:#667085;margin-bottom:2rem}", { raw: true });
 for (const collection of ["activities", "announcements", "members"]) CMS.registerPreviewTemplate(collection, ContentPreview);
-mountAdminShell();
+
+const initialHash = location.hash;
+let shellMounted = false;
+document.documentElement.dataset.adminAuthenticated = "false";
+document.documentElement.dataset.adminCustomPage = "false";
+const syncAdminShell = (event: Event) => {
+  const authenticated = Boolean((event as CustomEvent<{ authenticated?: boolean }>).detail?.authenticated);
+  document.documentElement.dataset.adminAuthenticated = String(authenticated);
+  if (!authenticated) {
+    document.documentElement.dataset.adminCustomPage = "false";
+    return;
+  }
+  if (shellMounted) {
+    document.documentElement.dataset.adminCustomPage = String(location.hash.startsWith("#/manage/"));
+    return;
+  }
+
+  shellMounted = true;
+  if (!initialHash) location.hash = "/manage/home";
+  mountAdminShell();
+};
+
+addEventListener("ccf:decap-auth-change", syncAdminShell);
 CMS.init();

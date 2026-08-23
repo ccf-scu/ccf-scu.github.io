@@ -83,15 +83,3 @@ recruitment:
       summary: 从学术、竞赛、学业或生涯活动中找到入口。
     - title: 参与执委招募
       summary: 每学年招募期关注公开通知。
-featuredContent:
-  announcements:
-    - welcome
-  activities:
-    academic: 2026-07-09-activity-01
-    competition: 2026-07-08-activity-02
-    tutoring: 2026-06-07-activity-03
-    career: 2026-04-21-activity-11
-  honors:
-    - 2026-honor-11
-    - 2026-honor-12
-    - 2025-honor-10
