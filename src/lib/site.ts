@@ -63,7 +63,16 @@ const homepageSchema = z.object({
     secondaryLink: linkSchema,
     routes: z.array(z.object({ title: z.string(), summary: z.string() })).length(3),
   }),
-  announcementLimit: z.number().int().min(1).max(10),
+  featuredContent: z.object({
+    announcements: z.array(z.string().min(1)).min(1).max(10).refine((ids) => new Set(ids).size === ids.length, "首页公告不能重复"),
+    activities: z.object({
+      academic: z.string().min(1),
+      competition: z.string().min(1),
+      tutoring: z.string().min(1),
+      career: z.string().min(1),
+    }),
+    honors: z.array(z.string().min(1)).length(3).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
+  }),
 });
 
 const organizationSchema = z.object({

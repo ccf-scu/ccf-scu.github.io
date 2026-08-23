@@ -2,17 +2,15 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { contacts, homepage, repository } from "../lib/site";
-import { categories, homepageActivities, visibleAnnouncements, withBase } from "../lib/content";
+import { categories, selectByIds, selectHomepageActivities, visibleAnnouncements, withBase } from "../lib/content";
 
-const allActivities = homepageActivities(await getCollection("activities"));
-const announcements = visibleAnnouncements(await getCollection("announcements")).slice(0, homepage.announcementLimit);
-const visibleHonors = (await getCollection("honors"))
-  .filter((entry) => entry.data.visible)
-  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.year - a.data.year);
-const honors = visibleHonors.filter((honor, index, entries) =>
-  entries.findIndex((entry) => entry.data.title === honor.data.title) === index,
-).slice(0, 3);
+const allActivities = await getCollection("activities");
+const allAnnouncements = visibleAnnouncements(await getCollection("announcements"));
+const announcements = selectByIds(allAnnouncements, homepage.featuredContent.announcements, "首页公告");
+const visibleHonors = (await getCollection("honors")).filter((entry) => entry.data.visible);
+const honors = selectByIds(visibleHonors, homepage.featuredContent.honors, "首页荣誉");
 const categoryOrder = ["academic", "competition", "tutoring", "career"] as const;
+const featuredActivities = selectHomepageActivities(allActivities, homepage.featuredContent.activities);
 const fallbackImages = [
   "/uploads/featured/ccf-campus-talk.webp",
   "/uploads/featured/algorithm-training.webp",
@@ -21,7 +19,7 @@ const fallbackImages = [
 ];
 const activityLayers = categoryOrder.map((category, index) => ({
   category,
-  activity: allActivities.find((entry) => entry.data.category === category),
+  activity: featuredActivities.find((entry) => entry.data.category === category),
   copy: homepage.activities.directions.find((entry) => entry.category === category)!,
   image: allActivities.find((entry) => entry.data.category === category)?.data.cover ?? fallbackImages[index],
 }));
