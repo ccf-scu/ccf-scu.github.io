@@ -18,7 +18,7 @@ logo_url: /images/brand/ccf-logo.png
 
 collections:
   - name: activities
-    label: 02 活动中心｜活动内容
+    label: 活动内容
     label_singular: 活动
     description: 对应前台“活动”列表、活动详情和首页四个活动方向。
     folder: src/content/activities
@@ -50,7 +50,7 @@ collections:
       - { label: 正文, name: body, widget: markdown, hint: Decap 原生 Markdown 编辑器；支持可视化与源码模式，保存为标准 Markdown }
 
   - name: announcements
-    label: 01 首页｜公告通知
+    label: 首页公告
     description: 对应首页 NOTICE 公告条；正文预览仅用于检查排版。
     folder: src/content/announcements
     create: true
@@ -68,7 +68,7 @@ collections:
       - { label: 正文, name: body, widget: markdown, required: false }
 
   - name: members
-    label: 03 关于分会／04 历史档案｜执委成员
+    label: 执委成员
     description: 本届成员显示在“关于分会”，全部可见届次自动进入“历史档案”。
     folder: src/content/members
     create: true
@@ -88,7 +88,7 @@ collections:
       - { label: 弹窗个人介绍, name: body, widget: markdown, required: false, hint: 显示在点击执委卡片后打开的介绍框中；支持段落与插入图片，仅在本人或负责人确认后公开 }
 
   - name: honors
-    label: 03/04 历史档案｜荣誉记录
+    label: 荣誉记录
     description: 首页显示精选成果，历史档案显示全部可见荣誉。
     folder: src/content/honors
     create: true
@@ -104,7 +104,7 @@ collections:
       - { label: 显示, name: visible, widget: boolean, default: true }
 
   - name: settings
-    label: 页面设置｜首页、关于分会与全站
+    label: 页面设置
     description: 按下方页面名称进入设置；指导老师和相关链接均位于“关于分会”。
     delete: false
     files:
