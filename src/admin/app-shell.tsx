@@ -135,7 +135,7 @@ function AboutPage({ data, view }: { data: AdminIndex; view?: "members" | "honor
 }
 
 function SettingsPage({ data }: { data: AdminIndex }) {
-  return <><Section title="联系方式"><LinkCard href={settingEntry("contact")} title="联系方式与 QQ 群" description="关于页和招募区使用的公开联系信息" meta={`${data.organization.contactCount} 项`} /></Section><Section title="页脚与开源"><div className="admin-card-grid"><LinkCard href={settingEntry("footerLinks")} title="页脚链接" description="全站页脚的低频维护链接" meta={`${data.organization.footerLinkCount} 项`} /><LinkCard href={settingEntry("repository")} title="开源仓库入口" description="首页开源章节使用的仓库地址" meta={data.organization.repositoryVisible ? "显示中" : "已隐藏"} /></div></Section><Section title="图片服务"><LinkCard href="#/manage/images" title="图片中心与本地图床配置" description="共享图片、上传接口和当前浏览器凭据在图片中心统一管理" /></Section></>;
+  return <><Section title="联系方式"><LinkCard href={settingEntry("contact")} title="联系方式与 QQ 群" description="关于页和招募区使用的公开联系信息" meta={`${data.organization.contactCount} 项`} /></Section><Section title="开源"><div className="admin-card-grid"><LinkCard href={settingEntry("repository")} title="开源仓库入口" description="首页开源章节使用的仓库地址" meta={data.organization.repositoryVisible ? "显示中" : "已隐藏"} /></div></Section><Section title="图片服务"><LinkCard href="#/manage/images" title="图片中心与本地图床配置" description="共享图片、上传接口和当前浏览器凭据在图片中心统一管理" /></Section></>;
 }
 
 function WorkflowPage() {
