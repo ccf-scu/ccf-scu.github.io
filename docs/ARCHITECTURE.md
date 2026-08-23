@@ -5,7 +5,7 @@
 网站面向公众的生产链路必须是静态文件。后台只负责把受控内容写入 GitHub；CMS 或 OAuth 故障不能使已发布页面下线。
 
 ```text
-维护者 -> /admin/ Decap 原生 Markdown -> OAuth 辅助服务 -> GitHub 内容分支
+维护者 -> /admin/ React 管理壳层 + Decap 编辑器 -> OAuth 辅助服务 -> GitHub 内容分支
                                                      -> PR/审核/合并
 GitHub 仓库 -> Cloudflare Pages 安装/校验与 Astro 构建 -> www.ccfscu.com -> 访问者
 ```
@@ -33,6 +33,7 @@ OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章�
 | `src/content` | Markdown 内容集合 | 脚本和不受控 HTML |
 | `src/data` | 首页与公共 YAML 配置 | 组件实现细节 |
 | `src/lib` | 纯函数、查询、URL、状态和校验 | DOM 副作用 |
+| `src/admin` | 后台应用壳层、页面工作区、Decap 控件与视觉适配 | 公众前台依赖、DOM 注入式主导航 |
 | `public/admin` | Decap 入口和配置 | 前台公共依赖 |
 | `scripts` | 迁移、检查和重复自动化 | 修改生产或外部服务 |
 
@@ -45,6 +46,14 @@ OAuth 辅助服务是认证基础设施，不是业务后端：不保存文章�
 5. `src/lib/search.ts` 从活动与成员集合生成同一份本地搜索索引；Header 全屏搜索面板和 `/search/` 兼容页共用 `src/scripts/search-ui.ts` 渲染，不发起外部请求；
 6. sitemap 和分享元数据从相同内容源生成；
 7. 构建失败阻断发布，不输出部分更新。
+
+## 后台应用边界
+
+- `/admin/` 由项目自己的 React 壳层提供六个一级路由、桌面侧栏、移动导航、页面工作区和图片中心；每个入口都可通过 hash 直接访问与刷新；
+- `src/pages/admin/content-index.json.ts` 在构建期聚合已发布内容，只为后台页面提供列表和编排摘要，不包含草稿、凭据或私密信息；
+- Decap 继续负责身份认证、集合读取、表单、原生 Markdown、预览和 Git editorial workflow；具体编辑路由显示在统一壳层内；
+- 原生 Decap 主导航在固定版本适配层中不可见且不可聚焦，维护者只面对一套主导航；升级 Decap 时必须用 CMS 专项浏览器测试复核该适配；
+- 图片中心的完整图库是正式一级页面；字段内选择器是受控对话框，二者共用同一媒体索引、上传配置和图片选择语义。
 
 ## 渐进增强
 
