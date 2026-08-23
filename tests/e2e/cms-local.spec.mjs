@@ -17,14 +17,15 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
   const primaryNavigation = page.getByRole("navigation");
   await expect(primaryNavigation.getByRole("link")).toHaveCount(6);
   await expect(page.getByRole("link", { name: /首页管理/ })).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("heading", { name: "首页文案与活动方向" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "首页展示编排" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "四个活动位" })).toBeVisible();
   await expect(page.locator(".admin-slot-grid").first().getByRole("link")).toHaveCount(4);
   await expect(page.locator("dialog")).toHaveCount(0);
   await expect(page.locator(".cms-image-center-button")).toHaveCount(0);
 
   await page.getByRole("link", { name: "编辑首页文案", exact: true }).click();
-  await expect(page.getByText("固定为三项，只修改每项文案。").first()).toBeVisible();
+  await expect(page.getByText("四个方向固定；每个方向的文案和代表活动在这里一起维护。")).toBeVisible();
+  await expect(page.getByText("可新增、删除和拖动；列表顺序就是首页时间轴顺序。")).toBeVisible();
   await expect(page.getByText("首页展示编排", { exact: true })).toHaveCount(0);
   await page.locator('a[href="#/collections/settings"]').click();
   await expect(page).toHaveURL(/#\/manage\/home$/);
@@ -55,21 +56,22 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/admin/#/collections/members");
-  await expect(page.getByTestId("members")).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator(".admin-sidebar")).toBeHidden();
   const membersHeading = page.getByRole("heading", { name: "执委成员", level: 1 });
-  await expect(membersHeading).toBeVisible();
+  await expect(membersHeading).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator(".admin-sidebar")).toBeHidden();
+  await expect(page.getByRole("button", { name: /菜单/ })).toBeVisible();
   const membersHeadingTop = await membersHeading.evaluate((element) => element.getBoundingClientRect().top);
   expect(membersHeadingTop).toBeLessThan(180);
   const memberEntries = page.locator('main a[href^="#/collections/members/entries/"]');
   expect(await memberEntries.count()).toBeGreaterThan(0);
   const firstMemberTop = await memberEntries.first().evaluate((element) => element.getBoundingClientRect().top);
   expect(firstMemberTop).toBeLessThan(360);
+  await memberEntries.first().click();
+  await expect(page).toHaveURL(/#\/collections\/members\/entries\//);
+  await page.locator('a[href="#/collections/members"]').click();
+  await expect(page).toHaveURL(/#\/manage\/about$/);
 
-  await page.goto("/admin/#/collections/activities");
-  await expect(page.getByTestId("activities")).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator(".admin-sidebar")).toBeHidden();
-  await page.locator("a").filter({ hasText: "腾讯" }).first().click();
+  await page.goto("/admin/#/collections/activities/entries/2026-04-21-activity-11");
   await expect(page.getByText("正文", { exact: true })).toBeVisible({ timeout: 15_000 });
   await expect(page.locator('[contenteditable="true"]').last()).toBeVisible();
   await expect(page.getByRole("button", { name: "从图片中心选择" })).toBeVisible();
@@ -77,10 +79,27 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
   await expect(preview.getByText("CCF@SCU · 内容预览", { exact: true })).toBeVisible();
   await expect(page.locator('button[title*="同步滚动"]')).toHaveCount(0);
   await expect(page.locator(".admin-sidebar")).toBeHidden();
+  await expect(page.getByRole("button", { name: /菜单/ })).toBeVisible();
   const editorBounds = await page.locator("#nc-root").evaluate((element) => element.getBoundingClientRect());
   expect(editorBounds.left).toBe(0);
   expect(editorBounds.width).toBe(1440);
   await page.screenshot({ path: "artifacts/visual-validation/cms-editor-shell-desktop.png", fullPage: true });
+  await page.locator('a[href="#/collections/activities"]').click();
+  await expect(page).toHaveURL(/#\/manage\/activities$/);
+  await expect(page.getByRole("heading", { name: "活动页面", exact: true })).toBeVisible();
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/admin/#/collections/activities/entries/2026-04-21-activity-11");
+  await expect(page.getByText("正文", { exact: true })).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator("#preview-pane")).toBeHidden();
+  const mobileEditorBounds = await page.locator("#nc-root").evaluate((element) => element.getBoundingClientRect());
+  expect(mobileEditorBounds.left).toBe(0);
+  expect(mobileEditorBounds.width).toBe(390);
+  await page.getByRole("button", { name: /菜单/ }).click();
+  await expect(page.getByRole("dialog", { name: "后台主导航" })).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("dialog", { name: "后台主导航" })).toBeHidden();
+  await page.screenshot({ path: "artifacts/visual-validation/cms-editor-shell-mobile.png", fullPage: true });
 
   expect(unpkgRequests).toEqual([]);
   expect(runtimeErrors).toEqual([]);

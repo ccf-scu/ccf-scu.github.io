@@ -8,7 +8,7 @@ const settings = config.collections.find((collection) => collection.name === "se
 const setting = (name) => settings.files.find((entry) => entry.name === name);
 const field = (fields, name) => fields.find((entry) => entry.name === name);
 
-test("homepage copy and homepage references are separate settings entries", () => {
+test("homepage activity copy and selections stay together", () => {
   const homepage = setting("homepage");
   const featured = setting("homepageFeatured");
   assert.ok(homepage);
@@ -16,6 +16,9 @@ test("homepage copy and homepage references are separate settings entries", () =
   assert.equal(homepage.file, "src/data/homepage.yml");
   assert.equal(featured.file, "src/data/homepage-featured.yml");
   assert.equal(field(homepage.fields, "featuredContent"), undefined);
+  assert.equal(field(featured.fields, "activities"), undefined);
+  const directions = field(field(homepage.fields, "activities").fields, "directions");
+  assert.ok(directions.fields.some((entry) => entry.name === "activity" && entry.widget === "relation"));
 });
 
 test("fixed homepage copy lists cannot add, remove, or reorder items", () => {
@@ -23,7 +26,6 @@ test("fixed homepage copy lists cannot add, remove, or reorder items", () => {
   const fixedLists = [
     field(field(homepageFields, "introduction").fields, "principles"),
     field(field(homepageFields, "activities").fields, "directions"),
-    field(field(homepageFields, "achievements").fields, "timeline"),
     field(field(homepageFields, "recruitment").fields, "routes"),
   ];
   for (const list of fixedLists) {
@@ -32,6 +34,15 @@ test("fixed homepage copy lists cannot add, remove, or reorder items", () => {
     assert.equal(list.allow_remove, false);
     assert.equal(list.allow_reorder, false);
   }
+});
+
+test("homepage timeline can grow and uses list order", () => {
+  const timeline = field(field(setting("homepage").fields, "achievements").fields, "timeline");
+  assert.equal(timeline.min, 1);
+  assert.equal(timeline.max, undefined);
+  assert.equal(timeline.allow_add, true);
+  assert.equal(timeline.allow_remove, true);
+  assert.equal(timeline.allow_reorder, true);
 });
 
 test("homepage honors can grow and numeric-order lists cannot also drag", () => {

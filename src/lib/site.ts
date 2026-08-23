@@ -39,10 +39,11 @@ const homepageSchema = z.object({
     summary: z.string(),
     directions: z.array(z.object({
       category: z.enum(["academic", "competition", "tutoring", "career"]),
+      activity: z.string().min(1),
       eyebrow: z.string(),
       title: z.string(),
       summary: z.string(),
-    })).length(4),
+    })).length(4).refine((directions) => new Set(directions.map(({ category }) => category)).size === 4, "首页四个活动方向不能重复"),
   }),
   achievements: z.object({
     title: z.string(),
@@ -51,7 +52,7 @@ const homepageSchema = z.object({
     archiveSummary: z.string(),
     archiveLinkLabel: z.string(),
     archiveLink: linkSchema,
-    timeline: z.array(z.object({ year: z.string(), eyebrow: z.string(), title: z.string(), summary: z.string() })).length(3),
+    timeline: z.array(z.object({ year: z.string(), eyebrow: z.string(), title: z.string(), summary: z.string() })).min(1),
   }),
   openSource: z.object({ title: z.string(), summary: z.string() }),
   recruitment: z.object({
@@ -68,12 +69,6 @@ const homepageSchema = z.object({
 
 const homepageFeaturedSchema = z.object({
   announcements: z.array(z.string().min(1)).min(1).max(10).refine((ids) => new Set(ids).size === ids.length, "首页公告不能重复"),
-  activities: z.object({
-    academic: z.string().min(1),
-    competition: z.string().min(1),
-    tutoring: z.string().min(1),
-    career: z.string().min(1),
-  }),
   honors: z.array(z.string().min(1)).min(1).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
 });
 

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 type AdminIndex = {
-  homepage: { announcements: string[]; activities: Record<string, string>; honors: string[] };
+  homepage: { announcements: string[]; activities: Array<{ category: string; id: string }>; timelineCount: number; honors: string[] };
   organization: { name: string; currentCohort: string; teacherCount: number; linkCount: number; contactCount: number; footerLinkCount: number; repositoryVisible: boolean };
   activities: Array<{ id: string; title: string; category: string; startAt: string; endAt: string; pinned: boolean; archived: boolean }>;
   announcements: Array<{ id: string; title: string; publishedAt: string; visible: boolean }>;
@@ -57,6 +57,14 @@ function returnPageForSettingsEntry(hash: string) {
   return entry ? "settings" : undefined;
 }
 
+function returnPageForCollectionEditor(hash: string) {
+  const collection = hash.match(/^#\/collections\/([^/]+)\/(?:entries\/[^/?]+|new)/)?.[1];
+  if (collection === "activities") return { collection, page: "activities" };
+  if (collection === "announcements") return { collection, page: "home" };
+  if (collection === "members" || collection === "honors") return { collection, page: "about" };
+  return undefined;
+}
+
 function Section({ title, description, action, children }: React.PropsWithChildren<{ title: string; description?: string; action?: React.ReactNode }>) {
   return <section className="admin-section"><header><div><h2>{title}</h2>{description && <p>{description}</p>}</div>{action}</header>{children}</section>;
 }
@@ -69,17 +77,16 @@ function HomePage({ data }: { data: AdminIndex }) {
   const activityById = new Map(data.activities.map((item) => [item.id, item]));
   const honorById = new Map(data.honors.map((item) => [item.id, item]));
   return <>
-    <Section title="页面文案" description="这里只维护访客看到的 Banner、分会简介、固定活动方向文案、开源和招募文案，不包含公告、活动或荣誉条目。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
-      <p className="admin-section-note">三项原则、四个活动方向、三项成果时间轴和三个加入路径均为固定结构，只能修改文案。</p>
+    <Section title="首页文案与活动方向" description="Banner、分会简介、四个方向的文案与代表活动、成果时间轴、开源和招募文案都在同一处维护。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
+      <div className="admin-summary-grid"><article><strong>活动方向</strong><b>{data.homepage.activities.length}</b><small>个方向已配置</small></article><article><strong>代表活动</strong><b>{data.homepage.activities.filter(({ id }) => Boolean(id)).length}</b><small>项已选择</small></article><article><strong>成果时间轴</strong><b>{data.homepage.timelineCount}</b><small>条文案</small></article></div>
+      <p className="admin-section-note">三项原则和三个加入路径保持固定；四个活动方向的文案与活动选择集中维护；成果时间轴可增删和拖动。</p>
+      <div className="admin-slot-grid">{data.homepage.activities.map(({ category, id }) => { const item = activityById.get(id); return <a href={nativeEntry("activities", id)} key={category}><small>{categoryNames[category]}</small><strong>{item?.title ?? id}</strong><span>{item?.archived ? "已归档，请重新选择" : "当前代表活动"}</span></a>; })}</div>
     </Section>
-    <Section title="首页展示编排" description="只从已有内容中选择首页公告、四个代表活动和首页荣誉；具体内容仍在对应条目中维护。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整首页展示</a>}>
-      <div className="admin-summary-grid"><article><strong>首页公告</strong><b>{data.homepage.announcements.length}</b><small>条已编排</small></article><article><strong>活动槽位</strong><b>4</b><small>个固定方向</small></article><article><strong>精选荣誉</strong><b>{data.homepage.honors.length}</b><small>项成果</small></article></div>
+    <Section title="首页展示编排" description="这里只选择已有公告和荣誉；活动方向已并入上方“首页文案与活动方向”。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整公告与荣誉</a>}>
+      <div className="admin-summary-grid admin-summary-grid--two"><article><strong>首页公告</strong><b>{data.homepage.announcements.length}</b><small>条已编排</small></article><article><strong>首页荣誉</strong><b>{data.homepage.honors.length}</b><small>项已编排</small></article></div>
     </Section>
     <Section title="公告" description="调整公告内容后，再到首页设置中控制展示顺序。" action={<a className="button" href={nativeCollection("announcements")}>管理全部公告</a>}>
       <div className="admin-compact-list">{data.homepage.announcements.map((id, index) => { const item = data.announcements.find((entry) => entry.id === id); return <LinkCard key={id} href={nativeEntry("announcements", id)} title={item?.title ?? id} description={`首页顺序 ${index + 1}`} meta={item?.visible === false ? "已隐藏" : "显示中"} />; })}</div>
-    </Section>
-    <Section title="四个活动位" description="每个方向固定一个活动，方向与所选活动类别必须一致。">
-      <div className="admin-slot-grid">{Object.entries(data.homepage.activities).map(([category, id]) => { const item = activityById.get(id); return <a href={nativeEntry("activities", id)} key={category}><small>{categoryNames[category]}</small><strong>{item?.title ?? id}</strong><span>{item?.archived ? "已归档，请重新选择" : "当前展示"}</span></a>; })}</div>
     </Section>
     <Section title="首页荣誉" description="数量不限，按首页出现顺序展示；点击可检查荣誉条目。">
       <div className="admin-slot-grid">{data.homepage.honors.map((id, index) => { const item = honorById.get(id); return <a href={nativeEntry("honors", id)} key={id}><small>第 {index + 1} 项</small><strong>{item?.title ?? id}</strong><span>{item?.year ?? "年份未知"}</span></a>; })}</div>
@@ -138,8 +145,8 @@ function ImageCenter({ picker, onClose }: { picker?: PickerRequest; onClose?: ()
 function AppShell() {
   const [hash, setHash] = useState(location.hash || "#/manage/home"); const [data, setData] = useState<AdminIndex | null>(null); const [mobileOpen, setMobileOpen] = useState(false); const [picker, setPicker] = useState<PickerRequest | undefined>(); const menuButton = useRef<HTMLButtonElement>(null); const closeMenuButton = useRef<HTMLButtonElement>(null); const previousHash = useRef(hash);
   const route = routeFromHash(hash); const current = navItems.find(([key]) => key === route.page) ?? navItems[0];
-  useEffect(() => { if (!location.hash) location.hash = "/manage/home"; const update = () => { window.scrollTo(0, 0); requestAnimationFrame(() => window.scrollTo(0, 0)); const nextHash = location.hash; const returnPage = returnPageForSettingsEntry(previousHash.current); if (nextHash === "#/collections/settings" && returnPage) { previousHash.current = `#/manage/${returnPage}`; location.hash = `/manage/${returnPage}`; return; } previousHash.current = nextHash; setHash(nextHash); setMobileOpen(false); }; addEventListener("hashchange", update); fetch(new URL("admin/content-index.json", new URL(import.meta.env.BASE_URL, location.origin))).then((response) => response.json()).then(setData); const openPicker = (event: Event) => setPicker((event as CustomEvent<PickerRequest>).detail ?? {}); addEventListener("ccf:image-center:open", openPicker); return () => { removeEventListener("hashchange", update); removeEventListener("ccf:image-center:open", openPicker); }; }, []);
-  useEffect(() => { document.documentElement.dataset.adminCustomPage = String(route.custom); }, [route.custom]);
+  useEffect(() => { if (!location.hash) location.hash = "/manage/home"; const update = () => { window.scrollTo(0, 0); requestAnimationFrame(() => window.scrollTo(0, 0)); const nextHash = location.hash; const settingsReturnPage = returnPageForSettingsEntry(previousHash.current); if (nextHash === "#/collections/settings" && settingsReturnPage) { previousHash.current = `#/manage/${settingsReturnPage}`; location.hash = `/manage/${settingsReturnPage}`; return; } const collectionReturn = returnPageForCollectionEditor(previousHash.current); const nextCollection = nextHash.match(/^#\/collections\/([^/?]+)$/)?.[1]; if (collectionReturn && nextCollection === collectionReturn.collection) { previousHash.current = `#/manage/${collectionReturn.page}`; location.hash = `/manage/${collectionReturn.page}`; return; } previousHash.current = nextHash; setHash(nextHash); setMobileOpen(false); }; addEventListener("hashchange", update); fetch(new URL("admin/content-index.json", new URL(import.meta.env.BASE_URL, location.origin))).then((response) => response.json()).then(setData); const openPicker = (event: Event) => setPicker((event as CustomEvent<PickerRequest>).detail ?? {}); addEventListener("ccf:image-center:open", openPicker); return () => { removeEventListener("hashchange", update); removeEventListener("ccf:image-center:open", openPicker); }; }, []);
+  useEffect(() => { document.documentElement.dataset.adminCustomPage = String(route.custom); document.documentElement.dataset.adminEditorPage = String(!route.custom && /\/collections\/[^/]+\/(?:entries\/|new(?:[/?]|$))/.test(hash)); }, [hash, route.custom]);
   useEffect(() => { if (!mobileOpen) return; closeMenuButton.current?.focus(); const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") closeMobile(); }; addEventListener("keydown", closeOnEscape); return () => removeEventListener("keydown", closeOnEscape); }, [mobileOpen]);
   const closeMobile = () => { setMobileOpen(false); requestAnimationFrame(() => menuButton.current?.focus()); };
   const descriptions: Record<string, string> = { home: "首页文案、公告、活动位和荣誉编排", activities: "活动内容、置顶、分类与归档", about: "分会信息、本届成员与历史记录", settings: "联系方式、页脚与低频全站配置", workflow: "逐条审核并发布暂存内容", images: "共享图片、上传与引用信息" };

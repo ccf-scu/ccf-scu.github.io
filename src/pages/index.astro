@@ -10,7 +10,8 @@ const announcements = selectByIds(allAnnouncements, homepageFeatured.announcemen
 const visibleHonors = (await getCollection("honors")).filter((entry) => entry.data.visible);
 const honors = selectByIds(visibleHonors, homepageFeatured.honors, "首页荣誉");
 const categoryOrder = ["academic", "competition", "tutoring", "career"] as const;
-const featuredActivities = selectHomepageActivities(allActivities, homepageFeatured.activities);
+const homepageActivityIds = Object.fromEntries(homepage.activities.directions.map(({ category, activity }) => [category, activity])) as Record<(typeof categoryOrder)[number], string>;
+const featuredActivities = selectHomepageActivities(allActivities, homepageActivityIds);
 const fallbackImages = [
   "/uploads/featured/ccf-campus-talk.webp",
   "/uploads/featured/algorithm-training.webp",
