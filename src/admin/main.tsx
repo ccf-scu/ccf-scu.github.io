@@ -104,10 +104,19 @@ const openImageCenter = async () => {
   dialog.showModal();
 };
 
-const imageCenterButton = document.createElement("button");
-imageCenterButton.type = "button"; imageCenterButton.className = "cms-image-center-button"; imageCenterButton.textContent = "图片中心";
-imageCenterButton.addEventListener("click", openImageCenter);
-document.body.append(imageCenterButton);
+const quickNav = document.createElement("nav");
+quickNav.className = "cms-quick-nav";
+quickNav.setAttribute("aria-label", "后台页面快捷导航");
+quickNav.innerHTML = `<strong>CCF@SCU 管理台</strong><div><a href="#/collections/settings/entries/homepage">01 首页管理</a><a href="#/collections/announcements">首页公告</a><a href="#/collections/activities">02 活动中心</a><a href="#/collections/members">03/04 关于与档案</a><a href="#/collections/settings/entries/contact">04 全站设置</a><a class="cms-quick-nav__pending" href="#/workflow">待发布</a><button type="button" data-open-image-center>图片中心</button></div>`;
+quickNav.querySelector("[data-open-image-center]")?.addEventListener("click", openImageCenter);
+document.body.append(quickNav);
+
+const markActiveQuickLink = () => {
+  const current = location.hash;
+  quickNav.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => link.classList.toggle("active", current.startsWith(link.hash)));
+};
+markActiveQuickLink();
+window.addEventListener("hashchange", markActiveQuickLink);
 
 const labelFrontendLink = () => {
   const frontendUrl = new URL(import.meta.env.BASE_URL, window.location.origin).href;

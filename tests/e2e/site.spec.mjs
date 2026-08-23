@@ -248,6 +248,9 @@ test("admin page is isolated and renders its application shell", async ({ page }
   await expect(page).toHaveTitle(/内容后台/);
   await expect(page.getByRole("button", { name: /登录/ })).toBeVisible({ timeout: 15_000 });
   await expect(page.locator("body")).not.toContainText("Error loading the CMS configuration");
+  await expect(page.getByRole("navigation", { name: "后台页面快捷导航" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "01 首页管理" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "待发布" })).toHaveAttribute("href", "#/workflow");
   await page.getByRole("button", { name: "图片中心" }).click();
   await expect(page.getByRole("heading", { name: "图片中心" })).toBeVisible();
   await expect(page.getByText(/张已发布图片/)).toBeVisible();

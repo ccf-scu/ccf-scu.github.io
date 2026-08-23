@@ -20,7 +20,7 @@ collections:
   - name: activities
     label: 02 活动中心｜活动内容
     label_singular: 活动
-    description: 对应前台“活动”列表、活动详情和首页四个活动方向。
+    description: 只维护活动自身及活动中心排序；首页四个展示位请在“01 首页管理”中选择。
     folder: src/content/activities
     create: true
     delete: false
@@ -88,8 +88,8 @@ collections:
       - { label: 弹窗个人介绍, name: body, widget: markdown, required: false, hint: 显示在点击执委卡片后打开的介绍框中；支持段落与插入图片，仅在本人或负责人确认后公开 }
 
   - name: honors
-    label: 03/04 历史档案｜荣誉记录
-    description: 首页显示精选成果，历史档案显示全部可见荣誉。
+    label: 03/04 关于与档案｜荣誉记录
+    description: 维护荣誉自身；首页三项成果请在“01 首页管理”中选择。
     folder: src/content/honors
     create: true
     delete: false
@@ -104,8 +104,8 @@ collections:
       - { label: 显示, name: visible, widget: boolean, default: true }
 
   - name: settings
-    label: 页面设置｜首页、关于分会与全站
-    description: 按下方页面名称进入设置；指导老师和相关链接均位于“关于分会”。
+    label: 01/03/04 页面管理｜首页、关于与全站
+    description: 首页编排、关于分会资料和全站设置；可使用底部页面快捷导航直接进入常用入口。
     delete: false
     files:
       - label: 01 首页｜页面内容与展示编排
