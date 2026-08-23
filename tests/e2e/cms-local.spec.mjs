@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test.skip(process.env.CMS_LOCAL !== "1", "requires a running Decap local backend");
+test.setTimeout(90_000);
 
 test("page-oriented CMS shell, image center, and native editor work", async ({ page }) => {
   const runtimeErrors = [];
@@ -56,20 +57,34 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto("/admin/#/collections/members");
-  const membersHeading = page.getByRole("heading", { name: "执委成员", level: 1 });
-  await expect(membersHeading).toBeVisible({ timeout: 15_000 });
-  await expect(page.locator(".admin-sidebar")).toBeHidden();
-  await expect(page.getByRole("button", { name: /菜单/ })).toBeVisible();
-  const membersHeadingTop = await membersHeading.evaluate((element) => element.getBoundingClientRect().top);
-  expect(membersHeadingTop).toBeLessThan(180);
-  const memberEntries = page.locator('main a[href^="#/collections/members/entries/"]');
+  await expect(page.getByRole("table", { name: "成员记录" })).toBeVisible({ timeout: 15_000 });
+  await expect(page.locator(".admin-sidebar")).toBeVisible();
+  await expect(page.getByRole("link", { name: "← 返回关于与档案" })).toBeVisible();
+  const memberEntries = page.getByRole("table", { name: "成员记录" }).locator('a[href^="#/collections/members/entries/"]');
   expect(await memberEntries.count()).toBeGreaterThan(0);
-  const firstMemberTop = await memberEntries.first().evaluate((element) => element.getBoundingClientRect().top);
-  expect(firstMemberTop).toBeLessThan(360);
   await memberEntries.first().click();
   await expect(page).toHaveURL(/#\/collections\/members\/entries\//);
+  await expect(page.locator(".admin-sidebar")).toBeHidden();
   await page.locator('a[href="#/collections/members"]').click();
-  await expect(page).toHaveURL(/#\/manage\/about$/);
+  await expect(page).toHaveURL(/#\/collections\/members$/);
+  await expect(page.getByRole("table", { name: "成员记录" })).toBeVisible();
+
+  await page.goto("/admin/#/collections/honors");
+  await expect(page.getByRole("table", { name: "荣誉记录" })).toBeVisible();
+  await expect(page.locator(".admin-sidebar")).toBeVisible();
+  const honorEntries = page.getByRole("table", { name: "荣誉记录" }).locator('a[href^="#/collections/honors/entries/"]');
+  expect(await honorEntries.count()).toBeGreaterThan(0);
+  await honorEntries.first().click();
+  await expect(page).toHaveURL(/#\/collections\/honors\/entries\//);
+  await page.locator('a[href="#/collections/honors"]').click();
+  await expect(page.getByRole("table", { name: "荣誉记录" })).toBeVisible();
+
+  await page.goto("/admin/#/manage/workflow");
+  await page.getByRole("link", { name: "打开待发布列表" }).click();
+  await expect(page).toHaveURL(/#\/workflow$/);
+  await expect(page.locator("#nc-root")).toBeVisible();
+  await expect(page.locator(".admin-sidebar")).toBeVisible();
+  await expect(page.getByRole("link", { name: /待发布/ })).toHaveAttribute("aria-current", "page");
 
   await page.goto("/admin/#/collections/activities/entries/2026-04-21-activity-11");
   await expect(page.getByText("正文", { exact: true })).toBeVisible({ timeout: 15_000 });
@@ -79,10 +94,12 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
   await expect(preview.getByText("CCF@SCU · 内容预览", { exact: true })).toBeVisible();
   await expect(page.locator('button[title*="同步滚动"]')).toHaveCount(0);
   await expect(page.locator(".admin-sidebar")).toBeHidden();
-  await expect(page.getByRole("button", { name: /菜单/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /菜单/ })).toBeHidden();
   const editorBounds = await page.locator("#nc-root").evaluate((element) => element.getBoundingClientRect());
   expect(editorBounds.left).toBe(0);
   expect(editorBounds.width).toBe(1440);
+  const nativeToolbarTop = await page.locator('[class*="ToolbarContainer"]').first().evaluate((element) => element.getBoundingClientRect().top);
+  expect(nativeToolbarTop).toBe(0);
   await page.screenshot({ path: "artifacts/visual-validation/cms-editor-shell-desktop.png", fullPage: true });
   await page.locator('a[href="#/collections/activities"]').click();
   await expect(page).toHaveURL(/#\/manage\/activities$/);
@@ -95,10 +112,8 @@ test("page-oriented CMS shell, image center, and native editor work", async ({ p
   const mobileEditorBounds = await page.locator("#nc-root").evaluate((element) => element.getBoundingClientRect());
   expect(mobileEditorBounds.left).toBe(0);
   expect(mobileEditorBounds.width).toBe(390);
-  await page.getByRole("button", { name: /菜单/ }).click();
-  await expect(page.getByRole("dialog", { name: "后台主导航" })).toBeVisible();
-  await page.keyboard.press("Escape");
-  await expect(page.getByRole("dialog", { name: "后台主导航" })).toBeHidden();
+  await expect(page.getByRole("button", { name: /菜单/ })).toBeHidden();
+  await expect(page.locator(".admin-sidebar")).toBeHidden();
   await page.screenshot({ path: "artifacts/visual-validation/cms-editor-shell-mobile.png", fullPage: true });
 
   expect(unpkgRequests).toEqual([]);

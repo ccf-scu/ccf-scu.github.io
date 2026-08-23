@@ -33,9 +33,13 @@ const navItems = [
   ["home", "首页管理"], ["activities", "活动页面"], ["about", "关于与档案"], ["settings", "全站设置"], ["workflow", "待发布"], ["images", "图片中心"],
 ] as const;
 
-function routeFromHash(hash: string) {
+type AdminRoute = { page: typeof navItems[number][0]; custom: boolean; view?: "members" | "honors" };
+
+function routeFromHash(hash: string): AdminRoute {
   const managed = hash.match(/^#\/manage\/(home|activities|about|settings|workflow|images)/)?.[1];
-  if (managed) return { page: managed, custom: true };
+  if (managed) return { page: managed as AdminRoute["page"], custom: true };
+  if (/^#\/collections\/members\/?$/.test(hash)) return { page: "about", custom: true, view: "members" };
+  if (/^#\/collections\/honors\/?$/.test(hash)) return { page: "about", custom: true, view: "honors" };
   const collection = hash.match(/^#\/collections\/([^/]+)/)?.[1];
   if (collection === "activities") return { page: "activities", custom: false };
   if (collection === "announcements") return { page: "home", custom: false };
@@ -61,7 +65,6 @@ function returnPageForCollectionEditor(hash: string) {
   const collection = hash.match(/^#\/collections\/([^/]+)\/(?:entries\/[^/?]+|new)/)?.[1];
   if (collection === "activities") return { collection, page: "activities" };
   if (collection === "announcements") return { collection, page: "home" };
-  if (collection === "members" || collection === "honors") return { collection, page: "about" };
   return undefined;
 }
 
@@ -105,7 +108,23 @@ function ActivitiesPage({ data }: { data: AdminIndex }) {
   </Section>;
 }
 
-function AboutPage({ data }: { data: AdminIndex }) {
+function AboutRecordsPage({ data, view }: { data: AdminIndex; view: "members" | "honors" }) {
+  if (view === "members") {
+    const members = [...data.members].sort((a, b) => b.cohort.localeCompare(a.cohort, "zh-CN") || a.name.localeCompare(b.name, "zh-CN"));
+    return <Section title="成员记录" description="本届与历届成员统一在这里查看；点击成员进入原生编辑页，返回后仍回到本列表。" action={<div className="admin-section-actions"><a className="button" href="#/manage/about">← 返回关于与档案</a><a className="button button--primary" href="#/collections/members/new">新建成员</a></div>}>
+      <div className="admin-table" role="table" aria-label="成员记录"><div className="admin-table__head" role="row"><span>成员</span><span>职务</span><span>届次</span><span>状态</span></div>{members.map((item) => <a role="row" href={nativeEntry("members", item.id)} key={item.id}><strong>{item.name}</strong><span>{item.role}</span><span>{item.cohort}</span><span className="admin-status">{item.visible ? "显示中" : "已隐藏"}</span></a>)}</div>
+      {!members.length && <p className="admin-empty">暂无成员记录。</p>}
+    </Section>;
+  }
+  const honors = [...data.honors].sort((a, b) => b.year - a.year || a.title.localeCompare(b.title, "zh-CN"));
+  return <Section title="荣誉记录" description="荣誉数量不限；点击条目进入原生编辑页，返回后仍回到本列表。" action={<div className="admin-section-actions"><a className="button" href="#/manage/about">← 返回关于与档案</a><a className="button button--primary" href="#/collections/honors/new">新建荣誉</a></div>}>
+    <div className="admin-table" role="table" aria-label="荣誉记录"><div className="admin-table__head" role="row"><span>荣誉</span><span>年份</span><span>状态</span><span>操作</span></div>{honors.map((item) => <a role="row" href={nativeEntry("honors", item.id)} key={item.id}><strong>{item.title}</strong><span>{item.year}</span><span className="admin-status">{item.visible ? "显示中" : "已隐藏"}</span><span>编辑</span></a>)}</div>
+    {!honors.length && <p className="admin-empty">暂无荣誉记录。</p>}
+  </Section>;
+}
+
+function AboutPage({ data, view }: { data: AdminIndex; view?: "members" | "honors" }) {
+  if (view) return <AboutRecordsPage data={data} view={view} />;
   const current = data.members.filter((item) => item.cohort === data.organization.currentCohort && item.visible);
   const historical = new Set(data.members.filter((item) => item.cohort !== data.organization.currentCohort).map((item) => item.cohort));
   return <>
@@ -146,11 +165,11 @@ function AppShell() {
   const [hash, setHash] = useState(location.hash || "#/manage/home"); const [data, setData] = useState<AdminIndex | null>(null); const [mobileOpen, setMobileOpen] = useState(false); const [picker, setPicker] = useState<PickerRequest | undefined>(); const menuButton = useRef<HTMLButtonElement>(null); const closeMenuButton = useRef<HTMLButtonElement>(null); const previousHash = useRef(hash);
   const route = routeFromHash(hash); const current = navItems.find(([key]) => key === route.page) ?? navItems[0];
   useEffect(() => { if (!location.hash) location.hash = "/manage/home"; const update = () => { window.scrollTo(0, 0); requestAnimationFrame(() => window.scrollTo(0, 0)); const nextHash = location.hash; const settingsReturnPage = returnPageForSettingsEntry(previousHash.current); if (nextHash === "#/collections/settings" && settingsReturnPage) { previousHash.current = `#/manage/${settingsReturnPage}`; location.hash = `/manage/${settingsReturnPage}`; return; } const collectionReturn = returnPageForCollectionEditor(previousHash.current); const nextCollection = nextHash.match(/^#\/collections\/([^/?]+)$/)?.[1]; if (collectionReturn && nextCollection === collectionReturn.collection) { previousHash.current = `#/manage/${collectionReturn.page}`; location.hash = `/manage/${collectionReturn.page}`; return; } previousHash.current = nextHash; setHash(nextHash); setMobileOpen(false); }; addEventListener("hashchange", update); fetch(new URL("admin/content-index.json", new URL(import.meta.env.BASE_URL, location.origin))).then((response) => response.json()).then(setData); const openPicker = (event: Event) => setPicker((event as CustomEvent<PickerRequest>).detail ?? {}); addEventListener("ccf:image-center:open", openPicker); return () => { removeEventListener("hashchange", update); removeEventListener("ccf:image-center:open", openPicker); }; }, []);
-  useEffect(() => { document.documentElement.dataset.adminCustomPage = String(route.custom); document.documentElement.dataset.adminEditorPage = String(!route.custom && /\/collections\/[^/]+\/(?:entries\/|new(?:[/?]|$))/.test(hash)); }, [hash, route.custom]);
+  useEffect(() => { document.documentElement.dataset.adminCustomPage = String(route.custom); document.documentElement.dataset.adminNativeEditor = String(!route.custom && /\/collections\/[^/]+\/(?:entries\/|new(?:[/?]|$))/.test(hash)); }, [hash, route.custom]);
   useEffect(() => { if (!mobileOpen) return; closeMenuButton.current?.focus(); const closeOnEscape = (event: KeyboardEvent) => { if (event.key === "Escape") closeMobile(); }; addEventListener("keydown", closeOnEscape); return () => removeEventListener("keydown", closeOnEscape); }, [mobileOpen]);
   const closeMobile = () => { setMobileOpen(false); requestAnimationFrame(() => menuButton.current?.focus()); };
   const descriptions: Record<string, string> = { home: "首页文案、公告、活动位和荣誉编排", activities: "活动内容、置顶、分类与归档", about: "分会信息、本届成员与历史记录", settings: "联系方式、页脚与低频全站配置", workflow: "逐条审核并发布暂存内容", images: "共享图片、上传与引用信息" };
-  const content = data && route.custom ? route.page === "home" ? <HomePage data={data} /> : route.page === "activities" ? <ActivitiesPage data={data} /> : route.page === "about" ? <AboutPage data={data} /> : route.page === "settings" ? <SettingsPage data={data} /> : route.page === "workflow" ? <WorkflowPage /> : <ImageCenter /> : null;
+  const content = data && route.custom ? route.page === "home" ? <HomePage data={data} /> : route.page === "activities" ? <ActivitiesPage data={data} /> : route.page === "about" ? <AboutPage data={data} view={route.view} /> : route.page === "settings" ? <SettingsPage data={data} /> : route.page === "workflow" ? <WorkflowPage /> : <ImageCenter /> : null;
   return <div className="admin-shell">
     <button ref={menuButton} className="admin-mobile-trigger" type="button" aria-expanded={mobileOpen} aria-controls="admin-navigation" onClick={() => setMobileOpen(true)}>菜单<span>{current[1]}</span></button>
     {mobileOpen && <button className="admin-nav-backdrop" type="button" aria-label="关闭导航遮罩" onClick={closeMobile} />}
