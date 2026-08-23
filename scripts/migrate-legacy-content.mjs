@@ -36,7 +36,7 @@ for (let index = 0; index < itemMatches.length; index += 1) {
   const hasRealImage = imageSource && !imageSource.includes("placeholder") && !imageSource.startsWith("http");
   const outputImage = hasRealImage ? `/uploads/legacy/activities/${date}-${String(index + 1).padStart(2, "0")}.webp` : "/uploads/featured/ccf-campus-talk.webp";
   const id = `${date}-activity-${String(index + 1).padStart(2, "0")}`;
-  const entry = `---\ntitle: ${yaml(title)}\nsummary: ${yaml(summary)}\ncover: ${yaml(outputImage)}\ncoverAlt: ${yaml(`${title}活动现场或宣传资料`)}\ncategory: ${categoryMap[match[1]] ?? "organization"}\nstartAt: ${date}T00:00:00+08:00\nendAt: ${date}T23:59:59+08:00\nfeatured: false\nshowOnHomepage: true\narchived: false\nsourceUrl: /activities.html\n---\n\n> 本条目由旧站公开活动时间线迁移。原页面未提供完整正文，正式发布前请补充活动介绍并复核日期、分类和图片授权。\n`;
+  const entry = `---\ntitle: ${yaml(title)}\nsummary: ${yaml(summary)}\ncover: ${yaml(outputImage)}\ncoverAlt: ${yaml(`${title}活动现场或宣传资料`)}\ncategory: ${categoryMap[match[1]] ?? "organization"}\nstartAt: ${date}T00:00:00+08:00\nendAt: ${date}T23:59:59+08:00\npinned: false\narchived: false\nsourceUrl: /activities.html\n---\n\n> 本条目由旧站公开活动时间线迁移。原页面未提供完整正文，正式发布前请补充活动介绍并复核日期、分类和图片授权。\n`;
   await writeFile(join(activitiesDir, `${id}.md`), entry, "utf8");
   manifest.activities.push({ id, title, date, category: categoryMap[match[1]] ?? "organization", sourceImage: imageSource ?? null, outputImage, needsReview: true });
 }
@@ -70,7 +70,7 @@ for (let index = 0; index < honorFiles.length; index += 1) {
   if (!year) continue;
   const id = `${year}-honor-${String(index + 1).padStart(2, "0")}`;
   const outputImage = `/uploads/legacy/honors/${id}.webp`;
-  await writeFile(join(honorsDir, `${id}.md`), `---\ntitle: ${yaml(title)}\nyear: ${year}\nimage: ${yaml(outputImage)}\nimageAlt: ${yaml(`${year}年${title}荣誉资料`)}\nfeatured: ${/CCF优秀学生分会/.test(title)}\nvisible: true\n---\n\n> 本资料由旧站荣誉图片目录迁移，正式上线前请核对奖项名称与公开授权。\n`, "utf8");
+  await writeFile(join(honorsDir, `${id}.md`), `---\ntitle: ${yaml(title)}\nyear: ${year}\nimage: ${yaml(outputImage)}\nimageAlt: ${yaml(`${year}年${title}荣誉资料`)}\nvisible: true\n---\n\n> 本资料由旧站荣誉图片目录迁移，正式上线前请核对奖项名称与公开授权。\n`, "utf8");
   manifest.honors.push({ id, title, year, sourceImage: `images/honors/${file}`, outputImage, needsReview: true });
 }
 

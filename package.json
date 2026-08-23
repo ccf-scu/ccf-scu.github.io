@@ -18,6 +18,7 @@
     "validate:build": "node scripts/validate-build.mjs",
     "validate": "npm run check && npm run test && npm run validate:content && npm run build && npm run validate:build",
     "migrate:legacy": "node scripts/migrate-legacy-content.mjs",
+    "migrate:admin": "node scripts/migrate-admin-content.mjs",
     "optimize:legacy": "node scripts/optimize-legacy-images.mjs"
   },
   "dependencies": {

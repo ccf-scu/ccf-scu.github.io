@@ -19,11 +19,7 @@ export function activityStatus(startAt: Date, endAt: Date, now = new Date()) {
 export function sortActivities(entries: Activity[]) {
   return [...entries]
     .filter((entry) => !entry.data.archived)
-    .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.startAt.getTime() - a.data.startAt.getTime());
-}
-
-export function homepageActivities(entries: Activity[]) {
-  return sortActivities(entries).filter((entry) => entry.data.showOnHomepage);
+    .sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.startAt.getTime() - a.data.startAt.getTime());
 }
 
 export function cohortStartYear(cohort: string) {
@@ -35,10 +31,29 @@ export function sortMembersByCohort<T extends { data: { cohort: string; order: n
   return [...entries].sort((a, b) => cohortStartYear(b.data.cohort) - cohortStartYear(a.data.cohort) || a.data.order - b.data.order);
 }
 
-export function visibleAnnouncements<T extends { data: { visible: boolean; featured: boolean; publishedAt: Date; expiresAt?: Date } }>(entries: T[], now = new Date()) {
+export function visibleAnnouncements<T extends { data: { visible: boolean; publishedAt: Date; expiresAt?: Date } }>(entries: T[], now = new Date()) {
   return [...entries]
     .filter((entry) => entry.data.visible && entry.data.publishedAt <= now && (!entry.data.expiresAt || entry.data.expiresAt > now))
-    .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+}
+
+export function selectByIds<T extends { id: string }>(entries: T[], ids: string[], label: string): T[] {
+  const index = new Map(entries.map((entry) => [entry.id, entry]));
+  return ids.map((id) => {
+    const entry = index.get(id);
+    if (!entry) throw new Error(`${label}引用不存在：${id}`);
+    return entry;
+  });
+}
+
+export function selectHomepageActivities(entries: Activity[], ids: Record<"academic" | "competition" | "tutoring" | "career", string>) {
+  return (Object.keys(ids) as Array<keyof typeof ids>).map((category) => {
+    const entry = entries.find((candidate) => candidate.id === ids[category]);
+    if (!entry) throw new Error(`首页${categories[category]}活动引用不存在：${ids[category]}`);
+    if (entry.data.archived) throw new Error(`首页${categories[category]}活动已归档：${entry.id}`);
+    if (entry.data.category !== category) throw new Error(`首页${categories[category]}活动类别不匹配：${entry.id}`);
+    return entry;
+  });
 }
 
 export function withBase(path: string, base = import.meta.env.BASE_URL) {

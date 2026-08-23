@@ -248,5 +248,9 @@ test("admin page is isolated and renders its application shell", async ({ page }
   await expect(page).toHaveTitle(/内容后台/);
   await expect(page.getByRole("button", { name: /登录/ })).toBeVisible({ timeout: 15_000 });
   await expect(page.locator("body")).not.toContainText("Error loading the CMS configuration");
+  await page.getByRole("button", { name: "图片中心" }).click();
+  await expect(page.getByRole("heading", { name: "图片中心" })).toBeVisible();
+  await expect(page.getByText(/张已发布图片/)).toBeVisible();
+  await page.getByRole("button", { name: "关闭" }).click();
   await page.screenshot({ path: `${screenshots}/admin-desktop.png`, fullPage: true });
 });

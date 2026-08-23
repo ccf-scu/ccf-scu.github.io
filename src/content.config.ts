@@ -23,8 +23,7 @@ const activities = defineCollection({
       category: z.enum(["academic", "competition", "tutoring", "career", "organization"]),
       startAt: z.coerce.date(),
       endAt: z.coerce.date(),
-      featured: z.boolean().default(false),
-      showOnHomepage: z.boolean().default(true),
+      pinned: z.boolean().default(false),
       archived: z.boolean().default(false),
       sourceUrl: safeLink.optional(),
     })
@@ -42,7 +41,6 @@ const announcements = defineCollection({
       summary: z.string().min(1),
       publishedAt: z.coerce.date(),
       expiresAt: z.coerce.date().optional(),
-      featured: z.boolean().default(false),
       visible: z.boolean().default(true),
       link: safeLink.optional(),
     })
@@ -73,7 +71,6 @@ const honors = defineCollection({
     year: z.number().int().min(2000).max(2100),
     image: imagePath.optional(),
     imageAlt: z.string().optional(),
-    featured: z.boolean().default(false),
     visible: z.boolean().default(true),
   }),
 });

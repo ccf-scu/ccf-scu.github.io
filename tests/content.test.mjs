@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { formatDateRange, homepageActivities } from "../src/lib/content.ts";
+import { formatDateRange, selectByIds, selectHomepageActivities, sortActivities } from "../src/lib/content.ts";
+import { aggregateMedia, extractMarkdownImages } from "../src/lib/media.ts";
 
 function status(startAt, endAt, now) {
   if (now < startAt) return "预告 / 报名中";
@@ -27,27 +28,36 @@ test("activity date range omits a repeated end date on the same Shanghai calenda
   );
 });
 
-test("featured activities sort before newer regular activities", () => {
+test("pinned activities sort before newer regular activities", () => {
   const entries = [
-    { featured: false, startAt: new Date("2026-08-22") },
-    { featured: true, startAt: new Date("2026-01-01") },
+    { id: "new", data: { pinned: false, archived: false, startAt: new Date("2026-08-22") } },
+    { id: "priority", data: { pinned: true, archived: false, startAt: new Date("2026-01-01") } },
   ];
-  entries.sort((a, b) => Number(b.featured) - Number(a.featured) || b.startAt - a.startAt);
-  assert.equal(entries[0].featured, true);
+  assert.equal(sortActivities(entries)[0].id, "priority");
 });
 
-test("homepage activities exclude hidden and archived entries, then honor priority", () => {
-  const entry = (id, featured, showOnHomepage, archived, date) => ({
-    id,
-    data: { featured, showOnHomepage, archived, startAt: new Date(date) },
-  });
-  const entries = [
-    entry("new", false, true, false, "2026-08-22"),
-    entry("priority", true, true, false, "2026-01-01"),
-    entry("hidden", true, false, false, "2026-09-01"),
-    entry("archived", true, true, true, "2026-10-01"),
-  ];
-  assert.deepEqual(homepageActivities(entries).map(({ id }) => id), ["priority", "new"]);
+test("explicit homepage references preserve order and fail on missing entries", () => {
+  const entries = [{ id: "a" }, { id: "b" }];
+  assert.deepEqual(selectByIds(entries, ["b", "a"], "首页内容").map(({ id }) => id), ["b", "a"]);
+  assert.throws(() => selectByIds(entries, ["missing"], "首页内容"), /首页内容引用不存在/);
+});
+
+test("homepage activity slots reject a wrong category or archived entry", () => {
+  const entry = (id, category, archived = false) => ({ id, data: { category, archived } });
+  const ids = { academic: "a", competition: "b", tutoring: "c", career: "d" };
+  const valid = [entry("a", "academic"), entry("b", "competition"), entry("c", "tutoring"), entry("d", "career")];
+  assert.equal(selectHomepageActivities(valid, ids).length, 4);
+  assert.throws(() => selectHomepageActivities([entry("a", "career"), ...valid.slice(1)], ids), /类别不匹配/);
+  assert.throws(() => selectHomepageActivities([...valid.slice(0, 3), entry("d", "career", true)], ids), /已归档/);
+});
+
+test("media index ignores fenced code and aggregates duplicate URLs", () => {
+  const markdown = '![封面](https://img.example/a.webp)\n```md\n![忽略](https://img.example/no.webp)\n```';
+  assert.deepEqual(extractMarkdownImages(markdown), [{ alt: "封面", url: "https://img.example/a.webp" }]);
+  assert.equal(aggregateMedia([
+    { url: "/uploads/a.webp", source: "活动", id: "a", title: "A" },
+    { url: "/uploads/a.webp", source: "成员", id: "b", title: "B" },
+  ])[0].count, 2);
 });
 
 test("expired announcements are excluded", () => {
