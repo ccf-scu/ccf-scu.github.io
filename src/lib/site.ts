@@ -74,7 +74,7 @@ const homepageFeaturedSchema = z.object({
     tutoring: z.string().min(1),
     career: z.string().min(1),
   }),
-  honors: z.array(z.string().min(1)).length(3).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
+  honors: z.array(z.string().min(1)).min(1).refine((ids) => new Set(ids).size === ids.length, "首页荣誉不能重复"),
 });
 
 const organizationSchema = z.object({

@@ -72,7 +72,7 @@ function HomePage({ data }: { data: AdminIndex }) {
     <Section title="页面文案" description="这里只维护访客看到的 Banner、分会简介、固定活动方向文案、开源和招募文案，不包含公告、活动或荣誉条目。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
       <p className="admin-section-note">三项原则、四个活动方向、三项成果时间轴和三个加入路径均为固定结构，只能修改文案。</p>
     </Section>
-    <Section title="首页展示编排" description="只从已有内容中选择首页公告、四个代表活动和三项荣誉；具体内容仍在对应条目中维护。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整首页展示</a>}>
+    <Section title="首页展示编排" description="只从已有内容中选择首页公告、四个代表活动和首页荣誉；具体内容仍在对应条目中维护。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整首页展示</a>}>
       <div className="admin-summary-grid"><article><strong>首页公告</strong><b>{data.homepage.announcements.length}</b><small>条已编排</small></article><article><strong>活动槽位</strong><b>4</b><small>个固定方向</small></article><article><strong>精选荣誉</strong><b>{data.homepage.honors.length}</b><small>项成果</small></article></div>
     </Section>
     <Section title="公告" description="调整公告内容后，再到首页设置中控制展示顺序。" action={<a className="button" href={nativeCollection("announcements")}>管理全部公告</a>}>
@@ -81,8 +81,8 @@ function HomePage({ data }: { data: AdminIndex }) {
     <Section title="四个活动位" description="每个方向固定一个活动，方向与所选活动类别必须一致。">
       <div className="admin-slot-grid">{Object.entries(data.homepage.activities).map(([category, id]) => { const item = activityById.get(id); return <a href={nativeEntry("activities", id)} key={category}><small>{categoryNames[category]}</small><strong>{item?.title ?? id}</strong><span>{item?.archived ? "已归档，请重新选择" : "当前展示"}</span></a>; })}</div>
     </Section>
-    <Section title="三项荣誉" description="按首页出现顺序展示，点击可检查荣誉条目。">
-      <div className="admin-slot-grid admin-slot-grid--three">{data.homepage.honors.map((id, index) => { const item = honorById.get(id); return <a href={nativeEntry("honors", id)} key={id}><small>第 {index + 1} 项</small><strong>{item?.title ?? id}</strong><span>{item?.year ?? "年份未知"}</span></a>; })}</div>
+    <Section title="首页荣誉" description="数量不限，按首页出现顺序展示；点击可检查荣誉条目。">
+      <div className="admin-slot-grid">{data.homepage.honors.map((id, index) => { const item = honorById.get(id); return <a href={nativeEntry("honors", id)} key={id}><small>第 {index + 1} 项</small><strong>{item?.title ?? id}</strong><span>{item?.year ?? "年份未知"}</span></a>; })}</div>
     </Section>
   </>;
 }

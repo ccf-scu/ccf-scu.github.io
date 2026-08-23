@@ -34,12 +34,12 @@ test("fixed homepage copy lists cannot add, remove, or reorder items", () => {
   }
 });
 
-test("homepage honors stay fixed and numeric-order lists cannot also drag", () => {
+test("homepage honors can grow and numeric-order lists cannot also drag", () => {
   const honors = field(setting("homepageFeatured").fields, "honors");
-  assert.equal(honors.min, 3);
-  assert.equal(honors.max, 3);
-  assert.equal(honors.allow_add, false);
-  assert.equal(honors.allow_remove, false);
+  assert.equal(honors.min, 1);
+  assert.equal(honors.max, undefined);
+  assert.equal(honors.allow_add, true);
+  assert.equal(honors.allow_remove, true);
 
   for (const name of ["teachers", "links", "footerLinks", "contact"]) {
     const list = setting(name).fields[0];

@@ -241,14 +241,13 @@ collections:
               - { label: 竞赛训练, name: competition, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
               - { label: 学业帮扶, name: tutoring, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
               - { label: 生涯发展, name: career, widget: relation, collection: activities, search_fields: [title], value_field: '{{slug}}', display_fields: [title], options_length: 100 }
-          - label: 首页荣誉引用（固定 3 项）
+          - label: 首页荣誉引用
             name: honors
             widget: list
-            min: 3
-            max: 3
-            allow_add: false
-            allow_remove: false
-            hint: 这里只替换和拖动三项已有荣誉；不能新增荣誉条目，拖动顺序就是首页顺序。
+            min: 1
+            allow_add: true
+            allow_remove: true
+            hint: 可添加、移除和拖动已有荣誉；这里只选择已有荣誉，拖动顺序就是首页顺序。
             field: { label: 已有荣誉, name: honor, widget: relation, collection: honors, search_fields: [title, year], value_field: '{{slug}}', display_fields: [year, title] }
       - label: 03 关于分会｜分会信息与本届届次
         name: organization
