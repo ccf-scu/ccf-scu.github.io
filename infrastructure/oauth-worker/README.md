@@ -5,10 +5,11 @@
 ## 生产地址
 
 - Worker：`https://ccf-scu-cms-oauth.1632145935.workers.dev`
+- 媒体 API：`https://cms-api.ccfscu.com/github`
 - 授权入口：`/auth`
 - GitHub 回调：`https://ccf-scu-cms-oauth.1632145935.workers.dev/callback`
 - 健康检查：`/health`
-- GitHub API 代理：`/github`（仅允许正式后台来源、当前用户接口和 `ccf-scu/ccf-scu.github.io` 仓库路径）
+- GitHub API 代理：`https://cms-api.ccfscu.com/github`（仅允许正式后台来源、当前用户接口和 `ccf-scu/ccf-scu.github.io` 仓库路径；`workers.dev/github` 保留为应急入口）
 
 ## GitHub OAuth App
 

@@ -1,6 +1,6 @@
 # 开发进度
 
-> 最后更新：2026-08-22
+> 最后更新：2026-08-23
 >
 > 当前分支：`develop/astro-cms`
 >
@@ -18,6 +18,7 @@
 
 ## 本轮实现
 
+- CMS 媒体 API 从可能被客户端网络拦截的 `workers.dev/github` 迁移至 Worker Custom Domain `https://cms-api.ccfscu.com/github`；OAuth 回调域名保持不变，避免影响 GitHub OAuth App；
 - 生产托管从已停用的 GitHub Pages 切换为 Cloudflare Pages，正式域名统一为 `https://www.ccfscu.com`；后台、Astro、SEO、OAuth Worker 和部署文档同步迁移；
 - 后台右上角站点入口改为动态“返回前台”，始终指向当前访问域名根路径，避免未来换域名时按钮失效；
 - 修复 Decap Core 3.17.1 媒体库空选择时读取 `selectedFile.path` 的上游缺陷；补丁在 `npm ci` 后自动、幂等执行，并以精确版本和目标代码校验防止静默漂移；
@@ -57,6 +58,7 @@
 
 ## 验证记录
 
+- CMS API 自定义域名迁移：`npm run validate` 通过，Astro 0 错误/警告/提示、15 项 Node 测试、内容校验、34 页面构建与产物校验通过；Worker 版本 `8c38e9e1-a56e-4de7-9486-c62373a3a532` 已部署，`cms-api.ccfscu.com/health` configured，上传 OPTIONS 为 204，POST 可正确透传 GitHub 状态并携带生产 CORS；
 - Cloudflare/CMS 媒体修复：全新 `npm ci` 自动应用补丁；`npm run validate` 通过（Astro 0 错误/警告/提示、Node 12 项、内容安全与 34 页面构建）；CMS 专项 1 项通过并覆盖空媒体库，常规 E2E 13 项通过、1 项按预期跳过；线上 OAuth Worker 已接受 `www.ccfscu.com`、拒绝旧 GitHub Pages 来源且健康检查 configured；
 - 链接模型与关于页视觉优化：`npm run validate` 通过，Astro 0 错误/警告/提示，Node 12 项、内容安全校验、34 页面构建与产物校验均通过；常规 E2E 13 项通过、1 项本地 CMS 专项按预期跳过；本地 CMS 模式 14 项全部通过；
 - 生产提交 `c0fb103e806d9f2f9a3c1f318ad54cfa28e8a4a2` 已由 Actions 运行 32562536675 成功发布；线上首页、关于页、后台与配置均返回 200，HTTP 硬件协会链接、最新指导老师、首页仓库按钮和两个独立链接设置入口均已确认。
