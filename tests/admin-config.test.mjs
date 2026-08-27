@@ -4,9 +4,15 @@ import { readFile } from "node:fs/promises";
 import YAML from "yaml";
 
 const config = YAML.parse(await readFile(new URL("../public/admin/config.yml", import.meta.url), "utf8"));
+const workerConfig = JSON.parse(await readFile(new URL("../infrastructure/oauth-worker/wrangler.jsonc", import.meta.url), "utf8"));
 const settings = config.collections.find((collection) => collection.name === "settings");
 const setting = (name) => settings.files.find((entry) => entry.name === name);
 const field = (fields, name) => fields.find((entry) => entry.name === name);
+
+test("CMS and OAuth Worker use the same canonical GitHub repository", () => {
+  assert.equal(config.backend.repo, "ccf-scu/ccfscu-website-source");
+  assert.equal(workerConfig.vars.GITHUB_REPOSITORY, config.backend.repo);
+});
 
 test("homepage activity copy and selections stay together", () => {
   const homepage = setting("homepage");

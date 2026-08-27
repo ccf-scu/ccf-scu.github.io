@@ -3,7 +3,7 @@ local_backend: true
 
 backend:
   name: github
-  repo: ccf-scu/ccf-scu.github.io
+  repo: ccf-scu/ccfscu-website-source
   branch: main
   base_url: https://ccf-scu-cms-oauth.1632145935.workers.dev
   auth_endpoint: auth

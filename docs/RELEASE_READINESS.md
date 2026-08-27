@@ -21,8 +21,8 @@
 
 ## 生产发布结果
 
-- 发布 PR：[#1](https://github.com/ccf-scu/ccf-scu.github.io/pull/1)，生产 commit：`0e9f197f3f23eb212ebbba0cecbf844183111941`；
-- 发布任务：[Deploy production site #1](https://github.com/ccf-scu/ccf-scu.github.io/actions/runs/32557381718)，结论：成功；
+- 发布 PR：[#1](https://github.com/ccf-scu/ccfscu-website-source/pull/1)，生产 commit：`0e9f197f3f23eb212ebbba0cecbf844183111941`；
+- 发布任务：[Deploy production site #1](https://github.com/ccf-scu/ccfscu-website-source/actions/runs/32557381718)，结论：成功；
 - 2026-08-22 首次发布记录：`https://ccf-scu.github.io/` 当时通过冒烟检查；该托管现已停用，当前生产站点为 `https://www.ccfscu.com/`（Cloudflare Pages）；
 - OAuth：健康检查返回 `configured: true`，生产授权入口成功跳转 GitHub；
 - 回滚基线：标签 `pre-astro-launch-2026-08-22`，commit `b904313`。

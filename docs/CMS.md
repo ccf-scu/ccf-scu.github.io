@@ -25,7 +25,7 @@ Decap CMS 管理首页、活动、公告、成员、指导老师、友情链接�
 - 正式后台为 `https://www.ccfscu.com/admin/`；右上角“返回前台”始终使用当前访问域名，不依赖配置中的固定域名；
 - 使用 GitHub 账号；
 - OAuth 辅助服务仅交换授权，不保存内容；
-- GitHub App/OAuth 权限限制到 `ccf-scu/ccf-scu.github.io`；
+- GitHub App/OAuth 权限限制到 `ccf-scu/ccfscu-website-source`；
 - Secret 只存外部运行环境的秘密存储；
 - 至少两名维护者完成真实登录演练后才能上线后台。
 

@@ -15,7 +15,7 @@
   ],
   "vars": {
     "ADMIN_ORIGIN": "https://www.ccfscu.com",
-    "GITHUB_REPOSITORY": "ccf-scu/ccf-scu.github.io",
+    "GITHUB_REPOSITORY": "ccf-scu/ccfscu-website-source",
     "OAUTH_BASE_URL": "https://ccf-scu-cms-oauth.1632145935.workers.dev"
   },
   "observability": {

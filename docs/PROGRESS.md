@@ -6,6 +6,13 @@
 >
 > 当前状态：后台预览适配、统一编辑返回与首页集中编排已发布
 
+## GitHub 仓库重命名导致的 CMS 登录修复（2026-08-27）
+
+- GitHub 仓库规范名称已由 `ccf-scu/ccf-scu.github.io` 变更为 `ccf-scu/ccfscu-website-source`；旧 REST API 路径返回 301，Decap 无法取得 `permissions.push`，因而误报 “Your GitHub user account does not have access to this repo.”；
+- CMS `backend.repo`、OAuth Worker `GITHUB_REPOSITORY`、前台仓库入口、测试及当前运维文档统一迁移到新规范名称；
+- 新增配置一致性测试，阻止 CMS 和 Worker 再次指向不同仓库；
+- 验证：22 项 Node 测试、Astro 检查、内容校验、34 页生产构建及构建产物校验均通过；OAuth Worker 线上变量已更新，并确认两个 GitHub OAuth 密钥仍完整保留。
+
 ## 后台预览适配与首页集中编排（2026-08-23）
 
 - 原生集合和编辑器改为全宽 Decap 工作区；新版后台导航在这些路由中使用 64px 顶部入口和覆盖式抽屉，不再为 248px 固定侧栏预留空间，双栏预览不会继续挤压左侧编辑区。

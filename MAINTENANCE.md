@@ -211,4 +211,4 @@ ccf-scu.github.io/
 git add -A && git commit -m "描述" && git push origin main
 ```
 
-部署状态在 https://github.com/ccf-scu/ccf-scu.github.io/actions 查看。
+部署状态在 https://github.com/ccf-scu/ccfscu-website-source/actions 查看。

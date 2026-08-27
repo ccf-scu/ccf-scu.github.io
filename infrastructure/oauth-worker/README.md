@@ -9,7 +9,7 @@
 - 授权入口：`/auth`
 - GitHub 回调：`https://ccf-scu-cms-oauth.1632145935.workers.dev/callback`
 - 健康检查：`/health`
-- GitHub API 代理：`https://cms-api.ccfscu.com/github`（仅允许正式后台来源、当前用户接口和 `ccf-scu/ccf-scu.github.io` 仓库路径；`workers.dev/github` 保留为应急入口）
+- GitHub API 代理：`https://cms-api.ccfscu.com/github`（仅允许正式后台来源、当前用户接口和 `ccf-scu/ccfscu-website-source` 仓库路径；`workers.dev/github` 保留为应急入口）
 
 ## GitHub OAuth App
 
@@ -49,7 +49,7 @@ npx wrangler@4.59.1 secret put GITHUB_OAUTH_SECRET
 - OAuth `state` 使用安全随机数和 `HttpOnly`、`Secure`、`SameSite=Lax` Cookie 校验；
 - 只接受 `https://www.ccfscu.com` 发起的登录；
 - 回调令牌只通过精确的 `targetOrigin` 发回 CMS；
-- 返回令牌前再次确认用户对 `ccf-scu/ccf-scu.github.io` 有写权限；
+- 返回令牌前再次确认用户对 `ccf-scu/ccfscu-website-source` 有写权限；
 - GitHub API 代理校验精确的后台 Origin，并拒绝访问其他仓库；
 - 仅请求公开仓库所需的 `public_repo` scope；
 - GitHub OAuth App 的 `public_repo` 仍覆盖用户可访问的所有公开仓库，无法缩小到单仓库。安全负责人必须明确接受该剩余风险。
