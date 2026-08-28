@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 
 type AdminIndex = {
-  homepage: { announcements: string[]; activities: Array<{ category: string; id: string }>; timelineCount: number; honors: string[] };
+  homepage: { announcements: string[]; activities: Array<{ category: string; id: string; configuredId?: string; usedFallback?: boolean }>; timelineCount: number; honors: string[] };
   organization: { name: string; currentCohort: string; teacherCount: number; linkCount: number; contactCount: number; footerLinkCount: number; repositoryVisible: boolean };
   activities: Array<{ id: string; title: string; category: string; startAt: string; endAt: string; pinned: boolean; archived: boolean }>;
   announcements: Array<{ id: string; title: string; publishedAt: string; visible: boolean }>;
@@ -83,7 +83,7 @@ function HomePage({ data }: { data: AdminIndex }) {
     <Section title="首页文案与活动方向" description="Banner、分会简介、四个方向的文案与代表活动、成果时间轴、开源和招募文案都在同一处维护。" action={<a className="button button--primary" href={settingEntry("homepage")}>编辑首页文案</a>}>
       <div className="admin-summary-grid"><article><strong>活动方向</strong><b>{data.homepage.activities.length}</b><small>个方向已配置</small></article><article><strong>代表活动</strong><b>{data.homepage.activities.filter(({ id }) => Boolean(id)).length}</b><small>项已选择</small></article><article><strong>成果时间轴</strong><b>{data.homepage.timelineCount}</b><small>条文案</small></article></div>
       <p className="admin-section-note">三项原则和三个加入路径保持固定；四个活动方向的文案与活动选择集中维护；成果时间轴可增删和拖动。</p>
-      <div className="admin-slot-grid">{data.homepage.activities.map(({ category, id }) => { const item = activityById.get(id); return <a href={nativeEntry("activities", id)} key={category}><small>{categoryNames[category]}</small><strong>{item?.title ?? id}</strong><span>{item?.archived ? "已归档，请重新选择" : "当前代表活动"}</span></a>; })}</div>
+      <div className="admin-slot-grid">{data.homepage.activities.map(({ category, id, usedFallback }) => { const item = activityById.get(id); return <a href={usedFallback ? settingEntry("homepage") : nativeEntry("activities", id)} key={category}><small>{categoryNames[category]}</small><strong>{item?.title ?? id}</strong><span>{usedFallback ? "原活动已归档，现为自动替补；请确认" : "当前代表活动"}</span></a>; })}</div>
     </Section>
     <Section title="首页展示编排" description="这里只选择已有公告和荣誉；活动方向已并入上方“首页文案与活动方向”。" action={<a className="button" href={settingEntry("homepageFeatured")}>调整公告与荣誉</a>}>
       <div className="admin-summary-grid admin-summary-grid--two"><article><strong>首页公告</strong><b>{data.homepage.announcements.length}</b><small>条已编排</small></article><article><strong>首页荣誉</strong><b>{data.homepage.honors.length}</b><small>项已编排</small></article></div>

@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 import { homepage, homepageFeatured, organization, teachers, links, contacts, repository, footerLinks } from "../../lib/site";
+import { selectHomepageActivities } from "../../lib/content";
 
 export const GET: APIRoute = async () => {
   const [activities, announcements, members, honors] = await Promise.all([
@@ -9,12 +10,20 @@ export const GET: APIRoute = async () => {
     getCollection("members"),
     getCollection("honors"),
   ]);
+  const configuredActivities = Object.fromEntries(homepage.activities.directions.map(({ category, activity }) => [category, activity])) as Record<"academic" | "competition" | "tutoring" | "career", string>;
+  const effectiveActivities = selectHomepageActivities(activities, configuredActivities);
+  const effectiveActivityByCategory = new Map(effectiveActivities.map((entry) => [entry.data.category, entry]));
 
   const payload = {
     generatedAt: new Date().toISOString(),
     homepage: {
       announcements: homepageFeatured.announcements,
-      activities: homepage.activities.directions.map(({ category, activity }) => ({ category, id: activity })),
+      activities: homepage.activities.directions.map(({ category, activity }) => ({
+        category,
+        id: effectiveActivityByCategory.get(category)!.id,
+        configuredId: activity,
+        usedFallback: effectiveActivityByCategory.get(category)!.id !== activity,
+      })),
       timelineCount: homepage.achievements.timeline.length,
       honors: homepageFeatured.honors,
     },

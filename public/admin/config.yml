@@ -45,7 +45,7 @@ collections:
       - { label: 开始时间, name: startAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 结束时间, name: endAt, widget: datetime, format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: 活动中心置顶, name: pinned, widget: boolean, default: false, hint: 仅影响活动中心排序，首页活动由首页设置显式选择 }
-      - { label: 归档/下架, name: archived, widget: boolean, default: false, hint: 已发布内容不要删除，使用此开关下架 }
+      - { label: 归档/下架, name: archived, widget: boolean, default: false, hint: 已发布内容不要删除，使用此开关下架；若它正被首页引用，首页会临时使用同类最新活动，请随后到首页管理确认替代项 }
       - { label: 原始资料链接, name: sourceUrl, widget: string, required: false }
       - { label: 正文, name: body, widget: markdown, hint: Decap 原生 Markdown 编辑器；支持可视化与源码模式，保存为标准 Markdown }
 

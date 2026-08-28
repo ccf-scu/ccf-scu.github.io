@@ -50,8 +50,14 @@ export function selectHomepageActivities(entries: Activity[], ids: Record<"acade
   return (Object.keys(ids) as Array<keyof typeof ids>).map((category) => {
     const entry = entries.find((candidate) => candidate.id === ids[category]);
     if (!entry) throw new Error(`首页${categories[category]}活动引用不存在：${ids[category]}`);
-    if (entry.data.archived) throw new Error(`首页${categories[category]}活动已归档：${entry.id}`);
     if (entry.data.category !== category) throw new Error(`首页${categories[category]}活动类别不匹配：${entry.id}`);
+    if (entry.data.archived) {
+      const fallback = entries
+        .filter((candidate) => candidate.data.category === category && !candidate.data.archived)
+        .sort((a, b) => b.data.startAt.getTime() - a.data.startAt.getTime())[0];
+      if (!fallback) throw new Error(`首页${categories[category]}没有可展示的未归档活动`);
+      return fallback;
+    }
     return entry;
   });
 }

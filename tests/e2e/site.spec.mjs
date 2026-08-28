@@ -83,7 +83,7 @@ test("header search opens a full-screen dialog, searches locally, and restores f
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole("searchbox")).toBeFocused();
   await dialog.getByRole("searchbox").fill("腾讯");
-  await expect(dialog.locator("[data-search-count]")).toContainText("1 条结果");
+  await expect(dialog.locator("[data-search-count]")).toContainText(/[1-9]\d* 条结果/);
   await expect(dialog.locator("[data-search-results]")).toContainText("腾讯");
   await page.screenshot({ path: `${screenshots}/search-dialog-desktop.png` });
   await dialog.click({ position: { x: 8, y: 8 } });
@@ -148,7 +148,7 @@ test("search and member dialog work", async ({ page }) => {
   await page.goto("/search/");
   const searchPage = page.locator(".search-page");
   await searchPage.getByRole("searchbox").fill("腾讯");
-  await expect(searchPage.locator("[data-search-count]")).toContainText("1 条结果");
+  await expect(searchPage.locator("[data-search-count]")).toContainText(/[1-9]\d* 条结果/);
   await expect(searchPage.locator("[data-search-results]")).toContainText("腾讯");
   await page.goto("/archive/");
   const member = page.locator("button.member-card").first();

@@ -42,13 +42,15 @@ test("explicit homepage references preserve order and fail on missing entries", 
   assert.throws(() => selectByIds(entries, ["missing"], "首页内容"), /首页内容引用不存在/);
 });
 
-test("homepage activity slots reject a wrong category or archived entry", () => {
-  const entry = (id, category, archived = false) => ({ id, data: { category, archived } });
+test("homepage activity slots reject a wrong category and replace an archived entry", () => {
+  const entry = (id, category, archived = false, startAt = new Date("2026-01-01")) => ({ id, data: { category, archived, startAt } });
   const ids = { academic: "a", competition: "b", tutoring: "c", career: "d" };
   const valid = [entry("a", "academic"), entry("b", "competition"), entry("c", "tutoring"), entry("d", "career")];
   assert.equal(selectHomepageActivities(valid, ids).length, 4);
   assert.throws(() => selectHomepageActivities([entry("a", "career"), ...valid.slice(1)], ids), /类别不匹配/);
-  assert.throws(() => selectHomepageActivities([...valid.slice(0, 3), entry("d", "career", true)], ids), /已归档/);
+  const replacement = entry("career-new", "career", false, new Date("2026-02-01"));
+  assert.equal(selectHomepageActivities([...valid.slice(0, 3), entry("d", "career", true), replacement], ids)[3].id, "career-new");
+  assert.throws(() => selectHomepageActivities([...valid.slice(0, 3), entry("d", "career", true)], ids), /没有可展示/);
 });
 
 test("media index ignores fenced code and aggregates duplicate URLs", () => {
